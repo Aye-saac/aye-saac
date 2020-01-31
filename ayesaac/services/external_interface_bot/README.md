@@ -1,6 +1,8 @@
 # Ayesaac
 Integrating a helpful computer vision aid for the Alana platform.
 
+## Requirements
+[Anaconda](https://www.anaconda.com/distribution/), a version supporting Python 3.7.
 
 ## Setup
 0. Clone this repo. You probably already did this. Well done!
