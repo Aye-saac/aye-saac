@@ -1,6 +1,9 @@
 # The forbidden files - Alana dependency
 utils/
 
+# ignore .asc key files by default
+*.asc
+
 # ignore settings and caches from PyCharm
 .idea/
 
