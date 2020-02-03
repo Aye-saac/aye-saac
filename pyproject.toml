@@ -15,6 +15,9 @@ google-auth = "^1.11.0"
 prompt-toolkit = "^3.0.3"
 questionary = "^1.5.1"
 urllib3 = "^1.25.8"
+numpy = "^1.18.1"
+scipy = "^1.4.1"
+scikit-learn = "^0.22.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.5"
