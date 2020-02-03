@@ -9,7 +9,8 @@ jobs:
     
         steps:
           - name: Setup environment
-            env: ALANA_KEY ${{ secrets.alana_key }}
+            env: 
+              ALANA_KEY: ${{ secrets.alana_key }}
             run: |
               # from https://stackoverflow.com/questions/28852841/install-anaconda-on-ubuntu-or-linux-via-command-line
               cd ~
