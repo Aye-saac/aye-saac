@@ -8,7 +8,7 @@ jobs:
         runs-on: ubuntu-latest
     
         steps:
-          - name: Setup environment
+          - name: Setup Conda
             env: 
               ALANA_KEY: ${{ secrets.alana_key }}
             run: |
@@ -24,9 +24,11 @@ jobs:
               source .bashrc
               conda update conda
               cd $OLDPWD
-              bash setup_environment.sh
           - name: Checkout Code
             uses: actions/checkout@v2
+          - name: Setup Environment
+            run: |
+              bash setup_environment.sh
           - name: Lint with flake8
             run: |
               pip install flake8
