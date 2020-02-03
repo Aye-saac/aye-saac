@@ -16,10 +16,10 @@ jobs:
               cd ~
               # You can change what anaconda version you want at 
               # https://repo.continuum.io/archive/
-              wget https://repo.continuum.io/archive/Anaconda3-2019.10-Linux-x86_64.sh
-              bash Anaconda3-2019.10-Linux-x86_64.sh -b -p ~/anaconda
-              rm Anaconda3-2019.10-Linux-x86_64.sh
-              echo 'export PATH="~/anaconda/bin:$PATH"' >> ~/.bashrc 
+              wget https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh
+              bash Miniconda3-4.7.12.1-Linux-x86_64.sh -b -p ~/anaconda
+              rm Miniconda3-4.7.12.1-Linux-x86_64.sh
+              echo 'export PATH="~/anaconda/bin:$PATH"' >> ~/.bashrc
               # Refresh basically
               source .bashrc
               conda update conda
@@ -31,12 +31,10 @@ jobs:
               bash setup_environment.sh
           - name: Lint with flake8
             run: |
-              pip install flake8
               # stop the build if there are Python syntax errors or undefined names
               flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
               # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
               flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
           - name: Test with pytest
             run: |
-              pip install pytest
               pytest

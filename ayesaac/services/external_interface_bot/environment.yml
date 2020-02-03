@@ -5,5 +5,7 @@ channels:
 dependencies:
   - python=3.8
   - pip=20.0.2
+  - flake8
+  - pytest
   - pip:
     - flask
