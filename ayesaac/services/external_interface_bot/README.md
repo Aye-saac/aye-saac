@@ -22,23 +22,27 @@ Integrating a helpful computer vision aid for the Alana platform.
         
         cd to this folder fixing the path slash directions - for example for me that is 
             folder in windows:
-                D:\Projects\Ayesaac 
+                D:\Projects\Ayebot 
             -> command in bash:
-                cd /d/projects/Ayesaac  
+                cd /d/projects/Ayebot  
     
 
 3. Run setup script
     bash environment_setup.sh
 
 
-4. (For if you want to use PyCharm) If you do use or want to use PyCharm (and consider it - it's good), set the project interpreter to use the anaconda environment created in that setup script
+4. (For if you want to use PyCharm) If you do use or want to use PyCharm (and consider it - it's good and the pro version is included in the github student developer pack), set the project interpreter to use the anaconda environment created in that setup script.
     If you don't do this, running python in PyCharm won't find any of the dependencies we just installed.
     
     From the command line, type 
         conda env list
-    to get the path next to the name "Ayesaac"; copy it.
+    to get the path next to the name "Ayebot"; copy it.
 
     File -> Settings
-        Project:Ayesaac -> Project Interpreter -> click the cog icon near the top right -> Add...
+        Project:Ayebot -> Project Interpreter -> click the cog icon near the top right -> Add...
             Conda Environment -> Existing environment -> ... -> paste your directory into the box choose the "python.exe" in that location
             
+
+    ## Updating
+    If the environment.yml changed, then you need to update your environment. With the environment activated:
+        conda env update -f environment.yml --prune
