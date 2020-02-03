@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "Ayesaac"
+version = "0.1.0"
+description = "A bot made to support Alana"
+authors = ["Amit Parekh <ap41@hw.ac.uk>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+flask_restful = "^0.3.7"
+requests = "^2.22.0"
+unidecode = "^1.1.1"
+watchtower = "^0.7.3"
+tensorflow = "^1.15.0"
+google-auth = "^1.11.0"
+prompt-toolkit = "^3.0.3"
+questionary = "^1.5.1"
+urllib3 = "^1.25.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.3.5"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
