@@ -28,7 +28,7 @@ Integrating a helpful computer vision aid for the Alana platform.
     
 
 3. Run setup script
-    bash environment_setup.sh
+    bash setup_environment.sh
 
 
 4. (For if you want to use PyCharm) If you do use or want to use PyCharm (and consider it - it's good and the pro version is included in the github student developer pack), set the project interpreter to use the anaconda environment created in that setup script.
