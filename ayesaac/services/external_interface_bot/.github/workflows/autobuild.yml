@@ -28,6 +28,11 @@ jobs:
             uses: actions/checkout@v2
           - name: Setup Environment
             run: |
+              # Use deploy key
+              eval $(ssh-agent)
+              ssh-add $ALANA_KEY
+              ssh-keyscan -H github.com >> /etc/ssh/ssh_known_hosts
+              # ... so it can be picked up in autosetup
               bash setup_environment.sh
               cd $GITHUB_WORKSPACE
           - name: Lint with flake8
