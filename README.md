@@ -10,6 +10,7 @@ Because of operating systems, there are slightly different instructions for Wind
 
 1. Install [Git LFS](https://github.com/git-lfs/git-lfs/wiki/Installation).
 1. Install [Poetry](https://python-poetry.org/docs/)
+1. Install [RabbitMQ](https://www.rabbitmq.com/download.html)
 
 #### If you have `bash` (MacOS/Linux/["Windows Subsystem for Linux"](https://docs.microsoft.com/en-us/windows/wsl/install-win10))
 
@@ -35,8 +36,11 @@ If you don't have bash, consider installing the [Windows Subsystem for Linux](ht
 * **Git LFS** — This is used because it allows us to store any large files (images/videos/models/etc) within the repository directly. 
 * **Poetry** — Used for better dependency management than using `requirements.txt`+`setuptools`+`environment.yml` together. It just helps keep things together and consistent. 
 * **pyenv** and **pyenv-virtualenv** — Used to manage different python versions on bash supporting terminals. It's not perfect but it's better than some of the other ones. You're more than welcome to use whatever you wish. 
-* **python 3.7** — This was recommended by the Alana instructions, but it could be updated to python 3.8? It's not directly Anaconda which means you don't get all the bloat that comes with it. If you want Anaconda (or miniconda), go for it. 
+* **python 3.7** — This is a recommendation for Alana and TensorFlow. 
 
 ### Setup with an IDE
 
 As _pyenv-virtualenv_ is like virtualenv, IDEs like PyCharm should work nicely with your environment. I used [this answer from StackOverflow](https://stackoverflow.com/a/51545578) to get my PyCharm working properly. 
+
+### Usage
+
