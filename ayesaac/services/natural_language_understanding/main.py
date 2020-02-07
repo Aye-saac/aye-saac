@@ -1,7 +1,7 @@
 
 from pprint import pprint
 
-from lib.queues.queue_manager import QueueManager
+from services_lib.queues.queue_manager import QueueManager
 
 
 class NaturalLanguageUnderstanding(object):

@@ -7,7 +7,7 @@ Start the workflow by sending a package to the first modules of the chain: Autom
 Will be replace in the future by an Flask API for example
 """
 
-from lib.queues.queue_manager import QueueManager
+from services_lib.queues.queue_manager import QueueManager
 
 if __name__ == '__main__':
     queue_manager = QueueManager(["AutomaticSpeechRecognition"])

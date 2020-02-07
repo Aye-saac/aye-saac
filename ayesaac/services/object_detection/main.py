@@ -3,9 +3,9 @@ import pprint
 import numpy as np
 import tensorflow as tf
 
-from lib.queues.queue_manager import QueueManager
-from lib.images.crypter import decode
-from models.coco_category_index import coco_category_index
+from services_lib.queues.queue_manager import QueueManager
+from services_lib.images.crypter import decode
+from data.models.coco_category_index import coco_category_index
 
 
 class ObjectDetection(object):
@@ -16,7 +16,7 @@ class ObjectDetection(object):
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
         self.category_index = coco_category_index
-        self.model_path = "./models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/saved_model"
+        self.model_path = "./data/models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/saved_model"
         model = tf.saved_model.load(self.model_path)
         self.model = model.signatures['serving_default']
 

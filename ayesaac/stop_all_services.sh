@@ -10,4 +10,4 @@ pkill -f ./main.py
 # run a script to delete the queues in case their were a crash in one of the modules
 # and the queue were either not properly closed or the messages where stacking in a queue
 # they will be restart
-python3 ./utils/delete_queues.py
+python3 ./services_lib/queues/delete_queues.py

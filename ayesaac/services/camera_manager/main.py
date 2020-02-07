@@ -2,8 +2,8 @@
 import cv2
 from pprint import pprint
 
-from lib.queues.queue_manager import QueueManager
-from lib.images.crypter import encode
+from services_lib.queues.queue_manager import QueueManager
+from services_lib.images.crypter import encode
 
 
 class CameraManager(object):
