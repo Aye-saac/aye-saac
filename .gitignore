@@ -34,6 +34,11 @@ utils/
 .idea/**/gradle.xml
 .idea/**/libraries
 
+*.idea
+
+# Visual Studio Code
+*.vscode
+
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
@@ -199,3 +204,6 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python,pycharm+all
+
+# Log files
+./ayesaac/logs/*.txt
