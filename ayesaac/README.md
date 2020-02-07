@@ -75,4 +75,4 @@ To stop the services you just need to enter the following:
 
 ### Architecture
 
-![Architecture](utils/diagram_aye-saac_v2.png)
+![](data/diagram_aye-saac_v2.png)
