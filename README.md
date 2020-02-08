@@ -1,5 +1,7 @@
 # Ayesaac
 
+This repository contains the source code for Ayesaac, a Python program to help blind people to find what they have lost in a room.  
+
 ## Getting started
 
 * Installation methods (pick one)
