@@ -2,7 +2,7 @@
 
 ## Getting started
 
-* Installing all the things
+* Installation methods (pick one)
     * [Installation instructions (recommended)](https://github.com/Aye-saac/aye-saac/wiki/Installing-things-(Recommended))
     * [Installation instructions (using pip instead of poetry)](https://github.com/Aye-saac/aye-saac/wiki/Installation-instructions-(pip-instead-of-poetry))
 
