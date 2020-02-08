@@ -6,12 +6,7 @@
     * [Installation instructions (recommended)](https://github.com/Aye-saac/aye-saac/wiki/Installing-things-(Recommended))
     * [Installation instructions (using pip instead of poetry)](https://github.com/Aye-saac/aye-saac/wiki/Installation-instructions-(pip-instead-of-poetry))
 
-
-### Setup with an IDE
-
-As _pyenv-virtualenv_ is like virtualenv, IDEs like PyCharm should work nicely with your environment. I used [this answer from StackOverflow](https://stackoverflow.com/a/51545578) to get my PyCharm working properly. 
-
-### Usage
+## Usage
 
 First, start with:
 ```
