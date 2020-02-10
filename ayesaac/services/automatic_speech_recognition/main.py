@@ -14,7 +14,8 @@ class AutomaticSpeechRecognition(object):
 
     def callback(self, body, **_):
         pprint(body)
-        body["query"] = "Is there a person in the kitchen ?"
+        if 'query' not in body:
+            body["query"] = "Is there a person in the kitchen ?"
         pprint(body["query"])
         body["path_done"].append(self.__class__.__name__)
         self.queue_manager.publish("NaturalLanguageUnderstanding", body)
