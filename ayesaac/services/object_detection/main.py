@@ -34,19 +34,21 @@ class ObjectDetection(object):
         return output_dict
 
     def callback(self, body, **_):
-        image = decode(body['picture']['data'], body['picture']['shape'], np.uint8)
-        output = self.run_inference_for_single_image(image)
         objects = []
-        for i in range(output['num_detections']):
-            objects.append({
-                'name': self.category_index[output['detection_classes'][i]]['name'],
-                'confidence': float(output['detection_scores'][i]),
-                'bbox': output['detection_boxes'][i].tolist(),
-            })
+        for picture in body['pictures']:
+            image = decode(picture['data'], picture['shape'], np.uint8)
+            output = self.run_inference_for_single_image(image)
+            for i in range(output['num_detections']):
+                objects.append({
+                    'name': self.category_index[output['detection_classes'][i]]['name'],
+                    'confidence': float(output['detection_scores'][i]),
+                    'bbox': output['detection_boxes'][i].tolist(),
+                    'from': picture['from']
+                })
         pprint.pprint(objects)
         body['objects'] = objects
         body['path_done'].append(self.__class__.__name__)
-        del body['picture']
+        del body['pictures']
         self.queue_manager.publish("Interpreter", body)
 
     def run(self):
