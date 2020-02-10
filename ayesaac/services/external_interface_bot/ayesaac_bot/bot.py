@@ -11,7 +11,8 @@ from utils import log
 from utils.abstract_classes import Bot
 from utils.dict_query import DictQuery
 from datetime import datetime
-import random
+
+from ayesaac_bot import nlu, nlg
 
 app = Flask(__name__)
 api = Api(app)
@@ -34,11 +35,6 @@ class GreetingsBot(Bot):
         # Don't use it to initialise or load files.
         # We will use kwargs to specify already initialised objects that are required to the bot
         super(GreetingsBot, self).__init__(bot_name=BOT_NAME)
-        self.greetings = [
-            "Ciao",
-            "Hello",
-            "Hola"
-        ]
 
     def get(self):
         pass
@@ -63,8 +59,13 @@ class GreetingsBot(Bot):
         logger.info("Last bot: {}".format(last_bot))
         logger.info("---------------------------")
 
+        # NLU
+        intention = nlu.extract_intent(request_data)
+
+        # NLG
         # the 'result' member is intended as the actual response of the bot
-        self.response.result = random.choice(self.greetings)
+        self.response.result = nlg.generate_response(intention)
+
         # we store in the dictionary 'bot_params' the current time. Remember that this information will be stored
         # in the database only if the bot is selected
         self.response.bot_params["time"] = str(datetime.now())
@@ -84,5 +85,5 @@ if __name__ == "__main__":
                           file_level=args.file_verbosity, console_level=args.console_verbosity)
 
     api.add_resource(GreetingsBot, "/")
-
+    logger.info(f"Launching app on port {args.port}")
     app.run(host="0.0.0.0", port=args.port)
