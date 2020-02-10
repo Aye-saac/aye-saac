@@ -14,12 +14,16 @@ class NaturalLanguageGenerator(object):
     def callback(self, body, **_):
         pprint(body)
 
-        response = 'I found '
-        for result in body['results']:
-            if body['results'][result] > 0:
-                response += str(body['results'][result]) + ' '
-                response += result + ' '
-        response += '.'
+        response = 'I found'
+        for from_ in body['results']:
+            for obj in body['results'][from_]:
+                if body['results'][from_][obj] > 0:
+                    response += ' ' + str(body['results'][from_][obj]) + ' ' + obj + ' from the ' + from_ + ','
+
+        if len(response) == 7:
+            response += ' nothing.'
+        else:
+            response = response[:-1] + '.'
         body["response"] = response
         pprint(body['response'])
         body["path_done"].append(self.__class__.__name__)

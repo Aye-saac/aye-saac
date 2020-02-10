@@ -19,11 +19,15 @@ class Interpreter(object):
         objects_asked = body['asking']
         objects_found = body['objects']
         results = {}
-        for object_asked in objects_asked:
-            results[object_asked] = 0
+        for object_found in objects_found:
+            results[object_found['from']] = {}
+
         for object_found in objects_found:
             if (object_found['name'] in objects_asked or '*' in objects_asked) and object_found['confidence'] > 0.5:
-                results[object_found['name']] += 1
+                if not object_found['name'] in results[object_found['from']]:
+                    results[object_found['from']][object_found['name']] = 1
+                else:
+                    results[object_found['from']][object_found['name']] += 1
 
         body["results"] = results
         pprint(body["results"])

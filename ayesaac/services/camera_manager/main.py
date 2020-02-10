@@ -9,22 +9,37 @@ from services_lib.images.crypter import encode
 class CameraManager(object):
     """
     The class CameraManager goal is to organise the collect of pictures from different camera sources.
-    For the time being it is considered as a simple camera, in this case, the webcam.
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, 'ObjectDetection'])
+        self.queue_manager = QueueManager([self.__class__.__name__, 'WebCam', 'WebCamBis', 'ObjectDetection'])
+        self.camera_names = ['WebCam', 'WebCamBis']
+        self.pictures = []
+        self.waiting_cameras = 0
+        self.save_body = None
+
+    def from_cameras(self, body):
+        print('Receiving picture from: ', body['picture']['from'])
+        self.pictures.append(body['picture'])
+        self.waiting_cameras -= 1
+
+    def request_pictures_from_all_concern_cameras(self):
+        print('Request pictures !')
+        self.waiting_cameras = len(self.camera_names)
+        for camera_name in self.camera_names:
+            self.queue_manager.publish(camera_name, {'nb_picture': 1})
 
     def callback(self, body, **_):
-        pprint(body)
-
-        cap = cv2.VideoCapture(0)  # Change only if you have more than one webcams
-        _, image_np = cap.read()
-
-        pprint(image_np.shape)
-        body['picture'] = {'data': encode(image_np), 'shape': image_np.shape}
-        body['path_done'].append(self.__class__.__name__)
-        self.queue_manager.publish('ObjectDetection', body)
+        if self.waiting_cameras:
+            self.from_cameras(body)
+            if not self.waiting_cameras:
+                self.save_body['pictures'] = self.pictures
+                self.save_body['path_done'].append(self.__class__.__name__)
+                print('Send pictures !')
+                self.queue_manager.publish('ObjectDetection', self.save_body)
+        else:
+            self.request_pictures_from_all_concern_cameras()
+            self.save_body = body
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
