@@ -1,7 +1,7 @@
 
 from pprint import pprint
 
-from services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib.queues.queue_manager import QueueManager
 
 
 class TextToSpeech(object):

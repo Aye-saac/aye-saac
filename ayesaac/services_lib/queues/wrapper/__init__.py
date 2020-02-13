@@ -1,3 +1,3 @@
 
-from services_lib.queues.wrapper.connection import Connection
-from services_lib.queues.wrapper.basic_queue import BasicQueue
+from ayesaac.services_lib.queues.wrapper.connection import Connection
+from ayesaac.services_lib.queues.wrapper.basic_queue import BasicQueue

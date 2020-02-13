@@ -1,7 +1,9 @@
-
 from pprint import pprint
 
-from services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib.queues.queue_manager import QueueManager
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class NaturalLanguageUnderstanding(object):
@@ -28,4 +30,8 @@ def main():
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                        datefmt='%m-%d %H:%M',
+                        filemode='w')
     main()
