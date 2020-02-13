@@ -1,5 +1,5 @@
 import requests
-from utils.address import address
+# from utils.address import address
 from utils.dict_query import DictQuery
 
 data = {'user_id': 'test-user', 'question': 'Hello there', 'session_id': 'CLI-sessionId', 'projectId': 'CA2020',

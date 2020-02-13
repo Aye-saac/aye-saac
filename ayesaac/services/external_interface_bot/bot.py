@@ -1,7 +1,6 @@
 # The head honcho. The big cheese. The main program entry point for the bot that sits with Alana.
 
 import logging
-import random
 from argparse import ArgumentParser
 
 import os
@@ -12,7 +11,7 @@ from utils.abstract_classes import Bot
 from utils.dict_query import DictQuery
 from datetime import datetime
 
-from ayesaac_bot import nlu, nlg
+from ayesaac.services.external_interface_bot import nlu, nlg
 
 app = Flask(__name__)
 api = Api(app)
