@@ -5,9 +5,6 @@ from services_lib.queues.queue_manager import QueueManager
 
 import os
 from random import choice
-from gtts import gTTS
-from playsound import playsound
-
 
 class NaturalLanguageGenerator(object):
     """
