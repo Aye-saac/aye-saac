@@ -26,12 +26,12 @@ class NaturalLanguageGenerator(object):
                     self.answers[name] = [line.strip() for line in f]
 
     def generate_text(self, words, context):
-        # answer = choice(self.answers[context+'_P']) if type(words) == list else choice(answers[context+'_S'])
         answer = choice(self.answers[context])
-        if type(words) == list:
+        if type(words) == list and len(words):
             return answer.replace('*', 'a '+', a '.join(words[:-1])+' and a '+words[-1], 1)
-        else:
+        elif type(words) == str:
             return answer.replace('*', words, 1)
+        return answer
 
     def callback(self, body, **_):
         pprint(body)
@@ -52,6 +52,8 @@ class NaturalLanguageGenerator(object):
         # Creates list of object detected in the scene
         objects = [o['name'] for o in body['objects']]
         obj_cnt = len(objects)
+        if obj_cnt == 1:
+            objects = objects[0]
         response = self.generate_text(objects, self.description_types[obj_cnt if obj_cnt < 2 else 2])
         # if obj_cnt > 1:
         #     response = self.generate_text(objects, 'DESCRIPTION_ANSWER_P')
