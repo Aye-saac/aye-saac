@@ -2,7 +2,7 @@
 name = "Ayesaac"
 version = "0.1.0"
 description = "A bot made to support Alana"
-authors = ["Alexandre Cardaillac, Amit Parekh <ap41@hw.ac.uk>", Hamish MacKinnon,  "Vincent Larcher"]
+authors = ["Alexandre Cardaillac", "Amit Parekh <ap41@hw.ac.uk>", "Hamish MacKinnon",  "Vincent Larcher"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
