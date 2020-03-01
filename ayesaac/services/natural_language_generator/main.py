@@ -25,42 +25,27 @@ class NaturalLanguageGenerator(object):
                 with open(folder_path+name) as f:
                     self.answers[name] = [line.strip() for line in f]
 
-    def generate_text(self, words, context):
+    def get_det(self, word):
+        return str(word[1])+' ' if word[1] > 1 else 'a '
+
+    def generate_text(self, words, context, obj_cnt):
         answer = choice(self.answers[context])
-        if type(words) == list and len(words):
-            return answer.replace('*', 'a '+', a '.join(words[:-1])+' and a '+words[-1], 1)
-        elif type(words) == str:
-            return answer.replace('*', words, 1)
+        if len(words) > 1:
+            tmp = ', '.join([self.get_det(w)+w[0] for w in words[:-1]]) + ' and '+self.get_det(words[-1])+words[-1][0]
+            return answer.replace('*', tmp, 1)
+        elif len(words):
+            return answer.replace('*', str(words[0][1])+' ' if words[0][1] > 1 else ''+words[0][0], 1)
         return answer
 
     def callback(self, body, **_):
         pprint(body)
 
-
-        ## Previous work
-        # response = 'I found'
-        # for from_ in body['results']:
-        #     for obj in body['results'][from_]:
-        #         if body['results'][from_][obj] > 0:
-        #             response += ' ' + str(body['results'][from_][obj]) + ' ' + obj + ' from the ' + from_ + ','
-
-        # if len(response) == 7:
-        #     response += ' nothing.'
-        # else:
-        #     response = response[:-1] + '.'
-
         # Creates list of object detected in the scene
         objects = [o['name'] for o in body['objects']]
-        obj_cnt = len(objects)
-        if obj_cnt == 1:
-            objects = objects[0]
-        response = self.generate_text(objects, self.description_types[obj_cnt if obj_cnt < 2 else 2])
-        # if obj_cnt > 1:
-        #     response = self.generate_text(objects, 'DESCRIPTION_ANSWER_P')
-        # elif obj_cnt > 0:
-        #     response = self.generate_text(objects, 'DESCRIPTION_ANSWER_S')
-        # else:
-        #     response = self.generate_text(objects, 'DESCRIPTION_NOTHING')
+        objects = list(set([(o, objects.count(o)) for o in objects]))
+        print(objects)
+        obj_cnt = sum(n for _, n in objects)
+        response = self.generate_text(objects, self.description_types[obj_cnt if obj_cnt < 2 else 2], obj_cnt)
 
         body["response"] = response
         pprint(body['response'])
