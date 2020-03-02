@@ -1,0 +1,1 @@
+{"0": "O", "1": "not_possessed", "2": "object", "3": "possessed", "4": "property"}
