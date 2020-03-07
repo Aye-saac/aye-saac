@@ -2,7 +2,7 @@
 utils/
 
 env/
-
+env_clean/
 # ignore .asc key files by default
 *.asc
 
