@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.7
+  - python=3.6
   - poetry
 #  - rabbitmq-server  # So close, but no Windows build created (?!)
   # - portaudio
