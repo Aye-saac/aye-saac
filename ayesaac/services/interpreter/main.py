@@ -11,7 +11,8 @@ class Interpreter(object):
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, 'NaturalLanguageGenerator'])
+        # self.queue_manager = QueueManager([self.__class__.__name__, 'NaturalLanguageGenerator'])
+        self.queue_manager = QueueManager([self.__class__.__name__, 'PositionDetection'])
 
     def callback(self, body, **_):
         pprint(body)
@@ -32,7 +33,8 @@ class Interpreter(object):
         body["results"] = results
         pprint(body["results"])
         body["path_done"].append(self.__class__.__name__)
-        self.queue_manager.publish('NaturalLanguageGenerator', body)
+        # self.queue_manager.publish('NaturalLanguageGenerator', body)
+        self.queue_manager.publish('PositionDetection', body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
