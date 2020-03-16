@@ -10,6 +10,8 @@ tensorflow = "2.1.0"
 opencv-python = "^4.2.0"
 pika = "^1.1.0"
 utils = {git = "git@github.com:Hangsii/secret_alana_utils.git"}
+gtts = "^2.1.1"
+playsound = "^1.2.2"
 pyaudio = "^0.2.11"
 ibm-watson = "^4.3.0"
 
