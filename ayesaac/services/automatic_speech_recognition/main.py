@@ -9,6 +9,8 @@ from ayesaac.services_lib.queues.queue_manager import QueueManager
 import ayesaac.services.automatic_speech_recognition.speech_recognition.microphone as mic
 import ayesaac.services.automatic_speech_recognition.speech_recognition.recognizer as recogniton
 
+from utils.ibm_key import get_api_key
+
 
 class Level(Enum):
     """
@@ -81,10 +83,7 @@ def use_ibm_api(audio_file):
 
     # this url is unique to HM's account
     url = 'https://api.eu-gb.speech-to-text.watson.cloud.ibm.com/instances/0c812d73-03ef-4209-a78e-b73c4781f85a'
-    keyfilename = Path(__file__).parent / 'ibm_key'  # i.e. a file in the automatic_speech_recognition directory
-
-    with open(keyfilename, 'r') as keyfile:
-        key = keyfile.read()
+    key = get_api_key()
 
     authenticator = IAMAuthenticator(key)
     transcriber = SpeechToTextV1(authenticator=authenticator)
