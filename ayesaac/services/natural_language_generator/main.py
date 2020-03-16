@@ -41,7 +41,7 @@ class NaturalLanguageGenerator(object):
         pprint(body)
 
         # Creates list of object detected in the scene
-        objects = [o['name'] for o in body['objects']]
+        objects = [o['name']+o['lateral_position'] for o in body['objects']]
         objects = list(set([(o, objects.count(o)) for o in objects]))
         print(objects)
         obj_cnt = sum(n for _, n in objects)
@@ -51,7 +51,7 @@ class NaturalLanguageGenerator(object):
         pprint(body['response'])
         body["path_done"].append(self.__class__.__name__)
 
-        del body["asking"], body["objects"], body["path"], body["query"], body["results"]
+        del body["objects"]
         self.queue_manager.publish("TextToSpeech", body)
 
     def run(self):
