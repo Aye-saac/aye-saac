@@ -1,59 +1,109 @@
+from enum import Enum, auto
 from pprint import pprint
-# import speech_recognition  # Looks like speech_recognition is dead in the water
 from pathlib import Path
 
 from ibm_watson import SpeechToTextV1
-from ibm_watson.websocket import RecognizeCallback, AudioSource
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 import ayesaac.services.automatic_speech_recognition.speech_recognition.microphone as mic
-import ayesaac.services.automatic_speech_recognition.speech_recognition.recognizer as reco
+import ayesaac.services.automatic_speech_recognition.speech_recognition.recognizer as recogniton
 
 
-def callback_impl(data):
-    # obtain audio from file:
-    # todo use microphone
-    r = reco.Recognizer()
-    with mic.Microphone() as source:
-        print("Say something!")
-        audio = r.listen(source)
-    print("Ok - processing...")
-    project_root = Path(__file__).parent.parent.parent  # ayesaac
-    # audio_file = project_root / 'data' / 'test' / 'test-audio-query.wav'
-    audio_file = audio.get_wav_data()
-    # recognize speech using IBM
-    keyfilename = Path(__file__).parent / 'ibm_key'  # i.e. a file in the automatic_speech_recognition directory
+class Level(Enum):
+    """
+    This Automatic Speech Recognition (ASR) service has 3 modes of operation to save us from getting a large bill:
+        1. Total fake; ASR will output the same string in every case.
+        2. Wet-run test; as in 'not a dry run'. Uses a prerecorded message, but still sends it through the web api.
+        3. The real deal; record user speech through an attached microphone.
+    """
+    CHEAP_TEST = auto()
+    FULL_TEST = auto()
+    LIVE_RECORDINGS = auto()
 
-    try:
-        # this url is unique to HM's account
-        url = 'https://api.eu-gb.speech-to-text.watson.cloud.ibm.com/instances/0c812d73-03ef-4209-a78e-b73c4781f85a'
-        with open(keyfilename, 'r') as keyfile:
-            key = keyfile.read()
 
-        authenticator = IAMAuthenticator(key)
-        transcriber = SpeechToTextV1(authenticator=authenticator)
-        transcriber.set_service_url(url)
-
-        # with open(audio_file, 'rb') as audio:  # open prerecorded file as binary
-        try:
-            transcribed_to_json = transcriber.recognize(audio=audio_file)
-        except Exception as e:
-            print("Watson error; {0}".format(e))
-            transcribed_to_json = []
-
-        text = str(transcribed_to_json.get_result())  # todo parse returned JSON
-        print("Watson thinks you said " + text)
-        data['query'] = text
-    except Exception as e:
-        print("ASR error; {0}".format(e))
-        raise e
+def callback_impl(data, functionality_level=Level.LIVE_RECORDINGS):
+    """
+    A function that removes ASR specific code from the boilerplate RabbitMQ queue listener code.
+    :param data: The dictionary passed to the next service. ASR results go in here.
+    :param functionality_level: exposed for testing - see the top of this file.
+    :return: Nothing
+    """
+    if functionality_level != Level.CHEAP_TEST:
+        record_and_transcribe(data, functionality_level)
 
     # fallback
     if 'query' not in data:
         data["query"] = "Is there a person in the kitchen ?"  # n.b. ibm wouldn't put a '?' here
 
     return data
+
+
+def record_and_transcribe(data, functionality_level: Level):
+    """
+
+    :param data: The big cheese dictionary that gets passed between microservices.
+    :param functionality_level:
+    :return: nothing, results are inserted into the data object
+    """
+
+    try:
+
+        if functionality_level == Level.LIVE_RECORDINGS:
+            wav_audio = record_from_microphone()
+            transcribed_to_json = use_ibm_api(wav_audio)
+
+        else:
+            # obtain audio from file:
+            project_root = Path(__file__).parent.parent.parent  # ayesaac
+            audio_file = project_root / 'data' / 'test' / 'test-audio-query.wav'
+
+            with open(audio_file, 'rb') as audio_file:  # open prerecorded file as binary
+                transcribed_to_json = use_ibm_api(audio_file)
+
+        # The api returns a dict containing 'results' and some metadata, then a list of options ordered by likelihood.
+        # This just takes the top result's text and ignores its probability.
+        transcript = transcribed_to_json.get_result()['results'][0]['alternatives'][0]['transcript']
+
+        print("Watson thinks you said " + transcript)
+        data['query'] = transcript
+    except Exception as e:
+        print("ASR error; {0}".format(e))
+        raise e
+
+
+def use_ibm_api(audio_file):
+    """
+    Recognize speech using IBM
+    :param audio_file: .wav audio as bytes to send to IBM
+    :return: transcribed text
+    """
+
+    # this url is unique to HM's account
+    url = 'https://api.eu-gb.speech-to-text.watson.cloud.ibm.com/instances/0c812d73-03ef-4209-a78e-b73c4781f85a'
+    keyfilename = Path(__file__).parent / 'ibm_key'  # i.e. a file in the automatic_speech_recognition directory
+
+    with open(keyfilename, 'r') as keyfile:
+        key = keyfile.read()
+
+    authenticator = IAMAuthenticator(key)
+    transcriber = SpeechToTextV1(authenticator=authenticator)
+    transcriber.set_service_url(url)
+    try:
+        transcribed_to_json = transcriber.recognize(audio=audio_file)
+    except Exception as e:
+        print("Watson error; {0}".format(e))
+        transcribed_to_json = []
+    return transcribed_to_json
+
+
+def record_from_microphone():
+    r = recogniton.Recognizer()
+    with mic.Microphone() as source:
+        print("Say something!")
+        audio = r.listen(source)
+    print("Ok - processing...")
+    return audio.get_wav_data()
 
 
 class AutomaticSpeechRecognition(object):

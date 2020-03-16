@@ -8,7 +8,7 @@ class MyTestCase(unittest.TestCase):
         data = {"path_done": []}
 
         # run asr on file
-        data = asr.callback_impl(data)
+        data = asr.callback_impl(data, asr.Level.FULL_TEST)
 
         # a query should have been added
         assert('query' in data)
