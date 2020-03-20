@@ -40,9 +40,23 @@ class NaturalLanguageGenerator(object):
     def callback(self, body, **_):
         pprint(body)
 
-        # Creates list of object detected in the scene
-        objects = [o['name']+o['lateral_position'] for o in body['objects']]
-        objects = list(set([(o, objects.count(o)) for o in objects]))
+        if body['intents']['intent']['name'] == 'identify':
+            objects = []
+            for o in body['objects']:
+                if o['name'] != 'person':
+                    objects.append(o['name']+o['lateral_position'])
+            objects = list(set([(o, objects.count(o)) for o in objects]))
+        elif body['intents']['intent']['name'] == 'recognise':
+            objects = []
+            for o in body['objects']:
+                for p in body['intents']['entities']:
+                    if o['name'] == p['value']:
+                        objects.append(o['name']+o['lateral_position'])
+            objects = list(set([(o, objects.count(o)) for o in objects]))
+        else:
+            # Creates list of object detected in the scene
+            objects = [o['name']+o['lateral_position'] for o in body['objects']]
+            objects = list(set([(o, objects.count(o)) for o in objects]))
         print(objects)
         obj_cnt = sum(n for _, n in objects)
         response = self.generate_text(objects, self.description_types[obj_cnt if obj_cnt < 2 else 2], obj_cnt)
