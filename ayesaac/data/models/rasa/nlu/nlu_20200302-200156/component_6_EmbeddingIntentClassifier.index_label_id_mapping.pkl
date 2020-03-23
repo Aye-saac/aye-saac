@@ -1,1 +1,0 @@
-{"0": "compare_object", "1": "identify_object", "2": "locate_object"}
