@@ -19,7 +19,7 @@ class ColorDetection:
     @staticmethod
     def open_image(file_path: str):
         image = Image.open(file_path)
-        return np.array(image, dtype=np.float32)
+        return np.array(image, dtype=np.uint8)
     
     @staticmethod
     def convert_rgb_to_lab(image: np.ndarray) -> np.ndarray:
