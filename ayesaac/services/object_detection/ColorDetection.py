@@ -113,9 +113,9 @@ class ColorDetection:
         colors_found = {}
         for color in colors:
             d = ((self.color_list_values - color) ** 2).sum(axis=1)
-            if not self.color_list_names[d.argmax()] in colors_found:
-                colors_found[self.color_list_names[d.argmax()]] = 0
-            colors_found[self.color_list_names[d.argmax()]] += 1
+            if not self.color_list_names[d.argmin()] in colors_found:
+                colors_found[self.color_list_names[d.argmin()]] = 0
+            colors_found[self.color_list_names[d.argmin()]] += 1
         pprint(colors_found)
             
             
