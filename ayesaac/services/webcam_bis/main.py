@@ -21,10 +21,11 @@ class WebCamBis(object):
         time.sleep(2)
 
         cap = cv2.VideoCapture(0)
-        _, image_np = cap.read()
-
-        pprint(image_np.shape)
-        body['picture'] = {'data': encode(image_np), 'shape': image_np.shape, 'from': self.__class__.__name__}
+        _, image = cap.read()
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        image = cv2.resize(image, (640, 480), cv2.INTER_AREA)
+        pprint(image.shape)
+        body['picture'] = {'data': encode(image), 'shape': image.shape, 'from': self.__class__.__name__}
         self.queue_manager.publish('CameraManager', body)
 
     def run(self):
