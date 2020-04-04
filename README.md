@@ -33,4 +33,4 @@ To stop the services you just need to enter the following:
 
 ### Architecture
 
-![](ayesaac/data/diagram_aye-saac_v2.png)
+![](ayesaac/data/diagram_aye-saac_v3.png)

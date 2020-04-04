@@ -12,7 +12,8 @@ class CameraManager(object):
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, 'WebCam', 'WebCamBis', 'ObjectDetection'])
+        self.queue_manager = QueueManager([self.__class__.__name__, 'WebCam', 'WebCamBis',
+                                           'ObjectDetection', 'OCR'])
         self.camera_names = ['WebCam']
         self.pictures = []
         self.waiting_cameras = 0
@@ -36,7 +37,8 @@ class CameraManager(object):
                 self.save_body['pictures'] = copy.deepcopy(self.pictures)
                 self.save_body['path_done'].append(self.__class__.__name__)
                 print('Send pictures !')
-                self.queue_manager.publish('ObjectDetection', self.save_body)
+                next_service = self.save_body['vision_path'].pop(0)
+                self.queue_manager.publish(next_service, self.save_body)
                 self.pictures = []
         else:
             self.request_pictures_from_all_concern_cameras()
