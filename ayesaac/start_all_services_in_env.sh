@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # delete the old services_log
-rm ./services_log/*.txt
+rm -f ./services_log/*.txt
 
 # start all the python scripts in the background and redirect their outputs in the services_log directory
 python -u ./main.py services.automatic_speech_recognition.main > ./services_log/1_automatic_speech_recognition.txt &

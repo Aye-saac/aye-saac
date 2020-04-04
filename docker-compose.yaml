@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  ayesaac:
+    container_name: ayesac_app
+    restart: always
+    volumes:
+      - ./ayesaac/services_log:/aye-saac/ayesaac/services_log
+    ports:
+      - "8118:8118"
+    build:
+      context: .
