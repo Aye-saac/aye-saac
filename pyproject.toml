@@ -7,7 +7,7 @@ authors = ["Alexandre Cardaillac", "Amit Parekh <ap41@hw.ac.uk>", "Hamish MacKin
 [tool.poetry.dependencies]
 python = "^3.6"
 tensorflow = "2.1.0"
-opencv-python = "^4.2.0"
+opencv-python = "4.2.0.32"  # new version not in pip; unpin when available.
 pika = "^1.1.0"
 utils = {git = "git@github.com:Hangsii/secret_alana_utils.git"}
 gtts = "^2.1.1"
