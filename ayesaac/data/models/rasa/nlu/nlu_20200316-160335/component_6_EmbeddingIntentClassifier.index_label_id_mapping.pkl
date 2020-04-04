@@ -1,1 +1,0 @@
-{"0": "detect_colour", "1": "identify", "2": "read_text", "3": "recognise"}
