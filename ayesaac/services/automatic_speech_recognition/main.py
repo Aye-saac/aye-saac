@@ -4,6 +4,7 @@ from pathlib import Path
 
 from ibm_watson import SpeechToTextV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from playsound import playsound
 
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 import ayesaac.services.automatic_speech_recognition.speech_recognition.microphone as mic
@@ -22,6 +23,25 @@ class Level(Enum):
     CHEAP_TEST = auto()
     FULL_TEST = auto()
     LIVE_RECORDINGS = auto()
+
+
+class Dinger:
+    """
+    Make the thing go ding when ready to record/finished recording.
+    """
+    project_root = Path(__file__)/ '..' / '..' / '..' / '..'
+    data_dir = project_root / 'ayesaac' / 'data'
+    ding_in = data_dir / 'ayesaac-ding-in.wav'
+    ding_out = data_dir / 'ayesaac-ding-out.wav'
+
+    def __init__(self):
+        pass
+
+    def __enter__(self):
+        playsound(self.ding_in)
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        playsound(self.ding_out)
 
 
 def callback_impl(data, functionality_level=Level.LIVE_RECORDINGS):
@@ -98,7 +118,7 @@ def use_ibm_api(audio_file):
 
 def record_from_microphone():
     r = recogniton.Recognizer()
-    with mic.Microphone() as source:
+    with mic.Microphone() as source, Dinger():
         print("Say something!")
         audio = r.listen(source)
     print("Ok - processing...")
