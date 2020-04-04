@@ -11,7 +11,7 @@ class PositionDetection(object):
     The class PositionDetection purpose provide the global position of the detected objects.
     """
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, "NaturalLanguageGenerator"])
+        self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
 
     def get_pos_str(self, obj, max_pos=(1, 1)):
         step = (max_pos[0]/3, max_pos[1]/3)
@@ -25,13 +25,12 @@ class PositionDetection(object):
     def callback(self, body, **_):
         pprint(body)
 
-        objects = [{'name': o['name'], 'lateral_position':self.get_pos_str(o)} for o in body['objects']]
-        body["objects"] = objects
+        for i, obj in enumerate(body['objects']):
+            body['objects'][i]['lateral_position'] = self.get_pos_str(obj)
 
         body["path_done"].append(self.__class__.__name__)
-
-        del body["asking"], body["path"], body["query"], body["results"]
-        self.queue_manager.publish("NaturalLanguageGenerator", body)
+        next_service = body['vision_path'].pop(0)
+        self.queue_manager.publish(next_service, body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
