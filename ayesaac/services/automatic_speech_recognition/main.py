@@ -31,8 +31,8 @@ class Dinger:
     """
     project_root = Path(__file__)/ '..' / '..' / '..' / '..'
     data_dir = project_root / 'ayesaac' / 'data'
-    ding_in = data_dir / 'ayesaac-ding-in.wav'
-    ding_out = data_dir / 'ayesaac-ding-out.wav'
+    ding_in = str(data_dir / 'ayesaac-ding-in.wav')
+    ding_out = str(data_dir / 'ayesaac-ding-out.wav')
 
     def __init__(self):
         pass
