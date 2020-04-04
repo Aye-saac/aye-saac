@@ -62,6 +62,30 @@ pip3 install --upgrade gTTS
 pip3 install --upgrade playsound
 ```
 
+- [rasa](https://rasa.com/)
+
+```
+pip3 install --upgrade rasa
+```
+
+- [ibm-watson](https://www.ibm.com/watson)
+
+```
+pip3 install --upgrade ibm-watson
+```
+
+- [pyspellchecker](https://pypi.org/project/pyspellchecker/)
+
+```
+pip3 install --upgrade pyspellchecker
+```
+
+- [keras-ocr](https://pypi.org/project/keras-ocr/)
+
+```
+pip3 install --upgrade keras-ocr
+```
+
 ### Usage
 
 First, start with:
@@ -114,4 +138,18 @@ ValueError: Namespace Gst not available
 then you need to install [GStreamer](https://gstreamer.freedesktop.org/documentation/installing/on-linux.html?gi-language=c):
 ```
 sudo apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
+```
+
+- If this error occurs when installing PyAudio:
+```
+    src/_portaudiomodule.c:29:10: fatal error: portaudio.h: No such file or directory
+     #include "portaudio.h"
+              ^~~~~~~~~~~~~
+    compilation terminated.
+    error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+```
+
+then you need to install the requirement: [(stackoverflow link)](https://stackoverflow.com/questions/50457197/pyaudio-installation-failure-on-ubuntu)
+```
+sudo apt-get install portaudio19-dev
 ```
