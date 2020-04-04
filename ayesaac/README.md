@@ -111,7 +111,7 @@ To stop the services you just need to enter the following:
 
 ### Architecture
 
-![](data/diagram_aye-saac_v2.png)
+![](data/diagram_aye-saac_v3.png)
 
 
 ### Potential dependencies errors 
