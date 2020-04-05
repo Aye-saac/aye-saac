@@ -2,11 +2,16 @@
 queue_manager.py
 This file contains a class QueueManager, its job is to abstract the usage of the queue as simple as possible.
 """
+import pika
 
 import ayesaac.services_lib.queues.wrapper as queues
 
 
-RABBITMQ_HOST = 'localhost'
+RABBITMQ_HOST = 'rabbitmq'
+
+# todo use actual creds from environment
+# rabbit_credentials = pika.credentials.PlainCredentials(username='test-user', password='test-user')
+rabbit_credentials = pika.credentials.PlainCredentials(username='user', password='bitnami')
 
 
 class QueueManager:
@@ -14,7 +19,7 @@ class QueueManager:
         """
         :param queues_name: list of queues names which the service will access
         """
-        self.connection = queues.Connection(host=RABBITMQ_HOST)
+        self.connection = queues.Connection(host=RABBITMQ_HOST, credentials=rabbit_credentials)
         self.queues = {}
         for queue_name in queues_name:
             self.queues[queue_name] = queues.BasicQueue(self.connection, queue_name)
