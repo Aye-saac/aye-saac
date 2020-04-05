@@ -44,6 +44,6 @@ RUN cat /aye-saac/ayesaac/start_all_services_in_env.sh
 # Run app
 WORKDIR /aye-saac
 COPY . /aye-saac
-WORKDIR /aye-saac/ayesaac
-RUN ls
+WORKDIR /aye-saac/
+ENV PYTHONPATH=./ayesaac
 ENTRYPOINT ["conda", "run", "-n", "aye-saac", "/bin/bash", "-c", "/aye-saac/ayesaac/start_all_services_in_env.sh"]
