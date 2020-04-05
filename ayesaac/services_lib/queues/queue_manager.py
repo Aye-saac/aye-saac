@@ -10,8 +10,8 @@ import ayesaac.services_lib.queues.wrapper as queues
 RABBITMQ_HOST = 'rabbitmq'
 
 # todo use actual creds from environment
-# rabbit_credentials = pika.credentials.PlainCredentials(username='test-user', password='test-user')
-rabbit_credentials = pika.credentials.PlainCredentials(username='user', password='bitnami')
+rabbit_credentials = pika.credentials.PlainCredentials(username='test-user', password='test-user')
+# rabbit_credentials = pika.credentials.PlainCredentials(username='user', password='bitnami')
 
 
 class QueueManager:
