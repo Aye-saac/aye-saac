@@ -33,6 +33,21 @@ QM = QueueManager(["AutomaticSpeechRecognition", "NaturalLanguageUnderstanding",
 result_store = {}
 
 
+class UidMaker:
+    uid_counter = 0
+
+    def generate_uid(self):
+        """
+        UIDs are expected to not last beyond server lifetime.
+        todo handle large numbers
+        :return: a uid (integer)
+        """
+        self.uid_counter = self.uid_counter + 1
+        return self.uid_counter
+
+
+uids = UidMaker()
+
 class WebServer(Bot):
     """
     This class is both a webserver and a queue message producer and consumer.
@@ -43,7 +58,10 @@ class WebServer(Bot):
         # Warning: the init method will be called every time before the post() method
         # Don't use it to initialise or load files.
         # We will use kwargs to specify already initialised objects that are required to the bot
-        super(WebServer, self).__init__(bot_name=BOT_NAME, queue_manager=QM, result_store=result_store)
+        super(WebServer, self).__init__(bot_name=BOT_NAME)
+        self.queue_manager = QM
+        self.result_store = result_store
+        self.uid_maker = uids
 
     def get(self):
         if self.result_store:
@@ -63,15 +81,29 @@ class WebServer(Bot):
 
         request_content = self.extract_request_content(request_data)
 
+        # initialise service pipeline with a UID to match the results in the GET
+        uid = self.generate_and_store_UID()
+        request_content['uid'] = uid
+
         self.start_service_pipeline(request_content)
 
-        return self.generate_and_store_UID()
+        return {'uid': uid}
+
+    def generate_and_store_UID(self):
+        """
+        1. Create a UID
+        2. Create an empty entry in the results cache (dictionary) to be filled later
+        :return: the new UID
+        """
+        uid = self.uid_maker.generate_uid()
+        self.result_store[uid] = ""  # todo work out if empty string is a problem
+        return uid
 
     def start_service_pipeline(self, request_content):
         data = {"path_done": []}
-        if 'text_message' in request_content and request_content['text_message']:
+        if 'text_question' in request_content and request_content['text_question']:
             first_service = "NaturalLanguageUnderstanding"
-            data['query'] = request_content['text_message']
+            data['query'] = request_content['text_question']
         elif 'voice' in request_content and request_content['voice']:
             first_service = "AutomaticSpeechRecognition"
             data['voice_file'] = request_content['voice']
@@ -119,30 +151,23 @@ class WebServer(Bot):
         self.result_store = self.response.toJSON()
 
     def extract_request_content(self, request_data):
-
-        # # We extract several information from the state
-        # user_utterance = request_data.get("current_state.state.nlu.annotations.processed_text")
-        # last_bot = request_data.get("current_state.state.last_bot")
-        #
-        # logger.info("------- Turn info ----------")
-        # logger.info("User utterance: {}".format(user_utterance))
-        # logger.info("Last bot: {}".format(last_bot))
-        # logger.info("---------------------------")
-        #
-        # # NLU
-        # intention = nlu.extract_intent(request_data)
-        # get data from input
-        # either form data - access explained here: https://stackoverflow.com/a/16664376
-        # or blob objects in the json, as done below:
+        """
+        Request data has data with encodings to deal with. Deal with them here.
+        :param request_data:
+        :return:
+        """
         # todo catch nonpresent data failures
         request_content = {#'img': Image.open(BytesIO(request_data.image)),  # todo read in images
                            #'voice': Image.open(BytesIO(request_data.voice)), # todo make audio file
-                           'text_message': request_data.message,
-                           'history': request_data.message.history
+                           'text_question': request_data.text_question,
+                           'history': request_data.history
                            }
 
         return request_content
 
+# @app.route('/')
+# def test_porting():
+#     return "Welcome, Connectomatron :)"
 
 
 if __name__ == "__main__":
@@ -156,4 +181,4 @@ if __name__ == "__main__":
 
     api.add_resource(WebServer, "/")
     logger.info(f"Launching app on port {args.port}")
-    app.run(host="0.0.0.0", port=args.port)
+    app.run(host="0.0.0.0", port=args.port, debug=True)

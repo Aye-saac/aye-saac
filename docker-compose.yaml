@@ -27,7 +27,7 @@ services:
     volumes:
       - ./ayesaac/services_log:/aye-saac/ayesaac/services_log
     ports:
-      - "8118:8118"
+      - "5130:5130"
     build:
       context: .
     environment:
