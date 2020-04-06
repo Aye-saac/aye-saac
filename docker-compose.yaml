@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  rabbitmq:
+    # https://stackoverflow.com/a/53037897
+    image: rabbitmq:latest
+    command: rabbitmq-server
+    container_name: rabbitmq
+    expose:
+      - 5672
+      - 15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=test-user
+      - RABBITMQ_DEFAULT_PASS=test-user
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+      interval: 5s
+      timeout: 15s
+      retries: 1
+
+  ayesaac:
+    container_name: ayesac_app
+    restart: always
+    depends_on:
+      - rabbitmq
+    volumes:
+      - ./ayesaac/services_log:/aye-saac/ayesaac/services_log
+    ports:
+      - "8118:8118"
+    build:
+      context: .
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=test-user
+#      - RABBITMQ_DEFAULT_PASS=test-user
