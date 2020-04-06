@@ -1,6 +1,8 @@
 # Ayesaac
 Integrating a helpful computer vision aid for the Alana platform.
 
+*(This readme mostly unchanged from when this service was a separate app - it was repurposed into the larger pipeline. The old docs may still be useful - HAMA)*
+
 ## Requirements
 [Anaconda](https://www.anaconda.com/distribution/), a version supporting Python 3.8.
 

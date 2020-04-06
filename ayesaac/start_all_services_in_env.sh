@@ -4,6 +4,7 @@
 rm ./services_log/*.txt
 
 # start all the python scripts in the background and redirect their outputs in the services_log directory
+python -u ./bot.py services.external_interface_bot.main > ./services_log/0_webserver.txt &
 python -u ./main.py services.automatic_speech_recognition.main > ./services_log/1_automatic_speech_recognition.txt &
 python -u ./main.py services.natural_language_understanding.main > ./services_log/2_natural_language_understanding.txt &
 python -u ./main.py services.manager.main > ./services_log/3_manager.txt &
