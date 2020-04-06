@@ -5,9 +5,12 @@ This file contains a class QueueManager, its job is to abstract the usage of the
 import pika
 
 import ayesaac.services_lib.queues.wrapper as queues
+import os
 
-
-RABBITMQ_HOST = 'rabbitmq'
+if 'NONLOCAL_RABBITMQ' in os.environ:
+    RABBITMQ_HOST = 'rabbitmq'
+else:
+    RABBITMQ_HOST = 'localhost'
 
 # todo use actual creds from environment
 rabbit_credentials = pika.credentials.PlainCredentials(username='test-user', password='test-user')
@@ -19,7 +22,12 @@ class QueueManager:
         """
         :param queues_name: list of queues names which the service will access
         """
-        self.connection = queues.Connection(host=RABBITMQ_HOST, credentials=rabbit_credentials)
+        if RABBITMQ_HOST == 'localhost':
+            # Don't use credentials for rabbitmq deployments on the same machine
+            self.connection = queues.Connection(host=RABBITMQ_HOST)
+        else:
+            self.connection = queues.Connection(host=RABBITMQ_HOST, credentials=rabbit_credentials)
+
         self.queues = {}
         for queue_name in queues_name:
             self.queues[queue_name] = queues.BasicQueue(self.connection, queue_name)
