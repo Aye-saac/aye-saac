@@ -2,14 +2,21 @@
 name = "Ayesaac"
 version = "0.1.0"
 description = "A bot made to support Alana"
-authors = ["Amit Parekh <ap41@hw.ac.uk>", "Vincent Larcher"]
+authors = ["Alexandre Cardaillac", "Amit Parekh <ap41@hw.ac.uk>", "Hamish MacKinnon",  "Vincent Larcher"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.6"
 tensorflow = "2.1.0"
-opencv-python = "^4.2.0"
+opencv-python = "4.2.0.32"  # new version not in pip; unpin when available.
 pika = "^1.1.0"
 utils = {git = "git@github.com:Hangsii/secret_alana_utils.git"}
+gtts = "^2.1.1"
+playsound = "^1.2.2"
+pyaudio = "^0.2.11"
+ibm-watson = "^4.3.0"
+rasa = "^1.8.1"
+keras-ocr = "^0.8.0"
+pyspellchecker = "^0.5.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

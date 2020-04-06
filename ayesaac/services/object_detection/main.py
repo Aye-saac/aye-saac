@@ -1,11 +1,12 @@
 
-import pprint
+from pprint import pprint
 import numpy as np
 import tensorflow as tf
+from pathlib import Path
 
-from services_lib.queues.queue_manager import QueueManager
-from services_lib.images.crypter import decode
-from data.models.coco_category_index import coco_category_index
+from ayesaac.services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib.images.crypter import decode
+from ayesaac.data.models.coco_category_index import coco_category_index
 
 
 class ObjectDetection(object):
@@ -14,14 +15,13 @@ class ObjectDetection(object):
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
+        self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter", "ColorDetection", "PositionDetection"])
         self.category_index = coco_category_index
-        self.model_path = "./data/models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/saved_model"
-        model = tf.saved_model.load(self.model_path)
+        self.model_path = Path("./data/models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/saved_model")
+        model = tf.saved_model.load(str(self.model_path))
         self.model = model.signatures['serving_default']
 
     def run_inference_for_single_image(self, image):
-        image = np.asarray(image)
         input_tensor = tf.convert_to_tensor(image)
         input_tensor = input_tensor[tf.newaxis, ...]
         output_dict = self.model(input_tensor)
@@ -39,17 +39,22 @@ class ObjectDetection(object):
             image = decode(picture['data'], picture['shape'], np.uint8)
             output = self.run_inference_for_single_image(image)
             for i in range(output['num_detections']):
-                objects.append({
-                    'name': self.category_index[output['detection_classes'][i]]['name'],
-                    'confidence': float(output['detection_scores'][i]),
-                    'bbox': output['detection_boxes'][i].tolist(),
-                    'from': picture['from']
-                })
-        pprint.pprint(objects)
+                if float(output['detection_scores'][i]) >= 0.5:
+                    objects.append({
+                        'name': self.category_index[output['detection_classes'][i]]['name'],
+                        'confidence': float(output['detection_scores'][i]),
+                        'bbox': output['detection_boxes'][i].tolist(),
+                        'from': picture['from']
+                    })
+        pprint(objects)
         body['objects'] = objects
         body['path_done'].append(self.__class__.__name__)
-        del body['pictures']
-        self.queue_manager.publish("Interpreter", body)
+
+        if 'ColorDetection' not in body['vision_path']:
+            del body['pictures']
+
+        next_service = body['vision_path'].pop(0)
+        self.queue_manager.publish(next_service, body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)

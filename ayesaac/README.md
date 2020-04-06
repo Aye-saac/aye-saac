@@ -38,16 +38,52 @@ pip3 install --upgrade tensorflow==2.1.0
 pip3 install --upgrade tensorflow-gpu==2.1.0
 ```
 
-- Opencv
+- [Opencv](https://pypi.org/project/opencv-python/)
 
 ```
 pip3 install --upgrade opencv-python
 ```
 
-- Pika
+- [Pika](https://pypi.org/project/pika/)
 
 ```
 pip3 install --upgrade pika
+```
+
+- [gTTS](https://pypi.org/project/gTTS/)
+
+```
+pip3 install --upgrade gTTS
+```
+
+- [playsound](https://pypi.org/project/playsound/)
+
+```
+pip3 install --upgrade playsound
+```
+
+- [rasa](https://rasa.com/)
+
+```
+pip3 install --upgrade rasa
+```
+
+- [ibm-watson](https://www.ibm.com/watson)
+
+```
+pip3 install --upgrade ibm-watson
+```
+
+- [pyspellchecker](https://pypi.org/project/pyspellchecker/)
+
+```
+pip3 install --upgrade pyspellchecker
+```
+
+- [keras-ocr](https://pypi.org/project/keras-ocr/)
+
+```
+pip3 install --upgrade keras-ocr
 ```
 
 ### Usage
@@ -75,4 +111,45 @@ To stop the services you just need to enter the following:
 
 ### Architecture
 
-![](data/diagram_aye-saac_v2.png)
+![](data/diagram_aye-saac_v3.png)
+
+
+### Potential dependencies errors 
+
+
+##### PlaySound dependencies errors for Linux users:
+
+- If this error occurs:
+
+```
+ModuleNotFoundError: No module named 'gi'
+```
+
+then you need to install [gi](https://askubuntu.com/questions/80448/what-would-cause-the-gi-module-to-be-missing-from-python):
+```
+sudo apt-get install python3-gi
+```
+
+- If this error occurs:
+```
+ValueError: Namespace Gst not available
+```
+
+then you need to install [GStreamer](https://gstreamer.freedesktop.org/documentation/installing/on-linux.html?gi-language=c):
+```
+sudo apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
+```
+
+- If this error occurs when installing PyAudio:
+```
+    src/_portaudiomodule.c:29:10: fatal error: portaudio.h: No such file or directory
+     #include "portaudio.h"
+              ^~~~~~~~~~~~~
+    compilation terminated.
+    error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+```
+
+then you need to install the requirement: [(stackoverflow link)](https://stackoverflow.com/questions/50457197/pyaudio-installation-failure-on-ubuntu)
+```
+sudo apt-get install portaudio19-dev
+```

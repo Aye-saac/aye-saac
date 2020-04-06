@@ -1,0 +1,127 @@
+umbrella
+knife
+carving knife
+sharp knife
+butter knife
+fork
+spoon
+wooden spoon
+tablespoon
+teaspoon
+mug
+cup
+glass
+table
+chair
+bench
+bed
+bus
+car
+bowl
+bucket
+clothes peg
+coffee machine
+cooker
+fridge
+frying pan
+hoover
+iron
+ironing board
+kettle
+kitchen scale
+laundry basket
+microwave
+mop
+bin
+pedal bin
+plate
+cooking pot
+scrubbing brush
+tap
+toaster
+washing machine
+wok
+ladle
+masher
+potato masher
+spatula
+egg slide
+tongs
+peeler
+strainer
+tea strainer
+colander
+chopping board
+cutting board
+can opener
+tin opener
+bottle opener
+corkscrew
+lemon squeezer
+lemon juicer
+squeezer
+juicer
+googles
+oven glove
+oven mitt
+potholder
+baking paper
+parchment paper
+cooling rack
+cake rack
+wire rack
+multi-purpose cleaner
+all-purpose cleaner
+washing-up liquid
+dish detergent
+dish soap
+dishwashing liquid
+rubber gloves
+hand soap
+bin bags
+brush
+scrubber
+washing-up brush
+kitchen towel
+paper towel
+tea towel
+plastic wrap
+cling film
+cling wrap
+shrink wrap
+food wrap
+saran wrap
+aluminium foil
+tin foil
+saucer
+saucepan
+pot
+jar
+jug
+pitcher
+pepperpot
+pepper shaker
+salt shaker
+container
+plastic container
+tupperware
+whisk
+balloon whisk
+french whisk
+coffee pot
+tableware
+flatware
+ball
+window
+computer
+phone
+smartphone
+keys
+toilets
+bathroom
+bath
+stick
+box
+box of cereals
+television
+screen

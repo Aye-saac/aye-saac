@@ -1,0 +1,321 @@
+## intent:identify
+- alright tell me what this is
+- alright, last try on this. i think i know what it is but try to tell me, thanks
+- and if pills are in the box
+- and what is this
+- are these beets
+- are these blueberry or cheese
+- are these cheese or blueberry
+- are these chocolate or vanilla [cookies](object)
+- are these fruit crisps
+- are these strawberries
+- can somebody tell me what this is
+- can somebody tell me what this is and what kind of [flavor](aim) is it
+- can someone tell me the [content](aim) of this [tin](object)
+- can someone tell me what that is
+- can someone tell me what the [date](aim) is
+- can someone tell me what this [can](object) is
+- can someone tell me what this is
+- can someone tell me what this is a [bottle](object) of
+- could you tell me what is this
+- could you tell me what it is and what color is it
+- could you tell me what item this is
+- could you tell me what that is
+- could you tell me what these are
+- could you tell me what this is
+- could you tell me what this is, ? thanks
+- could you tell me what this item is
+- could you tell me what this product is
+- could you tell me what this thing is
+- could you tell me what this, tell me what this is
+- could you tell what this item is
+- hello tell me what this product is
+- hello there, tell me whatever this is
+- hello, what is this
+- help me? what is this
+- hey, tell me what this is
+- hey, what is this
+- hi tell me what this product is
+- hi there can somebody tell me what this is? thanks
+- hi what is this
+- hi, tell me what this is
+- hi, tell me what this is? again you've been very helpful
+- hi, tell me what this item is? so much
+- hi, what is this
+- hi, what is this, ? tell me what this is
+- i just want to know what this is
+- i need to know what this is, in advance
+- i would like to know what product this is
+- identify this
+- identify this for me
+- identify this item
+- identify this item for me
+- identify this object
+- identify this product
+- what is, what is this
+- what is. what is this
+- what is...what is this
+- what it is
+- what it this
+- what item is this
+- what item is this? what item is this
+- what kind of object is this
+- what kind of stuff is this
+- what kind of thing it is
+- what object is this
+- what the fuck is this
+- what the heck is that
+- what the hell is that
+- what these
+- what thing
+- what thing is this
+- what this
+- what this is
+- what this is? what is this
+- what this? what this
+- what was that
+- what was that item
+- what was that object
+- what was this
+- what what is it
+- what, what is this
+- what, what is this? what is it
+- what, what is, what is this
+- what, what's this
+- what. what is this? what is this
+- what...what is it
+- what? what is this
+- what's is this
+- what's is this item
+- whats that
+- what's that
+- what's that object
+- what's that? what is this
+- what's the item
+- whats this
+- what's this
+
+## intent:recognise
+- is it a [bag](object)
+- is it a [bottle](object)
+- is it a [box](object)
+- is it a [glass](object)
+- is it a [table](object)
+- is that an [orange](object)
+- is this a [beer](type) [can](object)
+- is this a [bin](object)
+- is this a [cable](object)
+- is this a [calculator](object)
+- is this a [cat](object)
+- is this a [charger](object)
+- is this a [cup](object)
+- is this a [fruit](object)
+- is this a [mobile](object)
+- is this a [mouse](object)
+- is this a [passport](object)
+- is this a [pear](object)
+- is this a [pen](object)
+- is this an [orange](object)
+
+## intent:read_text
+- alright tell me what [flavor](aim) this one is and
+- alright this is a closer picture. see the [flavor](aim) on at
+- alright what is the [expiration](aim) on this [carton of milk](object)
+- alright, and what does this [label](aim) say
+- alright, [expiration date](aim) on this other [carton of milk](object)
+- alright, tell me what [flavor](aim) this is
+- alright, tell me what [flavor](aim) this one is
+- and could you also tell me the [expiration](aim) on this [bottle](object)
+- and what does this [label](aim) say? thanks
+- and what [flavor](aim) is this [pasta sauce](object)
+- and what [kind of oatmeal](aim) is this
+- and what [kind of oatmeal](aim) is this one
+- and what's the [name](aim) of this [package of chocolates](object)
+- any clue what this [box](object) is? thanks in advance for your help
+- any information in this [cup](object)
+- any writing on this
+- any writing on this [package](object)
+- are any of these [cans](object) [garbanzo](aim) and if so which one? starting from [left](from) to [right](to)
+- are the [cooking instructions](aim) for this
+- are the [directions](aim) showing now
+- are the [directions](aim) visible now
+- are the [instructions for the oven](aim) on this product
+- are the [instructions](aim) on this [box](object)
+- are there any [directions](aim) on this [package](object) that tell me how to [cook](aim) these beats
+- are there any [interim stages of cooking](aim), like, turning or shaking or anything like that
+- are there [baking directions](aim) available on this [pizza box](object)
+- are there [baking instructions](aim) visible on this [box](object)? if so, what are they
+- are there [chemicals](aim) in this product
+- are there [cool ranch](aim) [doritos](object) or [sour cream and onion](aim) [chips](object)
+- are there [directions](aim) on the back of this [box](object)
+- are there [directions](aim) on this side of the [box](object)
+- are there [heating instructions](aim) on this [packet](object)
+- are there [microwaveable instructions](aim) for this [pizza](object)
+- are these strawberry or smores [flavor](aim)
+- are these the apple cinnamon or strawberry [cereal bars](object)
+- are you able to eat this product if you have a [nut intolerance](medical)
+- are you able to read any of these [instructions](aim)
+- are you able to read that [label](aim)
+- are you able to read this [label](aim)
+- are you able to read what is on this k [cup](object) now
+- are you able to read what this [food item](object) is on this [box](object)
+- can anybody read what is on this [can](object)
+- can someone tell me what [type of meat](aim) is in this [package](object)? i'm not sure, i can't identify it
+- can tell what [flavor](aim) this is
+- can tell what is in this [packet](object)
+- can that [candy bar](object) be identified
+- can the you see the [expiration date](aim)
+- can we tell what [kind](aim) of beer(object) this is
+- confirm the [oven](object) [setting](aim)
+- [contents](aim)
+- [contents](aim) of [can](object)
+- [cookies](object) are these
+- [cooking directions](aim)
+- [cooking instructions](aim) for this product
+- could i get the [expiration date](aim) on this [can](object)
+- could i have the [expiration date](aim) of this [can](object)
+- could you read the text on this [label](object)
+- could you read the writing that's on this [tag](object)
+- could you read this
+- could you tell me the [cooking instructions](aim) of this food on this [box](object), and if not where to find my camera in order to read them
+- does that [sign](object) say
+- does the [label](object) say
+- does the [tag](object) say
+- does this can say
+- does this [cup](object) say [tim horton's](contains) or [timothy's](contains) [coffee of the world](contains)
+- does this have a [date](aim)
+- does this have any writing on it
+- hello, i'm steven. could you kindly read the [label](aim) for me
+- is there any chance that you can read any of this
+- now read this [label](aim) on this [package](object)
+- now read what is in this
+- read [all](aim) the things on the [cans](object)
+- read any of the text on the [bottle](object) to tell me what it is
+- read any of this
+- read anything on this
+- read anything on this [box](object)
+- read anything on this [label](object)
+- read [cooking instructions](aim)
+- read [directions](aim)
+- read everything on that
+- read [instructions](aim)
+- read [label](aim)
+- read me the [directions](aim) on how to [cook](aim) this
+- read me the [directions](aim) on this [box](object) of mccormick's chili seasoning
+- read me the [directions](aim) on this [packet](object) of mccormicks chili seasoning
+- read me the [instructions](aim)
+- read the [contents](aim) of the [box](object)
+- read the [directions](aim) on [box](object) to me
+- read the [instructions](aim)
+- read the [label](aim) of this [bottle](object)
+- read the [label](aim) on this [bottle](object)
+- read the [name](aim) of [soup](object)
+- read the [name](aim) of the [soup](object)
+- read the [name](aim) of this [type of coffee](aim)
+- read the text on the [box](object)
+- read the text on the [pack](object)
+- read the text on this
+- what does the [label](aim) read for this [bread](object)? who [made](aim) this bread? who's the [manufacturer](aim)
+- what does the [label](aim) read on this [can](object)
+
+## intent:detect_colour
+- are these [bananas](object) [green](colour) or [yellow](colour)
+- color is this what color is this
+- color is this? what color is this
+- could you tell me what color this [cup](object) is
+- could you tell me what color this is
+- could you tell me what color this is? what it is
+- hello, could you tell me what color is this
+- hello, could you tell me what color that is
+- hello, tell me the color
+- hello. could you tell me what color that is
+- hi tell me what color that is
+- hi, tell me what color that is
+- i want to know what color thanks
+- is it [black](colour)
+- is it [blue](colour)
+- is this [black](colour)
+- is this [black](colour) or [blue](colour)
+- is this [black](colour) or [purple](colour)
+- is this [blue](colour) or [purple](colour)
+- is this [blue](colour) or [red](colour)
+- is this [brown](colour) or [gray](colour)
+- is this color [black](colour)
+- is this color [blue](colour) or [purple](colour)
+- is this [pepper mill](object) [red](colour) or [black](colour)
+- ok i tried a different angle is this [peppermill](object) [red](colour) or [black](colour)
+- tell me the color
+- tell me the color of this [table](object)
+- tell me the color of this [tie](object)
+- tell me what color is it
+- tell me what color is these [chips](object)
+- tell me what color that is
+- tell me what color this is ? thanks
+- the color
+- the color is
+- what are the colors from [left](from) to [right](to)
+- what are the colors in these
+- what color
+- what color and what is that
+- what color are in these [sponges](object)
+- what color are the [cabinets](object)
+- what color are the [flowers](object)
+- what color are the [letters](object)
+- what color are the [lids of the bottles](object)
+- what color are the [potatoes](object)
+- what color are these
+- what color are they
+- what color are this
+- what color [bottle](object) is this
+- what color [coffee mug](object) do i have
+- what color [cup](object) is this
+- what color do these look
+- what color do you see
+- what color does this [wine](object) have
+- what color exactly is this? it's [gatorade](object) but what color is it
+- what color is [cup](object)
+- what color is it
+- what color is it? what is this object
+- what color is my [mug](object)
+- what color is on the [left](position)
+- what color is that
+- what color is that and what brand if it says is that
+- what color is that [candy](object) that i am holding in my [hand](position)
+- what color is that, ? what color is that
+- what color is that? what color is that
+- what color is the [cup](object)
+- what color is the [drink](object) in my [cup](position)
+- what color is the [drinking glass](object)
+- what color is the [egg](object)
+- what color is the [pepper](object)
+- what color is the [water bottle](object)
+- what color is this
+- what color is this ? color
+- what color is this ? the color
+- what color is this and what does it say
+- what color is this and what is it
+- what color is this [beer](object)
+- what color is this [can](object)
+- what color is this [candy](object) that's in my [hand](position)
+- what color is this [cup](object)
+- what color is this [cup](object)? i hope i got the cup
+- what color is this [mug](object)
+- what color is this [package](object)? thanks
+- what color is this [pepper](object)
+- what color is this [refrigerator](object)
+- what the color
+- what the color is
+- what this color
+- what whats the color
+- what, what color is it
+- what's color
+- what's that color
+- what's the color
+- what's the color for this item
+- what's the color of this
+
+## lookup:object
+entries/objects.txt
+
+## lookup:colour
+entries/colours.txt

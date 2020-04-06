@@ -1,9 +1,9 @@
 
-import cv2
+import copy
 from pprint import pprint
 
-from services_lib.queues.queue_manager import QueueManager
-from services_lib.images.crypter import encode
+from ayesaac.services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib.images.crypter import encode
 
 
 class CameraManager(object):
@@ -12,8 +12,9 @@ class CameraManager(object):
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, 'WebCam', 'WebCamBis', 'ObjectDetection'])
-        self.camera_names = ['WebCam', 'WebCamBis']
+        self.queue_manager = QueueManager([self.__class__.__name__, 'WebCam', 'WebCamBis',
+                                           'ObjectDetection', 'OCR'])
+        self.camera_names = ['WebCam']
         self.pictures = []
         self.waiting_cameras = 0
         self.save_body = None
@@ -33,10 +34,12 @@ class CameraManager(object):
         if self.waiting_cameras:
             self.from_cameras(body)
             if not self.waiting_cameras:
-                self.save_body['pictures'] = self.pictures
+                self.save_body['pictures'] = copy.deepcopy(self.pictures)
                 self.save_body['path_done'].append(self.__class__.__name__)
                 print('Send pictures !')
-                self.queue_manager.publish('ObjectDetection', self.save_body)
+                next_service = self.save_body['vision_path'].pop(0)
+                self.queue_manager.publish(next_service, self.save_body)
+                self.pictures = []
         else:
             self.request_pictures_from_all_concern_cameras()
             self.save_body = body

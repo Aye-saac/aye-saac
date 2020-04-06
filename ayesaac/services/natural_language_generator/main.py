@@ -1,8 +1,10 @@
 
 from pprint import pprint
 
-from services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib.queues.queue_manager import QueueManager
 
+import os
+from random import choice
 
 class NaturalLanguageGenerator(object):
     """
@@ -10,25 +12,46 @@ class NaturalLanguageGenerator(object):
     """
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, "TextToSpeech"])
+        self.answers = {}
+        self.description_types = ['DESCRIPTION_NOTHING', 'DESCRIPTION_ANSWER_S','DESCRIPTION_ANSWER_P']
+        self.build_generator()
+        print('Answers found:')
+        pprint(self.answers)
+
+    def build_generator(self):
+        folder_path = 'services/natural_language_generator/answers/'
+        for _, _, files in os.walk(folder_path):
+            for name in files:
+                with open(folder_path+name) as f:
+                    self.answers[name] = [line.strip() for line in f]
+
+    def get_det(self, word):
+        return str(word[1])+' ' if word[1] > 1 else 'a '
+
+    def generate_text(self, words, context, obj_cnt):
+        answer = choice(self.answers[context])
+        if len(words) > 1:
+            tmp = ', '.join([self.get_det(w)+w[0] for w in words[:-1]]) + ' and '+self.get_det(words[-1])+words[-1][0]
+            return answer.replace('*', tmp, 1)
+        elif len(words):
+            return answer.replace('*', str(words[0][1])+' ' if words[0][1] > 1 else ''+words[0][0], 1)
+        return answer
 
     def callback(self, body, **_):
         pprint(body)
 
-        response = 'I found'
-        for from_ in body['results']:
-            for obj in body['results'][from_]:
-                if body['results'][from_][obj] > 0:
-                    response += ' ' + str(body['results'][from_][obj]) + ' ' + obj + ' from the ' + from_ + ','
+        # Creates list of object detected in the scene
+        objects = [o['name']+o['lateral_position'] for o in body['objects']]
+        objects = list(set([(o, objects.count(o)) for o in objects]))
+        print(objects)
+        obj_cnt = sum(n for _, n in objects)
+        response = self.generate_text(objects, self.description_types[obj_cnt if obj_cnt < 2 else 2], obj_cnt)
 
-        if len(response) == 7:
-            response += ' nothing.'
-        else:
-            response = response[:-1] + '.'
         body["response"] = response
         pprint(body['response'])
         body["path_done"].append(self.__class__.__name__)
 
-        del body["asking"], body["objects"], body["path"], body["query"], body["results"]
+        del body["objects"]
         self.queue_manager.publish("TextToSpeech", body)
 
     def run(self):

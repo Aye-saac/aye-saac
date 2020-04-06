@@ -1,9 +1,11 @@
 
+# from PIL import Image
+# import matplotlib.pyplot as plt
 import cv2
 from pprint import pprint
 
-from services_lib.queues.queue_manager import QueueManager
-from services_lib.images.crypter import encode
+from ayesaac.services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib.images.crypter import encode
 
 
 class WebCam(object):
@@ -16,10 +18,10 @@ class WebCam(object):
 
     def callback(self, body, **_):
         cap = cv2.VideoCapture(0)
-        _, image_np = cap.read()
-
-        pprint(image_np.shape)
-        body['picture'] = {'data': encode(image_np), 'shape': image_np.shape, 'from': self.__class__.__name__}
+        _, image = cap.read()
+        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        image = cv2.resize(image, (640, 480), cv2.INTER_AREA)
+        body['picture'] = {'data': encode(image), 'shape': image.shape, 'from': self.__class__.__name__}
         self.queue_manager.publish('CameraManager', body)
 
     def run(self):

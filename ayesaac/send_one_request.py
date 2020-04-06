@@ -9,7 +9,7 @@ Will be replace in the future by an Flask API for example
 
 from sys import argv
 
-from services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib.queues.queue_manager import QueueManager
 
 if __name__ == '__main__':
     data = {"path_done": []}

@@ -3,7 +3,7 @@ queue_manager.py
 This file contains a class QueueManager, its job is to abstract the usage of the queue as simple as possible.
 """
 
-import services_lib.queues.wrapper as queues
+import ayesaac.services_lib.queues.wrapper as queues
 
 
 RABBITMQ_HOST = 'localhost'

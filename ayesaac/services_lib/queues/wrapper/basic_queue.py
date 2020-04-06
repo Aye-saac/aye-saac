@@ -8,7 +8,7 @@ and we have wrap its usage in the case if we want to move from pika to another l
 
 import json
 
-from services_lib.queues.wrapper.connection import Connection
+from ayesaac.services_lib.queues.wrapper.connection import Connection
 
 
 class CallBackWrapper:

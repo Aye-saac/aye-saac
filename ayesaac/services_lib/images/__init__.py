@@ -1,2 +1,2 @@
 
-from services_lib.images.crypter import *
+from ayesaac.services_lib.images.crypter import *
