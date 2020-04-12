@@ -11,7 +11,6 @@ from utils.abstract_classes import Bot
 from utils.dict_query import DictQuery
 from datetime import datetime
 
-from ayesaac.services.external_interface_bot import nlu, nlg
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 from pprint import pprint
 
