@@ -8,6 +8,8 @@ logger = logging.getLogger(__name__)
 from rasa.nlu.model import Interpreter
 from os import listdir
 from os.path import isdir, join
+from pathlib import Path
+
 
 class NaturalLanguageUnderstanding(object):
     """
@@ -15,7 +17,11 @@ class NaturalLanguageUnderstanding(object):
     """
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, "Manager"])
-        model_path = 'data/models/rasa/nlu'
+
+        project_root = Path(__file__).parent.parent.parent.parent  # aye-saac
+        data_dir = project_root / 'ayesaac' / 'data'
+        model_path = str(data_dir / 'models' / 'rasa' / 'nlu')
+
         dirs = [f for f in listdir(model_path) if isdir(join(model_path, f))]
         pprint(dirs)
         dirs.sort(reverse=True)

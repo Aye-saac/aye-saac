@@ -3,9 +3,9 @@ import numpy as np
 from pprint import pprint
 import keras_ocr
 
-from services_lib.queues.queue_manager import QueueManager
-from services_lib.images.crypter import decode
-from services.optical_character_recognition.bounding_box_to_phrases import bb_to_text
+from ayesaac.services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib.images.crypter import decode
+from ayesaac.services.optical_character_recognition.bounding_box_to_phrases import bb_to_text
 
 
 class OCR(object):

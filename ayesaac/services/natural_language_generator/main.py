@@ -1,10 +1,11 @@
-
+from pathlib import Path
 from pprint import pprint
 
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 
 import os
 from random import choice
+
 
 class NaturalLanguageGenerator(object):
     """
@@ -19,10 +20,11 @@ class NaturalLanguageGenerator(object):
         pprint(self.answers)
 
     def build_generator(self):
-        folder_path = 'services/natural_language_generator/answers/'
+        project_root = Path(__file__).parent.parent.parent.parent  # aye-saac
+        folder_path = project_root/'ayesaac'/'services'/'natural_language_generator'/'answers'
         for _, _, files in os.walk(folder_path):
             for name in files:
-                with open(folder_path+name) as f:
+                with open(str(folder_path/name)) as f:
                     self.answers[name] = [line.strip() for line in f]
 
     def get_det(self, word):
