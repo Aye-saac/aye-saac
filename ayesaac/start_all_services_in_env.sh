@@ -4,7 +4,7 @@
 rm -f ayesaac/services_log/*.txt
 
 # start all the python scripts in the background and redirect their outputs in the services_log directory
-conda run -n aye-saac python -u -m ayesaac.services.external_interface_bot.bot > ayesaac/services_log/0_webserver.txt &
+conda run -n aye-saac python -u -m ayesaac.services.external_interface_bot.app_interface > ayesaac/services_log/0_webserver.txt &
 conda run -n aye-saac python -u -m ayesaac.services.automatic_speech_recognition.main > ayesaac/services_log/1_automatic_speech_recognition.txt &
 conda run -n aye-saac python -u -m ayesaac.services.natural_language_understanding.main > ayesaac/services_log/2_natural_language_understanding.txt &
 conda run -n aye-saac python -u -m ayesaac.services.manager.main > ayesaac/services_log/3_manager.txt &

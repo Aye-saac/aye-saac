@@ -1,6 +1,6 @@
 import asyncio
 
-from ayesaac.services.external_interface_bot.bot import AppInterface
+from ayesaac.services.external_interface_bot.app_interface import AppInterface
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 from threading import Thread
 

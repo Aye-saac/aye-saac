@@ -31,42 +31,6 @@ class AppInterface:
         # self.result_store = ...  # todo create a more persistent result store
         self.single_result_cache = {}
 
-    # def get(self):
-    #     if self.result_store:
-    #         return self.result_store
-    #     else:
-    #         return None  # todo return the correct object in this case
-
-    # def post(self):
-    #     # This method will be executed for every POST request received by the server on the
-    #     # "/" endpoint (see below 'add_resource')
-    #
-    #     # We assume that the body of the incoming request is formatted as JSON (i.e., its Content-Type is JSON)
-    #     # We parse the JSON content and we obtain a dictionary object
-    #     request_data = request.get_json(force=True)
-    #     # We wrap the resulting dictionary in a custom object that allows data access via dot-notation
-    #     request_data = DictQuery(request_data)
-    #
-    #     request_content = self.extract_request_content(request_data)
-    #
-    #     # initialise service pipeline with a UID to match the results in the GET
-    #     uid = self.generate_and_store_UID()
-    #     request_content['uid'] = uid
-    #
-    #     self.start_service_pipeline(request_content)
-    #
-    #     return {'uid': uid}
-
-    # def generate_and_store_UID(self):
-    #     """
-    #     1. Create a UID
-    #     2. Create an empty entry in the results cache (dictionary) to be filled later
-    #     :return: the new UID
-    #     """
-    #     uid = self.uid_maker.generate_uid()
-    #     self.result_store[uid] = ""  # todo work out if empty string is a problem
-    #     return uid
-
     def run_service_pipeline(self, request_content):
         """
 
@@ -123,7 +87,7 @@ class AppInterface:
         Collect the results from the end of the pipeline for caching.
         :return:
         """
-        self.queue_manager.start_consuming("AppInterface", self.callback)
+        self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
 
     def callback(self, body, **_):
         """
