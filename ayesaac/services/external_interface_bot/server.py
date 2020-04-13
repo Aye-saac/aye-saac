@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-
+from flask_cors import CORS, cross_origin
 from ayesaac.services.external_interface_bot.user_request import UserRequest
 from ayesaac.services.external_interface_bot.app_interface import AppInterface
 import logging
@@ -24,8 +24,11 @@ logger.addHandler(fh)
 logger.addHandler(ch)
 
 
+# setup flask
 app = Flask(__name__)
 app_interface = AppInterface()
+app.config['CORS_HEADERS'] = 'Content-Type'
+CORS(app)
 
 
 class UserResponse:
@@ -48,6 +51,7 @@ def hello_world():
 
 
 @app.route("/submit", methods=["POST"])
+@cross_origin(origins="*", allow_headers=["Content-Type"])
 def submit_data():
     logger.info('POST request received. Beginning processing...')
     # Create a class containing the information needed to work
