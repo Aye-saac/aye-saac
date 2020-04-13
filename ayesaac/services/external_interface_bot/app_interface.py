@@ -11,6 +11,7 @@ from ayesaac.services_lib.queues.queue_manager import QueueManager
 logger = logging.getLogger(__name__)
 
 QM = QueueManager(["AppInterface", "AutomaticSpeechRecognition", "NaturalLanguageUnderstanding", 'TextToSpeech'])  # todo scope this sensibly instead of polluting the world
+daemon_QM = QueueManager(["AppInterface"])
 
 
 def get_first_service_name(data, request_content):
@@ -51,6 +52,7 @@ class AppInterface:
         # super(AppInterface, self).__init__(bot_name=BOT_NAME)
         self.test_run = test_run
         self.queue_manager = queue_manager
+        self.daemon_queue_manager = daemon_QM
         # self.result_store = ...  # todo create a more persistent result store
         self.single_result_cache = {}
         logger.info("Constructor called")
@@ -116,7 +118,7 @@ class AppInterface:
         :return:
         """
         logger.info("0 AppInterface now consuming from the queue.")
-        self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
+        self.daemon_queue_manager.start_consuming(self.__class__.__name__, self.callback)
 
     def callback(self, body, **_):
         """
