@@ -43,7 +43,7 @@ class NaturalLanguageGenerator(object):
         pprint(body)
 
         # Creates list of object detected in the scene
-        objects = [o['name']+o['lateral_position'] for o in body['objects']]
+        objects = [o['name']+o['lateral_position'] if 'lateral_position' in o else o['name'] for o in body['objects']]
         objects = list(set([(o, objects.count(o)) for o in objects]))
         print(objects)
         obj_cnt = sum(n for _, n in objects)
