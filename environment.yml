@@ -5,6 +5,4 @@ channels:
 dependencies:
   - python=3.6
   - poetry
-#  - rabbitmq-server  # So close, but no Windows build created (?!)
-  # - portaudio
-  # - pyaudio
+  - geos=3.8.1  # bugged dependency of keras-ocr

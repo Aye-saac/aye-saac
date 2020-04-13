@@ -32,8 +32,8 @@ class Interpreter(object):
             pprint(body['results'])
         body['path_done'].append(self.__class__.__name__)
         del body['vision_path']
-        # TODO: uncomment if you wanna test the NLG, it could be text, objects, objects + color, objects + lateral position
-        #self.queue_manager.publish('NaturalLanguageGenerator', body)
+
+        self.queue_manager.publish('NaturalLanguageGenerator', body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)

@@ -15,7 +15,7 @@ class Manager(object):
         self.intents_to_path = {'read_text': ['OCR', 'Interpreter'],
                                 'detect_color': ['ObjectDetection', 'ColorDetection', 'Interpreter'],
                                 'identify': ['ObjectDetection', 'Interpreter'],
-                                'recognize': ['ObjectDetection', 'Interpreter'],
+                                'recognise': ['ObjectDetection', 'Interpreter'],
                                 }
 
     def callback(self, body, **_):
