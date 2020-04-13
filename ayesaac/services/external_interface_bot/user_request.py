@@ -12,6 +12,11 @@ class UserRequest:
         self.image = self.__parse_image()
         text = self.__parse_message()
         audio = self.__parse_audio()
+        test = self.__parse_test()
+
+        if test:
+            self.dryRun = True
+            # indicates that following data may be faked
 
         if audio:
             self.message = audio
@@ -25,7 +30,13 @@ class UserRequest:
 
     @staticmethod
     def __parse_message():
-        return request.form.get("message", "")
+        in_text = request.form.get("message", "")
+        return in_text if in_text else request.json['message']
+
+    @staticmethod
+    def __parse_test():
+        return bool(request.json['test'])  # form.get("test", "")
+
 
     @staticmethod
     def __parse_file(file_name: str, func):

@@ -10,15 +10,17 @@ import requests
 #                       },
 #         'history': ['General Kenobi! You are a bold one.']
 #         }
-data = {'text_question': 'Hello there',
+data = {'message': 'Hello there',
         'history': ['General Kenobi! You are a bold one.'],
         'test': True
         }
 
 if __name__ == '__main__':
-    print(f"Sending text: {data['text_question']}")
+    print(f"Sending message: {data['message']}")
     print("Sending...")
-    r = requests.post(url="http://localhost:5000", json=data)
+    r = requests.get(url="http://localhost:5000/")
+    print(f"Ping response: {r.status_code}")
+    r = requests.post(url="http://localhost:5000/submit", json=data)
 
     print("Done!")
     print(r.status_code)
