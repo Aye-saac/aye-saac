@@ -1,8 +1,10 @@
-from flask import Flask, request
+from flask import Flask
 
 from ayesaac.services.external_interface_bot.user_request import UserRequest
+from ayesaac.services.external_interface_bot.app_interface import AppInterface
 
 app = Flask(__name__)
+app_interface = AppInterface()
 
 
 class UserResponse:
@@ -33,6 +35,10 @@ def submit_data():
     print(user_request.image)
     print(user_request.message)
     print(user_request.isAudio)
-    
+
+    # send to the services
+    # todo add a way of matching submissions here to future responses, e.g. a UID or cookie id
+    data = app_interface.run_service_pipeline(user_request)
+    assert data['response']
     # TODO: This should probably be the actual response
     return "", 204
