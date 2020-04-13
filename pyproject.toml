@@ -19,6 +19,7 @@ keras-ocr = "^0.8.0"
 pyspellchecker = "^0.5.4"
 pandas = "^1.0.3"
 flask_cors = "^3.0.8"
+flask = "^1.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
