@@ -1,6 +1,7 @@
 import json
 
 import requests
+from pathlib import Path
 # from utils.address import address
 
 
@@ -15,21 +16,51 @@ data = {'message': 'Hello there',
         'test': True
         }
 
-if __name__ == '__main__':
-    print(f"Sending message: {data['message']}")
-    print("Sending...")
-    r = requests.get(url="http://localhost:5000/")
-    print(f"Ping response: {r.status_code}")
-    r = requests.post(url="http://localhost:5000/submit", json=data)
 
-    print("Done!")
-    print(r.status_code)
+project_root = Path(__file__).parent.parent.parent.parent
+test_data_dir = project_root/'ayesaac'/'data'/'test'
+
+multipart_form_data = (
+    ('image', ('custom_file_name.zip', open(str(test_data_dir/'nice_dog.jpg'), 'rb'))),
+    ('message', (None, 'who is a good boy'))#,
+    # ('path', (None, '/path1')),
+    # ('path', (None, '/path2')),
+    # ('path', (None, '/path3')),
+)
+
+
+def check_result(response):
+    print(response.status_code)
     try:
-        print(r.json())
+        print(response.json())
 
     except Exception as e:
         if type(e) is json.decoder.JSONDecodeError:
-            print(str(r))
+            print(str(response))
         else:
             # I guess this wasn't fully formed - oh well
             raise e
+
+
+if __name__ == '__main__':
+    print(f"Sending message: {data['message']}")
+    print("Sending...")
+    r = requests.get(url="http://localhost:5000/", timeout=(5, 40))
+    print(f"Ping response: {r.status_code}")
+
+    try:
+        print("Sending test json...")
+        r = requests.post(url="http://localhost:5000/submit", json=data, timeout=(5, 40))
+    except Exception as e:
+        print(f"That didn't work: {e.args}")
+
+    print("Done!")
+    check_result(r)
+    try:
+        print("Sending formData...")
+        r = requests.post(url="http://localhost:5000/submit", files=multipart_form_data, timeout=(5, 40))
+    except Exception as e:
+        print(f"That didn't work: {e.args}")
+
+    print("Done!")
+    check_result(r)

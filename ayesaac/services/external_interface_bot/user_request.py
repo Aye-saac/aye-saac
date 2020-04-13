@@ -6,6 +6,8 @@ from io import BytesIO
 class UserRequest:
     """ Get the data from the question and parse it in a form that should be
         usable by the rest of the system.
+
+        Claims to handle input in JSON and formData.
     """
 
     def __init__(self):
@@ -14,9 +16,8 @@ class UserRequest:
         audio = self.__parse_audio()
         test = self.__parse_test()
 
-        if test:
-            self.dryRun = True
-            # indicates that following data may be faked
+        # indicates that following data may be faked
+        self.dryRun = True if test else False
 
         if audio:
             self.message = audio
@@ -31,11 +32,17 @@ class UserRequest:
     @staticmethod
     def __parse_message():
         in_text = request.form.get("message", "")
-        return in_text if in_text else request.json['message']
+        return in_text if in_text else request.json['message'] if request.json else None
 
     @staticmethod
     def __parse_test():
-        return bool(request.json['test'])  # form.get("test", "")
+        if request.json:
+            return bool(request.json['test'])
+        elif request.form:
+            return bool(request.form.get("test", ""))
+        else:
+            # no data supplied? smells fishy!
+            raise Exception("No data supplied by client")
 
 
     @staticmethod

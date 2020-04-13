@@ -92,7 +92,7 @@ class AppInterface:
         return self.single_result_cache
 
     def start_service_pipeline(self, request_content: user_request):
-        data = {"path_done": [], 'errors': []}
+        data = {"path_done": [], 'errors': [], "run_as_webservice": True}
         first_service = get_first_service_name(data, request_content)
         # start pipeline to get meanings and responses
         # pprint(data["web_request"])
