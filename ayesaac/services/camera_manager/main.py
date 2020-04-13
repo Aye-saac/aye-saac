@@ -37,9 +37,14 @@ class CameraManager(object):
                 self.save_body['pictures'] = copy.deepcopy(self.pictures)
                 self.save_body['path_done'].append(self.__class__.__name__)
                 print('Send pictures !')
-                next_service = self.save_body['vision_path'].pop(0)
-                self.queue_manager.publish(next_service, self.save_body)
+                
+                for path in self.save_body['vision_path']:
+                    body_ = copy.deepcopy(self.save_body)
+                    body_['vision_path'] = path
+                    next_service = body_['vision_path'].pop(0)
+                    self.queue_manager.publish(next_service, body_)
                 self.pictures = []
+                self.save_body = None
         else:
             self.request_pictures_from_all_concern_cameras()
             self.save_body = body
