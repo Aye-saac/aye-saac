@@ -12,28 +12,45 @@ class Interpreter(object):
 
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, 'NaturalLanguageGenerator'])
+        self.memory = {}
+
+    def filter_objects(self, body):
+        return body['objects']
+
+    def filter_texts(self, body):
+        return body['texts']
 
     def callback(self, body, **_):
-        pprint(body)
+        data = None
+        key = ''
 
         if 'objects' in body:
-            results = {}
-            for object_found in body['objects']:
-                results[object_found['from']] = {}
+            key = 'objects'
+            data = self.filter_objects(body)
+            body['objects'] = data
+        elif 'texts' in body:
+            key = 'texts'
+            data = self.filter_texts(body)
+            body['texts'] = data
 
-            for object_found in body['objects']:
-                if (object_found['name'] in body['asking'] or '*' in body['asking']) and object_found['confidence'] > 0.5:
-                    if not object_found['name'] in results[object_found['from']]:
-                        results[object_found['from']][object_found['name']] = 1
-                    else:
-                        results[object_found['from']][object_found['name']] += 1
-
-            body["results"] = results
-            pprint(body['results'])
-        body['path_done'].append(self.__class__.__name__)
-        del body['vision_path']
-
-        self.queue_manager.publish('NaturalLanguageGenerator', body)
+        if body['wait_package'] == 1:
+            body['path_done'].append(self.__class__.__name__)
+            del body['vision_path']
+            pprint(body)
+            # TODO: uncomment if you wanna test the NLG, it could be text, objects, objects + color, objects + lateral position
+            #self.queue_manager.publish('NaturalLanguageGenerator', body)
+        else:
+            if body['intern_token'] not in self.memory:
+                self.memory[body['intern_token']] = {key: data}
+            elif body['intern_token'] in self.memory and body['wait_package'] < len(self.memory[body['intern_token']]) - 1:
+                self.memory[body['intern_token']][key] = data
+            else:
+                for key in self.memory[body['intern_token']]:
+                    body[key] = self.memory[body['intern_token']][key]
+                del self.memory[body['intern_token']][key]
+                pprint(body)
+                # TODO: uncomment if you wanna test the NLG
+                #self.queue_manager.publish('NaturalLanguageGenerator', body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
