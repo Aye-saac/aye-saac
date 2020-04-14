@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # delete the old services_log
 rm ./services_log/*.txt
 
