@@ -36,7 +36,7 @@ class NaturalLanguageGenerator(object):
             tmp = ', '.join([self.get_det(w)+w[0] for w in words[:-1]]) + ' and '+self.get_det(words[-1])+words[-1][0]
             return answer.replace('*', tmp, 1)
         elif len(words):
-            return answer.replace('*', str(words[0][1])+' ' if words[0][1] > 1 else ''+words[0][0], 1)
+            return answer.replace('*', ((str(words[0][1])+' ') if words[0][1] > 1 else '')+words[0][0], 1)
         return answer
 
     def callback(self, body, **_):
@@ -72,7 +72,17 @@ class NaturalLanguageGenerator(object):
             obj_cnt = 1 if len(objects) > 0 else 0
             context = 'READ_TEXT_'+('POSITIVE' if obj_cnt > 0 else 'NEGATIVE')
         elif body['intents']['intent']['name'] == 'detect_colour':
-            pass
+            for o in body['objects']:
+                for p in body['intents']['entities']:
+                    if o['name'] == p['value']:
+                        objects = (p['value'], o['colour'])
+                        break
+                    else:
+                        objects = (p['value'], None)
+            if objects:
+                obj_cnt = 1 if objects[1] else 0
+                objects = objects[obj_cnt]
+                context = 'COLOR_DETECTION' if obj_cnt else 'COLOR_DETECTION_N'
         elif body.get('objects'):
             # Creates list of object detected in the scene
             objects = [o['name']+o['lateral_position'] for o in body['objects']]
