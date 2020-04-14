@@ -6,6 +6,7 @@ from pathlib import Path
 from threading import Thread
 
 from ayesaac.services.external_interface_bot import user_request
+from ayesaac.services.external_interface_bot.user_request import UserRequest
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 
 root_logger = logging.getLogger('ayesaac')
@@ -79,13 +80,13 @@ class AppInterface:
         self.test_run = test_run
         self.queue_manager = queue_manager
         self.daemon_queue_manager = daemon_QM
-        # self.result_store = ...  # todo create a more persistent result store
-        self.single_result_cache = {}
+        # adds and removes as necessary
+        self.result_cache = {}
         logger.info("Constructor called")
         self.app_thread = Thread(target=self.run, daemon=True)
         self.app_thread.start()
 
-    def run_service_pipeline(self, request_content):
+    def run_service_pipeline(self, request_content: UserRequest):
         """
 
         :param request_content: Dict of basic info provided by web client
@@ -97,12 +98,13 @@ class AppInterface:
 
         # # ... and receive!
         # # https://stackoverflow.com/a/46750562
+        key = request_content.id
         with LoopContextManager() as loop:
-            result = loop.run_until_complete(asyncio.wait_for(asyncio.ensure_future(self.fetch_result()), timeout=30))
+            result = loop.run_until_complete(asyncio.wait_for(asyncio.ensure_future(self.fetch_result(key)), timeout=30))
 
-        return result.result()
+        return result
 
-    async def fetch_result(self):
+    async def fetch_result(self, uid):
         """
         Patiently checks for the completion of the service pipeline, as dictated by the `callback` method on this class.
 
@@ -110,10 +112,10 @@ class AppInterface:
         """
         found = False
         while not found:
-            if self.single_result_cache:
+            if uid in self.result_cache:
                 found = True
             await asyncio.sleep(1)  # remove this for excitement!
-        return self.single_result_cache
+        return self.result_cache.pop(uid)
 
     def start_service_pipeline(self, request_content: user_request):
         data = {"path_done": [], 'errors': [], "run_as_webservice": True}
@@ -121,7 +123,7 @@ class AppInterface:
         # start pipeline to get meanings and responses
         # pprint(data["web_request"])
         data["path_done"].append(self.__class__.__name__)
-
+        data['uid'] = request_content.id
         if self.test_run or request_content.dryRun:
             # shortcut the pipeline, return this web request
             logging.info(f"""
@@ -133,6 +135,9 @@ class AppInterface:
             data["response"] = "This was a dry run! Thank you :) "
             self.queue_manager.publish(self.__class__.__name__, data)
         else:
+            # add picture
+            logger.info('This is not a drill! Starting the real pipeline.')
+            data['picture'] = {'data': request_content.image, 'shape': request_content.image, 'from': self.__class__.__name__}
             self.queue_manager.publish(first_service, data)
         logger.info('Pipeline started')
 
@@ -156,7 +161,9 @@ class AppInterface:
         response = {'result': "BEEP BOOP I AM A ROBOT"} if self.test_run else body
 
         response["finish_time"] = str(datetime.now())
-
-        self.single_result_cache = response
+        key = body['uid']
+        if key in self.result_cache:
+            raise Exception(f"Key not unique! {key}")
+        self.result_cache[key] = response
 
 # no if __name__ == "__main__" section here; not a standalone service.

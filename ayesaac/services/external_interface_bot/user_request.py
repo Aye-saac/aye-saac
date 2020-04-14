@@ -1,7 +1,12 @@
+import json
+
 from flask import request
 from PIL import Image
 from io import BytesIO
 import numpy as np
+import uuid
+
+from ayesaac.services_lib.images.crypter import encode
 
 
 class UserRequest:
@@ -39,10 +44,10 @@ class UserRequest:
         return in_text if in_text else request.json['message'] if request.json else None
 
     @staticmethod
-    def __parse_request_id():
+    def __parse_request_id() -> str:
         """ Get the request ID (a UUID generated from the front end)
         """
-        return request.form.get("request_id", "no_id")
+        return request.form.get("request_id", uuid.uuid4().hex)
     
     @staticmethod
     def __parse_responses():
@@ -83,7 +88,7 @@ class UserRequest:
             # Convert the file stream to a PIL Image and return
             image = Image.open(BytesIO(stream))
             downsized_image = self.__downsize_image(image, 640)
-            return np.asarray(downsized_image)
+            return encode(np.asarray(downsized_image))
 
         return self.__parse_file("image", handle_image_stream)
     
