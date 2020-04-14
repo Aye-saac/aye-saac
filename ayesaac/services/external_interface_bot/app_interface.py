@@ -32,6 +32,19 @@ def get_first_service_name(data, request_content):
     return first_service
 
 
+class LoopContextManager:
+    """Helper class to safely release loop when destroyed"""
+
+    def __init__(self):
+        self.loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(self.loop)
+
+    def __enter__(self):
+        return self.loop
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.loop.close()
+
 class AppInterface:
     """
     This class is a queue message producer and consumer.
@@ -69,13 +82,11 @@ class AppInterface:
         # send...
         self.start_service_pipeline(request_content)
 
-        # ... and receive!
-        # https://stackoverflow.com/a/46750562
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        result = asyncio.ensure_future(self.fetch_result(), loop=loop)
-        loop.run_until_complete(result)
-        loop.close()
+        # # ... and receive!
+        # # https://stackoverflow.com/a/46750562
+        with LoopContextManager() as loop:
+            result = loop.run_until_complete(asyncio.wait_for(asyncio.ensure_future(self.fetch_result()), timeout=30))
+
         return result.result()
 
     async def fetch_result(self):

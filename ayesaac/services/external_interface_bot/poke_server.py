@@ -42,25 +42,28 @@ def check_result(response):
             raise e
 
 
+dep_url = "http://157.245.32.208"
+local_url ="http://localhost"
+
 if __name__ == '__main__':
     print(f"Sending message: {data['message']}")
     print("Sending...")
-    r = requests.get(url="http://localhost:5000/", timeout=(5, 40))
+    r = requests.get(url=f"{local_url}:5000/", timeout=(5, 40))
     print(f"Ping response: {r.status_code}")
 
     try:
         print("Sending test json...")
-        r = requests.post(url="http://localhost:5000/submit", json=data, timeout=(5, 40))
+        r = requests.post(url=f"{local_url}:5000/submit", json=data, timeout=(5, 40))
+        print("Done!")
+        check_result(r)
     except Exception as e:
         print(f"That didn't work: {e.args}")
 
-    print("Done!")
-    check_result(r)
+
     try:
         print("Sending formData...")
-        r = requests.post(url="http://localhost:5000/submit", files=multipart_form_data, timeout=(5, 40))
+        r = requests.post(url=f"{local_url}:5000/submit", files=multipart_form_data, timeout=(5, 40))
+        print("Done!")
+        check_result(r)
     except Exception as e:
         print(f"That didn't work: {e.args}")
-
-    print("Done!")
-    check_result(r)
