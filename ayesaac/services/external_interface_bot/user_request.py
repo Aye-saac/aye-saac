@@ -1,6 +1,7 @@
 from flask import request
 from PIL import Image
 from io import BytesIO
+import numpy as np
 
 
 class UserRequest:
@@ -11,7 +12,7 @@ class UserRequest:
     """
 
     def __init__(self):
-        self.image = self.__parse_image()
+        self.image: np.ndarray = self.__parse_image()
         text = self.__parse_message()
         audio = self.__parse_audio()
         test = self.__parse_test()
@@ -62,11 +63,12 @@ class UserRequest:
 
         return self.__parse_file("audio", handle_audio_stream)
 
-    def __parse_image(self):
+    def __parse_image(self) -> np.ndarray:
         def handle_image_stream(stream):
             # Convert the file stream to a PIL Image and return
             image = Image.open(BytesIO(stream))
-            return self.__downsize_image(image, 640)
+            downsized_image = self.__downsize_image(image, 640)
+            return np.asarray(downsized_image)
 
         return self.__parse_file("image", handle_image_stream)
     
@@ -81,4 +83,3 @@ class UserRequest:
         new_size: tuple = (desired_width, int(current_height / ratio))
         
         return image.resize(new_size)
-    
