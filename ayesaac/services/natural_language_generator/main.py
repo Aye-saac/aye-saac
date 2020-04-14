@@ -48,7 +48,8 @@ class NaturalLanguageGenerator(object):
             objects = []
             for o in body['objects']:
                 if o['name'] != 'person':
-                    objects.append(o['name']+o['lateral_position'])
+                    # objects.append(o['name']+o['lateral_position'])
+                    objects.append(o['name'])
             objects = list(set([(o, objects.count(o)) for o in objects]))
             obj_cnt = sum(n for _, n in objects)
             context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
@@ -57,24 +58,21 @@ class NaturalLanguageGenerator(object):
             for o in body['objects']:
                 for p in body['intents']['entities']:
                     if o['name'] == p['value']:
-                        objects.append(o['name']+o['lateral_position'])
+                        # objects.append(o['name']+o['lateral_position'])
+                        objects.append(o['name'])
             objects = list(set([(o, objects.count(o)) for o in objects]))
             obj_cnt = sum(n for _, n in objects)
             context = ('POSITIVE' if obj_cnt > 0 else 'NEGATIVE') + '_ANSWER_' + ('P' if obj_cnt > 1 else 'S')
+            if not obj_cnt:
+                objects = [(p['value'], 1) for p in body['intents']['entities']]
+                obj_cnt = sum(n for _, n in objects)
         elif body['intents']['intent']['name'] == 'read_text':
             objects = ' '.join(' '.join(t) for t in body['texts'])
             print(objects)
             obj_cnt = 1 if len(objects) > 0 else 0
             context = 'READ_TEXT_'+('POSITIVE' if obj_cnt > 0 else 'NEGATIVE')
         elif body['intents']['intent']['name'] == 'detect_colour':
-            objects = []
-            for o in body['objects']:
-                for p in body['intents']['entities']:
-                    if o['name'] == p['value']:
-                        objects.append(o['name']+o['lateral_position'])
-            objects = list(set([(o, objects.count(o)) for o in objects]))
-            obj_cnt = sum(n for _, n in objects)
-            context = ('POSITIVE' if obj_cnt > 0 else 'NEGATIVE') + '_ANSWER_' + ('P' if obj_cnt > 1 else 'S')
+            pass
         elif body.get('objects'):
             # Creates list of object detected in the scene
             objects = [o['name']+o['lateral_position'] for o in body['objects']]
