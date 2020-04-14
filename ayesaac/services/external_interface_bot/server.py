@@ -6,7 +6,7 @@ import logging
 from pathlib import Path
 
 # Logging spam. Sadly this doesn't seem to apply to this file, but the flask info is still useful.
-logger = logging.getLogger()
+top_logger = logging.getLogger()
 # Copied from the logging cookbook
 # create file handler which logs even debug messages
 logdir = Path(__file__).parent.parent.parent.parent/'ayesaac'/'services_log'
@@ -16,19 +16,26 @@ fh.setLevel(logging.DEBUG)
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter('%(asctime)s %(processName) %(name)s %(levelname)s: %(message)s')
 fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 # add the handlers to the logger
-logger.addHandler(fh)
-logger.addHandler(ch)
-
+top_logger.addHandler(fh)
+top_logger.addHandler(ch)
 
 # setup flask
 app = Flask(__name__)
-app_interface = AppInterface()
 app.config['CORS_HEADERS'] = 'Content-Type'
 CORS(app, origins=["localhost", "https://ayesaac.netlify.com", "http://127.0.0.1:3000"], allow_headers="Content-Type")
+
+# capture flask errors
+for handler in top_logger.handlers:
+    app.logger.addHandler(handler)
+
+logger = app.logger
+
+app_interface = AppInterface()
+
 
 class UserResponse:
     """ Package the data up from the system to be sent back to the user.
