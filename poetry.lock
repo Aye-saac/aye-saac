@@ -1547,7 +1547,7 @@ ujson = ">=1.35,<2.0"
 webexteamssdk = ">=1.1.1,<1.2.0"
 
 [package.dependencies.pymongo]
-extras = ["tls", "srv"]
+extras = ["srv", "tls"]
 version = ">=3.8.0,<3.9.0"
 
 [package.extras]
@@ -2264,7 +2264,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "bfadc5c7885cc9275b3daf7e7e55969a222c446564e046b54e86a75a235d1338"
+content-hash = "28ca2c70bc11265d44d7306f4847045c91ee50642d41116610b8b5694c64dba3"
 python-versions = "^3.6.10"
 
 [metadata.files]
