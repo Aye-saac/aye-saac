@@ -44,7 +44,6 @@ class UserRequest:
             # no data supplied? smells fishy!
             raise Exception("No data supplied by client")
 
-
     @staticmethod
     def __parse_file(file_name: str, func):
         file = request.files.get(file_name)
@@ -66,6 +65,20 @@ class UserRequest:
     def __parse_image(self):
         def handle_image_stream(stream):
             # Convert the file stream to a PIL Image and return
-            return Image.open(BytesIO(stream))
+            image = Image.open(BytesIO(stream))
+            return self.__downsize_image(image, 640)
 
         return self.__parse_file("image", handle_image_stream)
+    
+    @staticmethod
+    def __downsize_image(image: Image, desired_width: int) -> Image:
+        current_width = image.width
+        current_height = image.height
+        
+        # Calculate ratio to scale the image
+        ratio = current_width / desired_width
+        
+        new_size: tuple = (desired_width, int(current_height / ratio))
+        
+        return image.resize(new_size)
+    
