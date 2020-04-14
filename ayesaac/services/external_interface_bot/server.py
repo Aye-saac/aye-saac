@@ -28,8 +28,7 @@ logger.addHandler(ch)
 app = Flask(__name__)
 app_interface = AppInterface()
 app.config['CORS_HEADERS'] = 'Content-Type'
-CORS(app)
-
+CORS(app, origins=["localhost", "https://ayesaac.netlify.com", "http://127.0.0.1:3000"], allow_headers="Content-Type")
 
 class UserResponse:
     """ Package the data up from the system to be sent back to the user.
