@@ -13,6 +13,7 @@ class UserRequest:
 
     def __init__(self):
         self.image: np.ndarray = self.__parse_image()
+        self.id: str = self.__parse_request_id()
         text = self.__parse_message()
         audio = self.__parse_audio()
         test = self.__parse_test()
@@ -34,6 +35,12 @@ class UserRequest:
     def __parse_message():
         in_text = request.form.get("message", "")
         return in_text if in_text else request.json['message'] if request.json else None
+
+    @staticmethod
+    def __parse_request_id():
+        """ Get the request ID (a UUID generated from the front end)
+        """
+        return request.form.get("request_id", "no_id")
 
     @staticmethod
     def __parse_test():
