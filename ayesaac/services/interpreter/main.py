@@ -37,7 +37,7 @@ class Interpreter(object):
             body['path_done'].append(self.__class__.__name__)
             del body['vision_path']
             pprint(body)
-            # TODO: uncomment if you wanna test the NLG, it could be text, objects, objects + color, objects + lateral position
+            # TODO: uncomment if you wanna test the NLG, it could be text, objects, objects + colour, objects + lateral position
             #self.queue_manager.publish('NaturalLanguageGenerator', body)
         else:
             if body['intern_token'] not in self.memory:

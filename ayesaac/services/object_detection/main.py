@@ -15,7 +15,7 @@ class ObjectDetection(object):
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter", "ColorDetection", "PositionDetection"])
+        self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter", "ColourDetection", "PositionDetection"])
         self.category_index = coco_category_index
         self.model_path = Path("./data/models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/saved_model")
         model = tf.saved_model.load(str(self.model_path))
@@ -50,7 +50,7 @@ class ObjectDetection(object):
         body['objects'] = objects
         body['path_done'].append(self.__class__.__name__)
 
-        if 'ColorDetection' not in body['vision_path']:
+        if 'ColourDetection' not in body['vision_path']:
             del body['pictures']
 
         next_service = body['vision_path'].pop(0)
