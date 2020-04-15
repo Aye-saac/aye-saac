@@ -1,5 +1,6 @@
-from flask import Flask, jsonify
-from flask_cors import CORS, cross_origin
+import json
+from flask import Flask
+from flask_cors import CORS
 from ayesaac.services.external_interface_bot.user_request import UserRequest
 from ayesaac.services.external_interface_bot.app_interface import AppInterface
 import logging
@@ -25,8 +26,7 @@ top_logger.addHandler(ch)
 
 # setup flask
 app = Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
-CORS(app, origins=["localhost", "https://ayesaac.netlify.com", "http://127.0.0.1:3000"], allow_headers="Content-Type")
+CORS(app, origins=["https://ayesaac.netlify.com", "http://127.0.0.1:3000", "http://localhost:3000"])
 
 # capture flask errors
 for handler in top_logger.handlers:
@@ -45,7 +45,6 @@ def hello_world():
 
 
 @app.route("/submit", methods=["POST"])
-@cross_origin(origins="*", allow_headers=["Content-Type"])
 def submit_data():
     logger.info('POST request received. Beginning processing...')
     # Create a class containing the information needed to work
@@ -55,4 +54,6 @@ def submit_data():
     # todo add a way of matching submissions here to future responses, e.g. a UID or cookie id
     data = app_interface.run_service_pipeline(user_request)
     assert data['response']
-    return jsonify(data=data)
+
+    # Return data as string on response
+    return json.dumps(data), 200
