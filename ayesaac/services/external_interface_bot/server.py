@@ -26,7 +26,10 @@ top_logger.addHandler(ch)
 
 # setup flask
 app = Flask(__name__)
-CORS(app, origins=["https://ayesaac.netlify.com", "http://127.0.0.1:3000", "http://localhost:3000"])
+CORS(app, origins=["https://ayesaac.netlify.com",
+                   "https://ayesaac.netlify.app",
+                   "http://127.0.0.1:3000",
+                   "http://localhost:3000"])
 
 # capture flask errors
 for handler in top_logger.handlers:
