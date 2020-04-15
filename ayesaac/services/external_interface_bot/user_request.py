@@ -89,6 +89,8 @@ class UserRequest:
             image = Image.open(BytesIO(stream))
             downsized_image, size = self.__downsize_image(image, 640)
             self.image_size = (size[0], size[1], 3)  # MONSTROUS HACK - todo, this is badly placed and assumes always 3 channel image
+            # TODO: Replace line above with this if that's what is needed?
+            # self.image_size = np.shape(downsized_image)
             return np.asarray(downsized_image)
 
         return self.__parse_file("image", handle_image_stream)
