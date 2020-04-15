@@ -37,18 +37,6 @@ logger = app.logger
 app_interface = AppInterface()
 
 
-class UserResponse:
-    """ Package the data up from the system to be sent back to the user.
-    
-        TODO: Consider if this is even needed? If the TTS is done on the
-              client-side, then only the JSON response from the system needs to
-              be returned and this entire class is just OTT. But it's just for
-              consistency sake? YAGNI, so remove if it is unneeded.
-    """
-    
-    def __init__(self, response):
-        self.response = response
-
 # left as a dumb is_alive
 @app.route("/", methods=["GET"])
 def hello_world():
