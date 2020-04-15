@@ -87,8 +87,9 @@ class UserRequest:
         def handle_image_stream(stream):
             # Convert the file stream to a PIL Image and return
             image = Image.open(BytesIO(stream))
-            downsized_image = self.__downsize_image(image, 640)
-            return encode(np.asarray(downsized_image))
+            downsized_image, size = self.__downsize_image(image, 640)
+            self.image_size = (size[0], size[1], 3)  # MONSTROUS HACK - todo, this is badly placed and assumes always 3 channel image
+            return np.asarray(downsized_image)
 
         return self.__parse_file("image", handle_image_stream)
     
@@ -102,4 +103,4 @@ class UserRequest:
         
         new_size: tuple = (desired_width, int(current_height / ratio))
         
-        return image.resize(new_size)
+        return image.resize(new_size), new_size

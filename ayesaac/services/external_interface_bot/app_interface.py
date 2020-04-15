@@ -9,18 +9,7 @@ from ayesaac.services.external_interface_bot import user_request
 from ayesaac.services.external_interface_bot.user_request import UserRequest
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 from ayesaac.services_lib import service_logger
-
-# def setup_logger(service_name: str):
-#     root_logger = logging.getLogger('ayesaac')
-#     root_logger.setLevel(logging.DEBUG)
-#
-#     logfile = Path(__file__).parent.parent.parent.parent/'ayesaac'/'services_log'/f'{service_name}.log'
-#     file_handler = logging.FileHandler(logfile, mode='w')
-#     file_handler.setLevel(logging.INFO)
-#
-#     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s   [%(filename)s:%(lineno)d] - %(message)s')
-#     file_handler.setFormatter(formatter)
-#     root_logger.addHandler(file_handler)
+from ayesaac.services_lib.images.crypter import encode
 
 service_logger.open_log('AppInterface')
 
@@ -138,9 +127,10 @@ class AppInterface:
             data["response"] = "This was a dry run! Thank you :) "
             self.queue_manager.publish(self.__class__.__name__, data)
         else:
-            # add picture
             logger.info('This is not a drill! Starting the real pipeline.')
-            data['picture'] = {'data': request_content.image, 'shape': request_content.image, 'from': self.__class__.__name__}
+            # add picture
+            # insert format stolen from camera and camera_manager services
+            data['pictures'] = [{'data': encode(request_content.image), 'shape': request_content.image_size, 'from': self.__class__.__name__}]
             self.queue_manager.publish(first_service, data)
         logger.info('Pipeline started')
 
