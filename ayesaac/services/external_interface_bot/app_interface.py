@@ -8,18 +8,21 @@ from threading import Thread
 from ayesaac.services.external_interface_bot import user_request
 from ayesaac.services.external_interface_bot.user_request import UserRequest
 from ayesaac.services_lib.queues.queue_manager import QueueManager
+from ayesaac.services_lib import service_logger
 
-root_logger = logging.getLogger('ayesaac')
-root_logger.setLevel(logging.DEBUG)
+# def setup_logger(service_name: str):
+#     root_logger = logging.getLogger('ayesaac')
+#     root_logger.setLevel(logging.DEBUG)
+#
+#     logfile = Path(__file__).parent.parent.parent.parent/'ayesaac'/'services_log'/f'{service_name}.log'
+#     file_handler = logging.FileHandler(logfile, mode='w')
+#     file_handler.setLevel(logging.INFO)
+#
+#     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s   [%(filename)s:%(lineno)d] - %(message)s')
+#     file_handler.setFormatter(formatter)
+#     root_logger.addHandler(file_handler)
 
-logfile = Path(__file__).parent.parent.parent.parent/'ayesaac'/'services_log'/'AppInterface.log'
-file_handler = logging.FileHandler(logfile, mode='w')
-file_handler.setLevel(logging.INFO)
-
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s   [%(filename)s:%(lineno)d] - %(message)s')
-file_handler.setFormatter(formatter)
-root_logger.addHandler(file_handler)
-
+service_logger.open_log('AppInterface')
 
 logger = logging.getLogger(__name__)
 
