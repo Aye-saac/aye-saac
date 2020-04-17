@@ -17,7 +17,7 @@ class UserRequest:
     """
 
     def __init__(self):
-        self.image: np.ndarray = self.__parse_image()
+        self.image, self.image_size = self.__parse_image()  # : np.ndarray, (int, int, int)
         self.id: str = self.__parse_request_id()
         self.responses = self.__parse_responses()
 
@@ -73,25 +73,21 @@ class UserRequest:
             stream = file.read()
             return func(stream)
 
-        return False
+        return None, None  # returning 2 values allows this to be used for images
 
     def __parse_audio(self):
-        def handle_audio_stream(stream):
-            # Get the raw bytes from the audio
-            # TODO: Is this in the form that will work for the system?
-            return BytesIO(stream)
-
-        return self.__parse_file("audio", handle_audio_stream)
+        # TODO: BytesIO Is this in the form that will work for the system?
+        return self.__parse_file("audio", lambda stream: BytesIO(stream))[0]
 
     def __parse_image(self) -> np.ndarray:
         def handle_image_stream(stream):
             # Convert the file stream to a PIL Image and return
             image = Image.open(BytesIO(stream))
             downsized_image, size = self.__downsize_image(image, 640)
-            self.image_size = (size[0], size[1], 3)  # MONSTROUS HACK - todo, this is badly placed and assumes always 3 channel image
+            image_size = (size[0], size[1], 3)  # MONSTROUS HACK - todo, this is badly placed and assumes always 3 channel image
             # TODO: Replace line above with this if that's what is needed?
             # self.image_size = np.shape(downsized_image)
-            return np.asarray(downsized_image)
+            return np.asarray(downsized_image), image_size
 
         return self.__parse_file("image", handle_image_stream)
     
