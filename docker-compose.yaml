@@ -3,16 +3,14 @@ version: '3'
 services:
 
   rabbitmq:
-    # https://stackoverflow.com/a/53037897
-    image: rabbitmq:latest
-    command: rabbitmq-server
+    image: rabbitmq:3-management
     container_name: rabbitmq
-    expose:
-      - 5672
-      - 15672
     environment:
       - RABBITMQ_DEFAULT_USER=test-user
       - RABBITMQ_DEFAULT_PASS=test-user
+    ports:
+      - "15672:15672"
+      - "5672:5672"
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "5672" ]
       interval: 5s
