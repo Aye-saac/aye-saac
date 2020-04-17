@@ -67,4 +67,4 @@ COPY wait-for-it.sh wait-for-it.sh
 RUN chmod +x wait-for-it.sh
 
 ENTRYPOINT ["/bin/bash"]
-CMD ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "./ayesaac/start_all_services.sh"]
+CMD ["./wait-for-it.sh", "rabbitmq:5672", "--timeout=100", "--", "./ayesaac/start_all_services_in_container.sh"]
