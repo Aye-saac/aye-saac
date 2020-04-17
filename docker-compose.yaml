@@ -17,19 +17,20 @@ services:
       timeout: 15s
       retries: 1
 
-  ayesaac:
-    container_name: ayesac_app
-    restart: always
-    depends_on:
-      - rabbitmq
-    volumes:
-      - ./ayesaac/services_log:/aye-saac/ayesaac/services_log
-    ports:
-      - "5000:5000"
+  server:
+    container_name: server
     build:
       context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rabbitmq
     environment:
-      - NONLOCAL_RABBITMQ=true
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=test-user
-#      - RABBITMQ_DEFAULT_PASS=test-user
+      NONLOCAL_RABBITMQ: 'True'
+      FLASK_DEBUG: 'True'
+      FLASK_APP: './ayesaac/web/app.py'
+    volumes:
+      - ./ayesaac/services_log/:/opt/ayesaac/ayesaac/services_log
+      - ./ayesaac/services:/opt/ayesaac/ayesaac/services
