@@ -51,7 +51,7 @@ def submit_status(task_id):
 
     # Return if its not there
     if file_exists is not True:
-        return "PENDING", 200
+        return "PENDING", 202
 
     # Get data from file
     with open(file_path, "r") as file:
