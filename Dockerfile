@@ -63,7 +63,7 @@ RUN echo "Clean output folder" && \
     rm -fv output/*.txt && \
     mkdir output
 
-COPY wait-for-it.sh wait-for-it.sh
+COPY scripts/wait-for-it.sh wait-for-it.sh
 RUN chmod +x wait-for-it.sh
 
 ENTRYPOINT ["/bin/bash"]
