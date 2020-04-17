@@ -13,7 +13,8 @@ class Manager(object):
         self.queue_manager = QueueManager([self.__class__.__name__, "CameraManager"])
         # TODO: It missing an intent for the position
         self.intents_to_path = {'read_text': ['OCR', 'Interpreter'],
-                                'detect_color': ['ObjectDetection', 'ColorDetection', 'Interpreter'],
+                                'detect_colour': ['ObjectDetection',
+                                                  'ColorDetection', 'Interpreter'],
                                 'identify': ['ObjectDetection', 'Interpreter'],
                                 'recognise': ['ObjectDetection', 'Interpreter'],
                                 }
