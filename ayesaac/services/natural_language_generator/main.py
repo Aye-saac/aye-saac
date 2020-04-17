@@ -12,7 +12,8 @@ class NaturalLanguageGenerator(object):
     The class NaturalLanguageGenerator purpose is to translate the results obtain to a nicely phrase.
     """
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, "TextToSpeech"])
+        self.queue_manager = QueueManager([self.__class__.__name__,
+                                           "ExternalInterface"])
         self.answers = {}
         self.description_types = ['DESCRIPTION_NOTHING', 'DESCRIPTION_ANSWER_S','DESCRIPTION_ANSWER_P']
         self.build_generator()
@@ -54,7 +55,7 @@ class NaturalLanguageGenerator(object):
         body["path_done"].append(self.__class__.__name__)
 
         del body["objects"]
-        self.queue_manager.publish("TextToSpeech", body)
+        self.queue_manager.publish("ExternalInterface", body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
