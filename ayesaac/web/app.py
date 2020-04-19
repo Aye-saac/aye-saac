@@ -2,6 +2,7 @@ import os
 import time
 
 from flask import Flask, url_for
+from flask_cors import CORS
 
 from ayesaac.web.user_request import UserRequest
 
@@ -10,9 +11,11 @@ from ayesaac.services_lib.queues.queue_manager import QueueManager
 
 # Create Flask app
 app = Flask(__name__)
-
-state = {}
-
+CORS(app, origins=["https://ayesaac.netlify.com",
+                   "https://ayesaac.netlify.app",
+                   "https://ayesaac.xyz",
+                   "http://127.0.0.1:3000",
+                   "http://localhost:3000"])
 
 @app.route("/", methods=["GET"])
 def hello_world():
