@@ -8,9 +8,12 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=test-user
       - RABBITMQ_DEFAULT_PASS=test-user
-    ports:
-      - "15672:15672"
-      - "5672:5672"
+#    ports:
+#      - "15672:15672"
+#      - "5672:5672"
+    expose:
+      - "15672"
+      - "5672"
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "5672" ]
       interval: 5s
@@ -29,7 +32,7 @@ services:
       - rabbitmq
     environment:
       NONLOCAL_RABBITMQ: 'True'
-      FLASK_DEBUG: 'True'
+      FLASK_DEBUG: 'False'
       FLASK_APP: './ayesaac/web/app.py'
     volumes:
       - ./ayesaac/services_log/:/opt/ayesaac/ayesaac/services_log
