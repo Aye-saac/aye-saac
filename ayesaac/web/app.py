@@ -1,4 +1,5 @@
 import os
+import time
 
 from flask import Flask, url_for
 
@@ -40,18 +41,26 @@ def submit():
     )
 
 
+
 @app.route("/status/<task_id>")
 def submit_status(task_id):
 
-    print(os.getcwd())
-
     file_path = f"output/{task_id}.txt"
-
+    
+    attempt_counter = 0
+    attempt_limit = 10
+    
+    while not os.path.exists(file_path):
+        time.sleep(2)
+        attempt_counter += 1
+        if attempt_counter > attempt_limit:
+            break
+    
     file_exists = os.path.isfile(file_path)
 
     # Return if its not there
     if file_exists is not True:
-        return "PENDING", 202
+        return "not found", 404
 
     # Get data from file
     with open(file_path, "r") as file:
