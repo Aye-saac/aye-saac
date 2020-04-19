@@ -11,11 +11,12 @@ from ayesaac.services_lib.queues.queue_manager import QueueManager
 
 # Create Flask app
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Location'
 CORS(app, origins=["https://ayesaac.netlify.com",
                    "https://ayesaac.netlify.app",
                    "https://ayesaac.xyz",
                    "http://127.0.0.1:3000",
-                   "http://localhost:3000"])
+                   "http://localhost:3000"], expose_headers=["Location"])
 
 @app.route("/", methods=["GET"])
 def hello_world():
@@ -36,11 +37,13 @@ def submit():
     # Create queue for Ayesaac and send it
     ayesaac_queue_manager = QueueManager([user_request.first_service])
     ayesaac_queue_manager.publish(user_request.first_service, user_request.body)
+    
+    status_url = url_for("submit_status", task_id=user_request.uid)
 
     return (
-        "",
+        status_url,
         202,
-        {"Location": url_for("submit_status", task_id=user_request.uid)},
+        {"Location": status_url},
     )
 
 
