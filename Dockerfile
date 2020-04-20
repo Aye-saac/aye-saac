@@ -15,7 +15,10 @@ RUN apt-get update && \
     # For opencv
     libsm6 \
     libxext6 \
-    libxrender-dev
+    libxrender-dev \
+    # remove apt cache to reduce image size
+    && rm -rf /var/lib/apt/lists/*
+
 
 # Install Poetry & ensure it is in $PATH
 RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | POETRY_PREVIEW=1 python
@@ -30,10 +33,10 @@ RUN python -m venv /opt/venv && \
     cd /opt/ayesaac && \
     pip3 install -U pip && \
     poetry export --without-hashes -f requirements.txt | grep -v "alana" | grep -v "tensorflow-estimator" > requirements.txt && \
-    pip install cython && \
-    pip install setuptools==41.0.1 && \
-    pip install tensorflow-estimator==2.1.0 && \
-    pip install -r requirements.txt
+    pip install cython --no-cache-dir && \
+    pip install setuptools==41.0.1 --no-cache-dir && \
+    pip install tensorflow-estimator==2.1.0 --no-cache-dir && \
+    pip install -r requirements.txt --no-cache-dir
 
 # Main container (without previous bloat)
 FROM python:3.6.10-slim
