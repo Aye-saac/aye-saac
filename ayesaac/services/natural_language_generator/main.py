@@ -49,7 +49,8 @@ class NaturalLanguageGenerator(object):
             for o in body['objects']:
                 if o['name'] != 'person':
                     # objects.append(o['name']+o['lateral_position'])
-                    objects.append(o['name'])
+                    # objects.append(o['name'])
+                    objects.append(o['name']+(o['lateral_position'] if o.get('lateral_position') else ''))
             objects = list(set([(o, objects.count(o)) for o in objects]))
             obj_cnt = sum(n for _, n in objects)
             context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
@@ -59,7 +60,8 @@ class NaturalLanguageGenerator(object):
                 for p in body['intents']['entities']:
                     if o['name'] == p['value']:
                         # objects.append(o['name']+o['lateral_position'])
-                        objects.append(o['name'])
+                        # objects.append(o['name'])
+                        objects.append(o['name']+(o['lateral_position'] if o.get('lateral_position') else ''))
             objects = list(set([(o, objects.count(o)) for o in objects]))
             obj_cnt = sum(n for _, n in objects)
             context = ('POSITIVE' if obj_cnt > 0 else 'NEGATIVE') + '_ANSWER_' + ('P' if obj_cnt > 1 else 'S')
