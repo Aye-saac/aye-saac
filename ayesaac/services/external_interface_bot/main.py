@@ -4,6 +4,9 @@ from pathlib import Path
 
 
 class ExternalInterface(object):
+    """
+    This service represents the end of the pipeline. All output is dumped here to be retrieved by the web server.
+    """
     def __init__(self):
         project_root = Path(__file__).parent.parent.parent.parent
         self.output_dir = f"{project_root}/output"
