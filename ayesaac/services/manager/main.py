@@ -28,7 +28,11 @@ class Manager(object):
         body["wait_package"] = len(self.intents_to_path[intent])
         body["path_done"].append(self.__class__.__name__)
 
-        for path in self.intents_to_path[intent]:
+        intents_path = copy.deepcopy(self.intents_to_path[intent])
+
+        for path in intents_path:
+            pprint(path)
+
             body_ = copy.deepcopy(body)
             body_["vision_path"] = path
             next_service = body_["vision_path"].pop(0)
