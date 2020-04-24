@@ -11,15 +11,26 @@ import pika
 
 
 def delete_queues():
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
     channel = connection.channel()
-    queues_name = ["CameraManager", "Manager", "Interpreter", "ObjectDetection", "NaturalLanguageUnderstanding",
-                   "NaturalLanguageGenerator", "AutomaticSpeechRecognition", "TextToSpeech", "WebCam", "WebCamBis",
-                   "OCR", "ColorDetection", "PositionDetection", "AppInterface"
-                   ]
+    queues_name = [
+        "CameraManager",
+        "Manager",
+        "Interpreter",
+        "ObjectDetection",
+        "NaturalLanguageUnderstanding",
+        "NaturalLanguageGenerator",
+        "AutomaticSpeechRecognition",
+        "TextToSpeech",
+        "WebCam",
+        "WebCamBis",
+        "OCR",
+        "ColourDetection",
+        "PositionDetection",
+    ]
     for queue_name in queues_name:
         channel.queue_delete(queue=queue_name)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     delete_queues()
