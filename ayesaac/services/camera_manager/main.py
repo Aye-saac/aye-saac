@@ -25,6 +25,7 @@ class CameraManager(object):
 
     def from_cameras(self, body):
         logger.info('Receiving picture from: ', body['picture']['from'])
+        pprint(body)
         self.pictures.append(body['picture'])
         self.waiting_cameras -= 1
 
@@ -51,11 +52,11 @@ class CameraManager(object):
                 self.save_body['path_done'].append(self.__class__.__name__)
                 print('Send pictures !')
 
-                for path in self.save_body['vision_path']:
-                    body_ = copy.deepcopy(self.save_body)
-                    body_['vision_path'] = path
-                    next_service = body_['vision_path'].pop(0)
-                    self.queue_manager.publish(next_service, body_)
+                #for path in self.save_body['vision_path']:
+                #body_ = self.save_body
+                #body_['vision_path'] = path
+                next_service = self.save_body['vision_path'].pop(0)
+                self.queue_manager.publish(next_service, self.save_body)
                 self.pictures = []
                 self.save_body = None
         else:

@@ -2,7 +2,7 @@ from pprint import pprint
 from secrets import token_hex
 import copy
 from ayesaac.services_lib.queues.queue_manager import QueueManager
-
+import time
 
 class Manager(object):
     """
@@ -11,14 +11,14 @@ class Manager(object):
 
     def __init__(self):
         self.queue_manager = QueueManager(
-            [self.__class__.__name__, "ObjectDetection", "OCR"]
+            [self.__class__.__name__, "CameraManager"]
         )
         # TODO: Missing intent for lateral position
         self.intents_to_path = {
-            "read_text": [["OCR", "Interpreter"]],
-            "detect_colour": [["ObjectDetection", "ColourDetection", "Interpreter"]],
-            "identify": [["OCR", "Interpreter"], ["ObjectDetection", "Interpreter"]],
-            "recognise": [["ObjectDetection", "Interpreter"]],
+            "read_text": [["CameraManager", "OCR", "Interpreter"]],
+            "detect_colour": [["CameraManager", "ObjectDetection", "ColourDetection", "Interpreter"]],
+            "identify": [["CameraManager", "OCR", "Interpreter"], ["CameraManager", "ObjectDetection", "Interpreter"]],
+            "recognise": [["CameraManager", "ObjectDetection", "Interpreter"]],
         }
 
     def callback(self, body, **_):
@@ -37,6 +37,9 @@ class Manager(object):
             body_["vision_path"] = path
             next_service = body_["vision_path"].pop(0)
             self.queue_manager.publish(next_service, body_)
+            if "run_as_webservice" not in body:
+                time.sleep(1)
+                
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
