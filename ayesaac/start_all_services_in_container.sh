@@ -14,7 +14,7 @@ python3 -u -m ayesaac.services.camera_manager.main > ./ayesaac/services_log/4_0_
 #python3 -m ayesaac.services.webcam_bis.main > ./ayesaac/services_log/4_2_webcam.txt &
 python3 -u -m ayesaac.services.object_detection.main > ./ayesaac/services_log/5_0_object_detection.txt &
 python3 -u -m ayesaac.services.optical_character_recognition.main > ./ayesaac/services_log/5_0_optical_character_recognition.txt &
-python3 -u -m ayesaac.services.color_detection.main > ./ayesaac/services_log/5_1_color_detection.txt &
+python3 -u -m ayesaac.services.colour_detection.main > ./ayesaac/services_log/5_1_colour_detection.txt &
 python3 -u -m ayesaac.services.position_detection.main > ./ayesaac/services_log/5_1_position_detection.txt &
 python3 -u -m ayesaac.services.interpreter.main > ./ayesaac/services_log/6_interpreter.txt &
 python3 -u -m ayesaac.services.natural_language_generator.main > ./ayesaac/services_log/7_natural_language_generator.txt &
