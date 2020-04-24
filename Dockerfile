@@ -43,7 +43,13 @@ FROM python:3.6.10-slim
 
 # Copy built deps from base build
 COPY --from=python_builder /opt /opt
-
+RUN apt-get update && apt-get -y install \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libglib2.0 \
+    # remove apt cache to reduce image size
+    && rm -rf /var/lib/apt/lists/*
 # Add the VirtualEnv to the beginning of $PATH
 ENV PATH="/opt/venv/bin:$PATH"
 
