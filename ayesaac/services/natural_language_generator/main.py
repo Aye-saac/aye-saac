@@ -140,7 +140,7 @@ class NaturalLanguageGenerator(object):
         pprint(body["response"])
         body["path_done"].append(self.__class__.__name__)
 
-        self.queue_manager.publish("TextToSpeech", body)
+        self.queue_manager.publish("ExternalInterface", body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
