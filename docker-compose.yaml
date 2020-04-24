@@ -1,21 +1,20 @@
-version: '3'
+version: "3"
 
 services:
-
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=test-user
       - RABBITMQ_DEFAULT_PASS=test-user
-#    ports:
-#      - "15672:15672"
-#      - "5672:5672"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
     expose:
       - "15672"
       - "5672"
     healthcheck:
-      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+      test: ["CMD", "nc", "-z", "localhost", "5672"]
       interval: 5s
       timeout: 15s
       retries: 1
@@ -31,9 +30,36 @@ services:
     depends_on:
       - rabbitmq
     environment:
-      NONLOCAL_RABBITMQ: 'True'
-      FLASK_DEBUG: 'False'
-      FLASK_APP: './ayesaac/web/app.py'
+      NONLOCAL_RABBITMQ: "True"
+      FLASK_DEBUG: "False"
+      FLASK_APP: "./ayesaac/web/app.py"
+    entrypoint: "/bin/bash"
+    command:
+      - "./wait-for-it.sh"
+      - "rabbitmq:5672"
+      - "--timeout=100"
+      - "--"
+      - "./ayesaac/start_all_services_in_container.sh"
     volumes:
-      - ./ayesaac/services_log/:/opt/ayesaac/ayesaac/services_log
+      - ./ayesaac/services_log:/opt/ayesaac/ayesaac/services_log
       - ./ayesaac/services:/opt/ayesaac/ayesaac/services
+
+  nlu:
+    container_name: nlu
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+    entrypoint: "/bin/bash"
+    command:
+      - "./wait-for-it.sh"
+      - "rabbitmq:5672"
+      - "--timeout=100"
+      - "--"
+      - "./ayesaac/start_nlu.sh"
+    volumes:
+      - ./ayesaac/services/natural_language_understanding:/opt/ayesaac/ayesaac/services/natural_language_understanding
