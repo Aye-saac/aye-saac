@@ -61,7 +61,8 @@ def lines_only_to_all_text(lines, all):
     # remove all duplicate
     for l in lines:
         for ll in l:
-            all.remove(ll)
+            if ll in all:
+                all.remove(ll)
     # add the single word
     for x in all:
         lines.append([x])
@@ -132,6 +133,8 @@ def search_links_btw_word(data):
 def init(texts):
     data = {}
     for idx, (text, bbox) in enumerate(texts):
+        if not len(text):
+            continue
         data[str(idx)] = {'text': text,
                           'bbox': bbox,
                           'max_dist': {'R': (((bbox[1][0] - bbox[0][0]) / len(text)) + (
