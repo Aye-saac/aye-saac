@@ -17,7 +17,8 @@ class ObjectDetection(object):
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter", "ColourDetection", "PositionDetection"])
         self.category_index = coco_category_index
-        self.model_path = Path("./data/models/ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/saved_model")
+        project_root = project_root = Path(__file__).parent.parent.parent.parent  # aye-saac
+        self.model_path = project_root/'ayesaac'/'data'/'models'/'ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03'/'saved_model'
         model = tf.saved_model.load(str(self.model_path))
         self.model = model.signatures['serving_default']
 

@@ -209,3 +209,5 @@ dmypy.json
 
 # Log files
 ayesaac/logs/*.txt
+*.tar.gz
+*.tar

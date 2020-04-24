@@ -5,9 +5,9 @@ description = "A bot made to support Alana"
 authors = ["Alexandre Cardaillac", "Amit Parekh <ap41@hw.ac.uk>", "Hamish MacKinnon",  "Vincent Larcher"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.10"
 tensorflow = "2.1.0"
-opencv-python = "4.2.0.32"  # new version not in pip; unpin when available.
+opencv-python = "^4.2.0.32"
 pika = "^1.1.0"
 utils = {git = "git@github.com:Hangsii/secret_alana_utils.git"}
 gtts = "^2.1.1"
@@ -17,6 +17,10 @@ ibm-watson = "^4.3.0"
 rasa = "^1.8.1"
 keras-ocr = "^0.8.0"
 pyspellchecker = "^0.5.4"
+pandas = "^1.0.3"
+flask_cors = "^3.0.8"
+flask = "^1.1.2"
+scikit-image = "^0.16.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

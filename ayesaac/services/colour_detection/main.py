@@ -4,6 +4,7 @@ from skimage.color import rgb2lab
 from skimage.segmentation import slic
 from skimage.measure import regionprops
 from pprint import pprint
+from pathlib import Path
 import pandas as pd
 import operator
 
@@ -18,7 +19,11 @@ class ColourDetection:
 
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
-        colour_list = pd.read_csv('./data/colour/lab.txt', skiprows=28, header=None, names=["l", "a", "b", "name"])
+
+        project_root = Path(__file__).parent.parent.parent.parent
+        data_file = f"{project_root}/ayesaac/data/colour/lab.txt"
+
+        colour_list = pd.read_csv(data_file, skiprows=28, header=None, names=["l", "a", "b", "name"])
         colour_list = colour_list.values.tolist()[1:]
         self.colour_list_names = [x[3] for x in colour_list]
         self.colour_list_values = np.asarray([np.asarray(x[:3], dtype=np.float32) for x in colour_list])
@@ -108,6 +113,8 @@ class ColourDetection:
         return sorted_colours[0]
 
     def callback(self, body, **_):
+        body["path_done"].append(self.__class__.__name__)
+
         for picture in body['pictures']:
             image = decode(picture['data'], picture['shape'], np.uint8)
             for i, obj in enumerate(body['objects']):

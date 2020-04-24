@@ -1,9 +1,13 @@
 
 import copy
+import logging
 from pprint import pprint
 
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 from ayesaac.services_lib.images.crypter import encode
+from ayesaac.services_lib import service_logger
+import logging
+logger = logging.getLogger(__file__)
 
 
 class CameraManager(object):
@@ -20,24 +24,33 @@ class CameraManager(object):
         self.save_body = None
 
     def from_cameras(self, body):
-        print('Receiving picture from: ', body['picture']['from'])
+        logger.info('Receiving picture from: ', body['picture']['from'])
         self.pictures.append(body['picture'])
         self.waiting_cameras -= 1
 
     def request_pictures_from_all_concern_cameras(self):
-        print('Request pictures !')
+        logger.info('Request pictures !')
         self.waiting_cameras = len(self.camera_names)
         for camera_name in self.camera_names:
             self.queue_manager.publish(camera_name, {'nb_picture': 1})
 
     def callback(self, body, **_):
-        if self.waiting_cameras:
+        logger.info('Callback triggered')
+        if "run_as_webservice" in body:
+            # skip running cameras, we have an image!
+            logger.info("Camera management: don't use cameras as running in webservice mode.")
+            assert 'pictures' in body
+            next_service = body['vision_path'].pop(0)
+            body['path_done'].append(self.__class__.__name__)
+            self.queue_manager.publish(next_service, body)
+
+        elif self.waiting_cameras:
             self.from_cameras(body)
             if not self.waiting_cameras:
                 self.save_body['pictures'] = copy.deepcopy(self.pictures)
                 self.save_body['path_done'].append(self.__class__.__name__)
                 print('Send pictures !')
-                
+
                 for path in self.save_body['vision_path']:
                     body_ = copy.deepcopy(self.save_body)
                     body_['vision_path'] = path
@@ -59,4 +72,6 @@ def main():
 
 
 if __name__ == '__main__':
+    service_logger.open_log('4_0_camera_manager')
+
     main()
