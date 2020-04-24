@@ -113,6 +113,8 @@ class ColourDetection:
         return sorted_colours[0]
 
     def callback(self, body, **_):
+        body["path_done"].append(self.__class__.__name__)
+
         for picture in body['pictures']:
             image = decode(picture['data'], picture['shape'], np.uint8)
             for i, obj in enumerate(body['objects']):
