@@ -27,6 +27,7 @@ def delete_queues():
         "OCR",
         "ColourDetection",
         "PositionDetection",
+        "ExternalInterface",
     ]
     for queue_name in queues_name:
         channel.queue_delete(queue=queue_name)
