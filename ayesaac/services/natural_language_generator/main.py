@@ -14,7 +14,7 @@ class NaturalLanguageGenerator(object):
 
     def __init__(self):
         self.queue_manager = QueueManager(
-            [self.__class__.__name__, "ExternalInterface"]
+            [self.__class__.__name__, "ExternalInterface", "TextToSpeech"]
         )
         self.answers = {}
         self.description_types = [
@@ -140,8 +140,13 @@ class NaturalLanguageGenerator(object):
         pprint(body["response"])
         body["path_done"].append(self.__class__.__name__)
 
-        self.queue_manager.publish("ExternalInterface", body)
-
+        if body["run_as_webservice"]:
+            self.queue_manager.publish("ExternalInterface", body)
+        else:
+            self.queue_manager.publish("TextToSpeech", body)
+            
+            
+    
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
 
