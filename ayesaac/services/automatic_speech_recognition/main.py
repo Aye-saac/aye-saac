@@ -1,3 +1,5 @@
+import os
+import subprocess
 from enum import Enum, auto
 from pprint import pprint
 from pathlib import Path
@@ -72,7 +74,7 @@ def record_and_transcribe(data, functionality_level: Level):
     try:
 
         if functionality_level == Level.LIVE_RECORDINGS:
-            wav_audio = record_from_microphone()
+            wav_audio = get_audio(data) #
             transcribed_to_json = use_ibm_api(wav_audio)
 
         else:
@@ -92,6 +94,39 @@ def record_and_transcribe(data, functionality_level: Level):
     except Exception as e:
         print("ASR error; {0}".format(e))
         raise e
+
+
+def get_audio(body):
+    if "run_as_webservice" in body:
+        # audio data is in the supplied body
+        return get_wav_from_web_input(body)
+    else:
+        # get it live
+        return record_from_microphone()
+
+
+def get_wav_from_web_input(body):
+    """
+    Voice files from the web come in ogg format.
+    IBM takes files in wav format. Convert here.
+    :param body: dict that passes between services
+    :return: wav bytestream
+    """
+    voice_file = body["voice_file"]  # expected to be a path to a .ogg file
+
+    out_name = f"{voice_file[:-4]}.wav"
+
+    # https://stackoverflow.com/a/60332477
+    subprocess.call(['ffmpeg', '-i', f'{voice_file}',
+                     f'{out_name}'])
+
+    with open(out_name, 'rb') as f:
+        wav = f.read()
+
+    # cleanup temp files - todo use the proper tempfile library
+    os.remove(out_name)
+    os.remove(voice_file)
+    return wav
 
 
 def use_ibm_api(audio_file):

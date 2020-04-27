@@ -9,7 +9,6 @@ services:
       - RABBITMQ_DEFAULT_PASS=test-user
     ports:
       - "15672:15672"
-      - "5672:5672"
     expose:
       - "15672"
       - "5672"

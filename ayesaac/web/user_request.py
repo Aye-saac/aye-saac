@@ -1,5 +1,7 @@
 import json
+import os
 import uuid
+from pathlib import Path
 
 from flask import request
 from PIL import Image
@@ -77,10 +79,18 @@ class UserRequest:
         return image.resize(new_size)
 
     def __parse_audio(self):
+        filename = f'{self.body["uid"]}_audio.ogg'
+
         def handle_audio_stream(stream):
             # Get the raw bytes from the audio
             # TODO: Is this in the form that will work for the system?
-            return BytesIO(stream)
+            # a hack a day keeps the doctor in fear
+            dir_path = str(Path(__file__).parent / 'user_audio')
+            os.makedirs(dir_path, exist_ok=True)
+            file_locus = str(Path(dir_path)/filename)
+            with open(file_locus, 'wb') as f:  # writing bytes
+                f.write(stream)
+            return file_locus
 
         # Return parsed audio
         return self.__parse_file("audio", handle_audio_stream)

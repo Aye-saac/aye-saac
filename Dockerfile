@@ -55,13 +55,14 @@ FROM python:3.6.10-slim
 COPY --from=python_builder /opt /opt
 
 # Copy KerasOCR models from builder
-COPY --from=python_bulder /root/.keras-ocr /root/.keras-ocr
+COPY --from=python_builder /root/.keras-ocr /root/.keras-ocr
 
 RUN apt-get update && apt-get -y install \
     libsm6 \
     libxext6 \
     libxrender-dev \
-    libglib2.0
+    libglib2.0 \
+    ffmpeg
 # remove apt cache to reduce image size
 # && rm -rf /var/lib/apt/lists/*
 # Add the VirtualEnv to the beginning of $PATH

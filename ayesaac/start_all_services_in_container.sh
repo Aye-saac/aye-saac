@@ -6,7 +6,7 @@ rm -fv ./ayesaac/services_log/*.txt
 # start all the python scripts in the background and redirect their outputs in the services_log directory
 echo "Starting all services"
 
-#python3 -m ayesaac.services.automatic_speech_recognition.main > ./ayesaac/services_log/1_automatic_speech_recognition.txt &
+python3 -u -m ayesaac.services.automatic_speech_recognition.main > ./ayesaac/services_log/1_automatic_speech_recognition.txt &
 # python3 -m ayesaac.services.natural_language_understanding.main > ./ayesaac/services_log/2_natural_language_understanding.txt &
 python3 -u -m ayesaac.services.manager.main > ./ayesaac/services_log/3_manager.txt &
 python3 -u -m ayesaac.services.camera_manager.main > ./ayesaac/services_log/4_0_camera_manager.txt &

@@ -73,7 +73,7 @@ def submit_status(task_id):
         data = file.read()
 
     # Delete file
-    os.remove(file_path)
+    # os.remove(file_path)
 
     # Return response
     return data, 200
