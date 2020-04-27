@@ -19,6 +19,15 @@ RUN apt-get update && \
 # remove apt cache to reduce image size
 # && rm -rf /var/lib/apt/lists/*
 
+# Install keras-ocr models
+RUN mkdir -p /root/.keras-ocr && ( \
+    cd /root/.keras-ocr && \
+    curl -L -o craft_mlt_25k.pth https://www.mediafire.com/file/qh2ullnnywi320s/craft_mlt_25k.pth/file && \
+    curl -L -o craft_mlt_25k.h5 https://www.mediafire.com/file/mepzf3sq7u7nve9/craft_mlt_25k.h5/file && \
+    curl -L -o crnn_kurapan.h5 https://www.mediafire.com/file/pkj2p29b1f6fpil/crnn_kurapan.h5/file \
+    )
+
+
 
 # Install Poetry & ensure it is in $PATH
 RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | POETRY_PREVIEW=1 python
@@ -38,11 +47,16 @@ RUN python -m venv /opt/venv && \
     pip install tensorflow-estimator==2.1.0 && \
     pip install -r requirements.txt
 
+
 # Main container (without previous bloat)
 FROM python:3.6.10-slim
 
 # Copy built deps from base build
 COPY --from=python_builder /opt /opt
+
+# Copy KerasOCR models from builder
+COPY --from=python_bulder /root/.keras-ocr /root/.keras-ocr
+
 RUN apt-get update && apt-get -y install \
     libsm6 \
     libxext6 \
