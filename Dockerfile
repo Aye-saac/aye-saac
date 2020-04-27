@@ -47,7 +47,8 @@ RUN apt-get update && apt-get -y install \
     libsm6 \
     libxext6 \
     libxrender-dev \
-    libglib2.0
+    libglib2.0 \
+    ffmpeg
 # remove apt cache to reduce image size
 # && rm -rf /var/lib/apt/lists/*
 # Add the VirtualEnv to the beginning of $PATH
