@@ -20,7 +20,8 @@ jobs:
     - name: Publish Docker
       uses: elgohr/Publish-Docker-Github-Action@2.14
       with:
-        name: aye-saac/docker/server
+        name: Aye-saac/docker/server
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
+
