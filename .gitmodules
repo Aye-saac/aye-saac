@@ -1,0 +1,3 @@
+[submodule "secret_alana_utils"]
+	path = secret_alana_utils
+	url = git@github.com:Hangsii/secret_alana_utils.git
