@@ -94,6 +94,8 @@
 - what's the item
 - whats this
 - what's this
+- can that [candy bar](object) be identified
+- any clue what this [box](object) is? thanks in advance for your help
 
 ## intent:recognise
 - is it a [bag](object)
@@ -102,7 +104,7 @@
 - is it a [glass](object)
 - is it a [table](object)
 - is that an [orange](object)
-- is this a [beer](type) [can](object)
+- is this a [beer can](object)
 - is this a [bin](object)
 - is this a [cable](object)
 - is this a [calculator](object)
@@ -131,7 +133,6 @@
 - and what [kind of oatmeal](aim) is this
 - and what [kind of oatmeal](aim) is this one
 - and what's the [name](aim) of this [package of chocolates](object)
-- any clue what this [box](object) is? thanks in advance for your help
 - any information in this [cup](object)
 - any writing on this
 - any writing on this [package](object)
@@ -146,26 +147,24 @@
 - are there [baking directions](aim) available on this [pizza box](object)
 - are there [baking instructions](aim) visible on this [box](object)? if so, what are they
 - are there [chemicals](aim) in this product
-- are there [cool ranch](aim) [doritos](object) or [sour cream and onion](aim) [chips](object)
+- are there [cool ranch doritos](object) or sour [cream and onion chips](object)
 - are there [directions](aim) on the back of this [box](object)
 - are there [directions](aim) on this side of the [box](object)
 - are there [heating instructions](aim) on this [packet](object)
 - are there [microwaveable instructions](aim) for this [pizza](object)
 - are these strawberry or smores [flavor](aim)
 - are these the apple cinnamon or strawberry [cereal bars](object)
-- are you able to eat this product if you have a [nut intolerance](medical)
 - are you able to read any of these [instructions](aim)
 - are you able to read that [label](aim)
 - are you able to read this [label](aim)
 - are you able to read what is on this k [cup](object) now
-- are you able to read what this [food item](object) is on this [box](object)
+- are you able to read what this [food item](aim) is on this [box](object)
 - can anybody read what is on this [can](object)
 - can someone tell me what [type of meat](aim) is in this [package](object)? i'm not sure, i can't identify it
 - can tell what [flavor](aim) this is
 - can tell what is in this [packet](object)
-- can that [candy bar](object) be identified
 - can the you see the [expiration date](aim)
-- can we tell what [kind](aim) of beer(object) this is
+- can we tell what [kind](aim) of [beer](object) this is
 - confirm the [oven](object) [setting](aim)
 - [contents](aim)
 - [contents](aim) of [can](object)
@@ -174,13 +173,13 @@
 - [cooking instructions](aim) for this product
 - could i get the [expiration date](aim) on this [can](object)
 - could i have the [expiration date](aim) of this [can](object)
-- could you read the text on this [label](object)
-- could you read the writing that's on this [tag](object)
+- could you read the text on this [label](aim)
+- could you read the writing that's on this [tag](aim)
 - could you read this
 - could you tell me the [cooking instructions](aim) of this food on this [box](object), and if not where to find my camera in order to read them
 - does that [sign](object) say
-- does the [label](object) say
-- does the [tag](object) say
+- does the [label](aim) say
+- does the [tag](aim) say
 - does this can say
 - does this [cup](object) say [tim horton's](contains) or [timothy's](contains) [coffee of the world](contains)
 - does this have a [date](aim)
@@ -190,14 +189,14 @@
 - now read this [label](aim) on this [package](object)
 - now read what is in this
 - read [all](aim) the things on the [cans](object)
-- read any of the text on the [bottle](object) to tell me what it is
+- read any of the text on the [bottle](object) to tell me [what](aim) it is
 - read any of this
 - read anything on this
 - read anything on this [box](object)
 - read anything on this [label](object)
 - read [cooking instructions](aim)
 - read [directions](aim)
-- read everything on that
+- read [everything](aim) on that
 - read [instructions](aim)
 - read [label](aim)
 - read me the [directions](aim) on how to [cook](aim) this
@@ -217,6 +216,7 @@
 - read the text on this
 - what does the [label](aim) read for this [bread](object)? who [made](aim) this bread? who's the [manufacturer](aim)
 - what does the [label](aim) read on this [can](object)
+- are you able to eat this product if you have a [nut intolerance](medical)
 
 ## intent:detect_colour
 - are these [bananas](object) [green](colour) or [yellow](colour)
@@ -314,8 +314,122 @@
 - what's the color for this item
 - what's the color of this
 
+## intent:same_intent
+- what about it
+- what about this
+- what about this thing
+- what about that
+- what about that thing
+- what about these
+- what about them
+- what 'bout it
+- what 'bout this
+- what 'bout this thing
+- what 'bout that
+- what 'bout that thing
+- what 'bout these
+- what 'bout them
+- what about the [shirt](object)
+- what about the [jacket](object)
+- what about the [umbrella](object)
+- what about the [computer](object)
+- what about the [mouse](object)
+- what about the [paper](object)
+- what about the [pen](object)
+- what about the [fork](object)
+- what about the [box of cereals](object)
+- what about the [bag](object)
+- what about the [bottle](object)
+- what about the [box](object)
+- what about the [glass](object)
+- what about the [table](object)
+- and this
+- and that
+- and about it
+- and about this
+- and about that
+- and about these
+- and about them
+- and about the [bag](object)
+- and about the [cup](object)
+- and about the [bowl](object)
+- and about the [spoon](object)
+
+## intent:locate
+- where's the [bowl](object)
+- where's the [spoon](object)
+- where's the [milk bottle](object)
+- where's the [milk](object)
+- where's the [water](object)
+- where's the [water bottle](object)
+- where's the [chocolate](object)
+- where's the [box of cereals](object)
+- where's the [cake rack](object)
+- where's the [wire rack](object)
+- where are my [pants](object)
+- where are my [stairs](object)
+- where are the [keys](object)
+- where are the [whiteboard markers](object)
+- where is the [bowl](object)
+- where is the [spoon](object)
+- where is the [milk bottle](object)
+- where is the [milk](object)
+- where is the [water](object)
+- where is the [chocolate](object)
+- where is the [box of cereals](object)
+- where is the [cake rack](object)
+- where is the [wire rack](object)
+- where is the [webcam](object)
+- where is the [white cup](object)
+- where is the [ashtray](object)
+- where is the [bowl](object)
+- where is the [broiler switch](object)
+- where is the [coffee](object)
+- where is the [dog](object)
+- where is the [food](object)
+- where is the [handle](object)
+- where is the [mint](object)
+- where is the [paddle](object)
+- where is the [phone](object)
+- where is the [printer](object)
+- where is the [red car](object)
+- where is the [salt](object)
+- where is the [silver](object)
+- where is the [sky](object)
+- where is [telephone](object)
+- where is it
+- where are they
+- where are them
+- where are those
+- where is that
+- where is this
+- where is this [item](object)
+- where is this [shirt](object)
+- where is this [table](object)
+- where is this [top](object)
+- where is my [black braille book](object)
+- where is my [brush](object)
+- where is my [cane](object)
+- where is my [cat](object)
+- where is my [ipad](object)
+- where is my [laptop](object)
+- where is my [money](object)
+- where is my [napkin](object)
+- where is my [school uniform](object)
+- where is my [slipper](object)
+- where is my [water bottle](object)
+
 ## lookup:object
 entries/objects.txt
 
 ## lookup:colour
 entries/colours.txt
+
+<!-- List of intents
+## intent:identify
+## intent:recognise
+## intent:read_text
+## intent:detect_colour
+## intent:same_intent -> ment to be a temporary intent for multiturn purpose (should be replaced before the manager service in the code)
+## intent:locate
+-->
