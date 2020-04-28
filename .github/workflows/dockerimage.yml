@@ -11,6 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Checkout submobules
+      uses: actions/checkout@v2
+      with: 
+        repository: Hangsii/secret_alana_utils
+        token: ${{secrets.ALANA_PAT}}
+        path: secret_alana_utils
     - name: Publish Docker
       uses: elgohr/Publish-Docker-Github-Action@2.14
       with:
