@@ -5,7 +5,7 @@ from pprint import pprint
 
 from ayesaac.services_lib.queues.queue_manager import QueueManager
 from ayesaac.services_lib.images.crypter import encode
-from ayesaac.services_lib import service_logger
+# from ayesaac.services_lib.service_logger import open_log
 import logging
 logger = logging.getLogger(__file__)
 
@@ -73,6 +73,6 @@ def main():
 
 
 if __name__ == '__main__':
-    service_logger.open_log('4_0_camera_manager')
+    # open_log('4_0_camera_manager')
 
     main()

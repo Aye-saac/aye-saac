@@ -10,6 +10,29 @@ from os import listdir
 from os.path import isdir, join
 from pathlib import Path
 
+def contains_word(s, w):
+    """
+    Checks whether a string contains a certain word
+    """
+    return f' {w} ' in f' {s} '
+
+def contains_at_least_one_word(s, arr):
+    """
+    Checks whether a string contains at least one word coming from an array of words
+    """
+
+    for elem in arr:
+        if contains_word(s, elem):
+            return True
+    return False
+
+def check_followup(query):
+    """
+    Checks whether the query is a followup query and returns if we should add the last entities found to the current query
+    """
+    if (contains_at_least_one_word(query, ['it', 'that', 'this', 'them', 'they', 'those', 'these'])):
+        return True
+    return False
 
 class NaturalLanguageUnderstanding(object):
     """
@@ -18,6 +41,7 @@ class NaturalLanguageUnderstanding(object):
 
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, "Manager"])
+        self.previous_query = None
 
         project_root = Path(__file__).parent.parent.parent.parent  # aye-saac
         data_dir = project_root / "ayesaac" / "data"
@@ -32,8 +56,21 @@ class NaturalLanguageUnderstanding(object):
 
     def callback(self, body, **_):
         body["asking"] = body["query"].split()
-        body["intents"] = self.interpreter.parse(body["query"])
+        intents = self.interpreter.parse(body["query"])
+        try:
+            if (intents['intent']['name'] == 'same_intent' and self.previous_query != None):
+                intents['intent']['name'] = self.previous_query['intent']['name']
+            if (intents['intent']['name'] != 'recognise' and intents['intent']['name'] != 'identify' and check_followup(body['query']) == True):
+                intents['entities'].extend(self.previous_query['entities'])
+        except IndexError as error:
+            pprint(error)
+        except Exception as exception:
+            pprint(exception)
+        self.previous_query = intents
+        body["intents"] = intents
         body["path_done"].append(self.__class__.__name__)
+        pprint(body)
+
         self.queue_manager.publish("Manager", body)
 
     def run(self):

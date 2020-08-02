@@ -1,0 +1,178 @@
+[
+  {
+    "text": "can we tell what kind of beer this is",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.9620394706726074
+    }
+  },
+  {
+    "text": "cookies are these",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.8762027025222778
+    }
+  },
+  {
+    "text": "could you tell me what color this is? what it is",
+    "intent": "detect_colour",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.690150260925293
+    }
+  },
+  {
+    "text": "is it blue",
+    "intent": "detect_colour",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.36288511753082275
+    }
+  },
+  {
+    "text": "where is my black braille book",
+    "intent": "locate",
+    "intent_prediction": {
+      "name": "detect_colour",
+      "confidence": 0.8582837581634521
+    }
+  },
+  {
+    "text": "can somebody tell me what this is and what kind of flavor is it",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "read_text",
+      "confidence": 0.9992874264717102
+    }
+  },
+  {
+    "text": "can someone tell me the content of this tin",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "read_text",
+      "confidence": 0.9800026416778564
+    }
+  },
+  {
+    "text": "could you tell me what it is and what color is it",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "detect_colour",
+      "confidence": 0.999977707862854
+    }
+  },
+  {
+    "text": "can that candy bar be identified",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "read_text",
+      "confidence": 0.420518696308136
+    }
+  },
+  {
+    "text": "are these bananas green or yellow",
+    "intent": "detect_colour",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.3129546046257019
+    }
+  },
+  {
+    "text": "alright, last try on this. i think i know what it is but try to tell me, thanks",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "read_text",
+      "confidence": 0.7251101136207581
+    }
+  },
+  {
+    "text": "and if pills are in the box",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "same_intent",
+      "confidence": 0.33941006660461426
+    }
+  },
+  {
+    "text": "are these chocolate or vanilla cookies",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "read_text",
+      "confidence": 0.9685250520706177
+    }
+  },
+  {
+    "text": "are these fruit crisps",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "recognise",
+      "confidence": 0.7003246545791626
+    }
+  },
+  {
+    "text": "are these strawberries",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "read_text",
+      "confidence": 0.814544677734375
+    }
+  },
+  {
+    "text": "can tell what is in this packet",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.353305846452713
+    }
+  },
+  {
+    "text": "now read what is in this",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.3804442286491394
+    }
+  },
+  {
+    "text": "are these beets",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "recognise",
+      "confidence": 0.3873293399810791
+    }
+  },
+  {
+    "text": "are there chemicals in this product",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "recognise",
+      "confidence": 0.532253623008728
+    }
+  },
+  {
+    "text": "are these the apple cinnamon or strawberry cereal bars",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.5501028299331665
+    }
+  },
+  {
+    "text": "can someone tell me what type of meat is in this package? i'm not sure, i can't identify it",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.9996991157531738
+    }
+  },
+  {
+    "text": "what color is that and what brand if it says is that",
+    "intent": "detect_colour",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.6628373265266418
+    }
+  }
+]

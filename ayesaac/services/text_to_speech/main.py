@@ -28,10 +28,10 @@ class TextToSpeech(object):
 
     def callback(self, body, **_):
         pprint(body)
-        if body['run_as_webservice']:
+        if "run_as_webservice" in body:
             self.client_handles_tts(body)
         else:
-            if body['response']:
+            if "response" in body:
                 gTTS(text=body['response'], lang='en', slow=False).save("audio.mp3")
                 playsound('audio.mp3')
                 os.remove('audio.mp3')

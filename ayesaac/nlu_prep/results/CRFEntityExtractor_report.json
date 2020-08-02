@@ -1,0 +1,68 @@
+{
+  "colour": {
+    "precision": 0.8947368421052632,
+    "recall": 0.7727272727272727,
+    "f1-score": 0.8292682926829269,
+    "support": 22
+  },
+  "to": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 2
+  },
+  "contains": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 9
+  },
+  "medical": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 2
+  },
+  "position": {
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1-score": 0.6666666666666666,
+    "support": 4
+  },
+  "from": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 2
+  },
+  "aim": {
+    "precision": 0.9759036144578314,
+    "recall": 0.7431192660550459,
+    "f1-score": 0.84375,
+    "support": 109
+  },
+  "object": {
+    "precision": 0.9176029962546817,
+    "recall": 0.8506944444444444,
+    "f1-score": 0.8828828828828829,
+    "support": 288
+  },
+  "micro avg": {
+    "precision": 0.9306666666666666,
+    "recall": 0.7968036529680366,
+    "f1-score": 0.8585485854858549,
+    "support": 438
+  },
+  "macro avg": {
+    "precision": 0.723530431602222,
+    "recall": 0.6083176229033453,
+    "f1-score": 0.6528209802790595,
+    "support": 438
+  },
+  "weighted avg": {
+    "precision": 0.9094232132958167,
+    "recall": 0.7968036529680366,
+    "f1-score": 0.8473734917259391,
+    "support": 438
+  }
+}
