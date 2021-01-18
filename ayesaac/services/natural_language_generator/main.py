@@ -9,7 +9,7 @@ from random import choice
 
 class NaturalLanguageGenerator(object):
     """
-    The class NaturalLanguageGenerator purpose is to translate the results obtain to a nicely phrase.
+    The class NaturalLanguageGenerator purpose is to translate the results obtained to a nicely formatted sentence.
     """
 
     def __init__(self):
@@ -63,74 +63,116 @@ class NaturalLanguageGenerator(object):
             )
         return answer
 
+    def identify(self, body):
+        pprint("identify")
+
+        objects = []
+        for o in body["objects"]:
+            if o["name"] != "person":
+                objects.append(o["name"] + (o["lateral_position"] if o.get("lateral_position") else ""))
+        objects = list(set([(o, objects.count(o)) for o in objects]))
+        obj_cnt = sum(n for _, n in objects)
+        context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        return objects, context, obj_cnt
+
+    def recognise(self, body):
+        pprint("recognise")
+
+        objects = []
+        for o in body["objects"]:
+            for p in body["intents"]["entities"]:
+                if o["name"] == p["value"]:
+                    objects.append(o["name"] + (o["lateral_position"] if o.get("lateral_position") else ""))
+        objects = list(set([(o, objects.count(o)) for o in objects]))
+        obj_cnt = sum(n for _, n in objects)
+        context = (
+            ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+            + "_ANSWER_"
+            + ("P" if obj_cnt > 1 else "S")
+        )
+        if not obj_cnt:
+            objects = [(p["value"], 1) for p in body["intents"]["entities"]]
+            obj_cnt = sum(n for _, n in objects)
+        return objects, context, obj_cnt
+
+    def read_text(self, body):
+        pprint("read_text")
+
+        objects = " ".join(" ".join(t) for t in body["texts"])
+        print(objects)
+        obj_cnt = 1 if len(objects) > 0 else 0
+        context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+        return objects, context, obj_cnt
+
+    def detect_colour(self, body):
+        pprint("detect_colour")
+
+        obj_cnt = 0
+        objects = None
+        context = None
+
+        for o in body["objects"]:
+            for p in body["intents"]["entities"]:
+                if o["name"] == p["value"]:
+                    objects = (p["value"], o["colour"])
+                    break
+                else:
+                    objects = (p["value"], None)
+        if objects:
+            obj_cnt = 1 if objects[1] else 0
+            objects = objects[obj_cnt]
+            context = "COLOR_DETECTION" if obj_cnt else "COLOR_DETECTION_N"
+        return objects, context, obj_cnt
+
+    def locate(self, body):
+        pprint("locate")
+
+        objects = []
+        for o in body["objects"]:
+            for p in body["intents"]["entities"]:
+                if o["name"] == p["value"]:
+                    if not o.get("lateral_position") and o.get("bbox") and len(o["bbox"]) >= 4:
+                        bbox = o["bbox"]
+                        yStart = bbox[0]
+                        xStart = bbox[1]
+                        yEnd = bbox[2]
+                        xEnd = bbox[3]
+                        xCenter = (xEnd + xStart) / 2
+                        yCenter = (yEnd + yStart) / 2
+                        pprint("xCenter")
+                        pprint(xCenter)
+                        if xCenter < 0.382:
+                            o["lateral_position"] = " on the left"
+                        elif xCenter >= 0.382 and xCenter <= 0.618:
+                            o["lateral_position"] = " in front"
+                        elif xCenter > 0.618:
+                            o["lateral_position"] = " on the right"
+                    objects.append(o["name"] + (o["lateral_position"] if o.get("lateral_position") else ""))
+        objects = list(set([(o, objects.count(o)) for o in objects]))
+        obj_cnt = sum(n for _, n in objects)
+        context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        return objects, context, obj_cnt
+
+    def default(self, body):
+        pprint("default")
+
+        # Creates list of object detected in the scene
+        objects = [o["name"] + (o["lateral_position"] if o.get("lateral_position") else "") for o in body["objects"]]
+        objects = list(set([(o, objects.count(o)) for o in objects]))
+        obj_cnt = sum(n for _, n in objects)
+        context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        return objects, context, obj_cnt
+
     def callback(self, body, **_):
         pprint(body)
 
-        objects = None
-        context = None
-        if body["intents"]["intent"]["name"] == "identify":
-            objects = []
-            for o in body["objects"]:
-                if o["name"] != "person":
-                    # objects.append(o['name']+o['lateral_position'])
-                    # objects.append(o['name'])
-                    objects.append(
-                        o["name"]
-                        + (o["lateral_position"] if o.get("lateral_position") else "")
-                    )
-            objects = list(set([(o, objects.count(o)) for o in objects]))
-            obj_cnt = sum(n for _, n in objects)
-            context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
-        elif body["intents"]["intent"]["name"] == "recognise":
-            objects = []
-            for o in body["objects"]:
-                for p in body["intents"]["entities"]:
-                    if o["name"] == p["value"]:
-                        # objects.append(o['name']+o['lateral_position'])
-                        # objects.append(o['name'])
-                        objects.append(
-                            o["name"]
-                            + (
-                                o["lateral_position"]
-                                if o.get("lateral_position")
-                                else ""
-                            )
-                        )
-            objects = list(set([(o, objects.count(o)) for o in objects]))
-            obj_cnt = sum(n for _, n in objects)
-            context = (
-                ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
-                + "_ANSWER_"
-                + ("P" if obj_cnt > 1 else "S")
-            )
-            if not obj_cnt:
-                objects = [(p["value"], 1) for p in body["intents"]["entities"]]
-                obj_cnt = sum(n for _, n in objects)
-        elif body["intents"]["intent"]["name"] == "read_text":
-            objects = " ".join(" ".join(t) for t in body["texts"])
-            print(objects)
-            obj_cnt = 1 if len(objects) > 0 else 0
-            context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
-        elif body["intents"]["intent"]["name"] == "detect_colour":
-            for o in body["objects"]:
-                for p in body["intents"]["entities"]:
-                    if o["name"] == p["value"]:
-                        objects = (p["value"], o["colour"])
-                        break
-                    else:
-                        objects = (p["value"], None)
-            if objects:
-                obj_cnt = 1 if objects[1] else 0
-                objects = objects[obj_cnt]
-                context = "COLOR_DETECTION" if obj_cnt else "COLOR_DETECTION_N"
-        elif body.get("objects"):
-            # Creates list of object detected in the scene
-            objects = [o["name"] + o["lateral_position"] for o in body["objects"]]
-            objects = list(set([(o, objects.count(o)) for o in objects]))
-            obj_cnt = sum(n for _, n in objects)
-            context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        method = getattr(self, body["intents"]["intent"]["name"], self.default)
+        pprint('----- METHOD CALLED -----')
+        objects, context, obj_cnt = method(body)
+
         print(objects)
         print(context)
+
         if objects != None and context != None:
             response = self.generate_text(objects, context, obj_cnt)
         else:
@@ -140,13 +182,13 @@ class NaturalLanguageGenerator(object):
         pprint(body["response"])
         body["path_done"].append(self.__class__.__name__)
 
-        if body["run_as_webservice"]:
+        if "run_as_webservice" in body:
             self.queue_manager.publish("ExternalInterface", body)
         else:
             self.queue_manager.publish("TextToSpeech", body)
-            
-            
-    
+
+
+
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
 

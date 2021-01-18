@@ -1,0 +1,1379 @@
+[
+  {
+    "text": "are there directions on this side of the box",
+    "entities": [
+      {
+        "start": 10,
+        "end": 20,
+        "value": "directions",
+        "entity": "aim"
+      },
+      {
+        "start": 41,
+        "end": 44,
+        "value": "box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 10,
+        "end": 20,
+        "value": "directions",
+        "entity": "aim",
+        "confidence": 0.9772886378129553,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 29,
+        "end": 33,
+        "value": "side",
+        "entity": "object",
+        "confidence": 0.6075967897307609,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 41,
+        "end": 44,
+        "value": "box",
+        "entity": "object",
+        "confidence": 0.9729865236186588,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "can we tell what kind of beer this is",
+    "entities": [
+      {
+        "start": 17,
+        "end": 21,
+        "value": "kind",
+        "entity": "aim"
+      },
+      {
+        "start": 25,
+        "end": 29,
+        "value": "beer",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "confirm the oven setting",
+    "entities": [
+      {
+        "start": 12,
+        "end": 16,
+        "value": "oven",
+        "entity": "object"
+      },
+      {
+        "start": 17,
+        "end": 24,
+        "value": "setting",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 12,
+        "end": 24,
+        "value": "oven setting",
+        "entity": "object",
+        "confidence": 0.5199373572521498,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "cookies are these",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "cookies",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "could you read the writing that's on this tag",
+    "entities": [
+      {
+        "start": 42,
+        "end": 45,
+        "value": "tag",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 42,
+        "end": 45,
+        "value": "tag",
+        "entity": "object",
+        "confidence": 0.8017102612438437,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "does this cup say tim horton's or timothy's coffee of the world",
+    "entities": [
+      {
+        "start": 10,
+        "end": 13,
+        "value": "cup",
+        "entity": "object"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "value": "tim horton's",
+        "entity": "contains"
+      },
+      {
+        "start": 34,
+        "end": 43,
+        "value": "timothy's",
+        "entity": "contains"
+      },
+      {
+        "start": 44,
+        "end": 63,
+        "value": "coffee of the world",
+        "entity": "contains"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 10,
+        "end": 13,
+        "value": "cup",
+        "entity": "object",
+        "confidence": 0.5527637867911915,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 58,
+        "end": 63,
+        "value": "world",
+        "entity": "object",
+        "confidence": 0.7711302879733876,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "read any of the text on the bottle to tell me what it is",
+    "entities": [
+      {
+        "start": 28,
+        "end": 34,
+        "value": "bottle",
+        "entity": "object"
+      },
+      {
+        "start": 46,
+        "end": 50,
+        "value": "what",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 28,
+        "end": 34,
+        "value": "bottle",
+        "entity": "object",
+        "confidence": 0.9094787725894866,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "read anything on this label",
+    "entities": [
+      {
+        "start": 22,
+        "end": 27,
+        "value": "label",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 22,
+        "end": 27,
+        "value": "label",
+        "entity": "aim",
+        "confidence": 0.8972482980112627,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are you able to eat this product if you have a nut intolerance",
+    "entities": [
+      {
+        "start": 47,
+        "end": 62,
+        "value": "nut intolerance",
+        "entity": "medical"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "is this pepper mill red or black",
+    "entities": [
+      {
+        "start": 8,
+        "end": 19,
+        "value": "pepper mill",
+        "entity": "object"
+      },
+      {
+        "start": 20,
+        "end": 23,
+        "value": "red",
+        "entity": "colour"
+      },
+      {
+        "start": 27,
+        "end": 32,
+        "value": "black",
+        "entity": "colour"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 8,
+        "end": 14,
+        "value": "pepper",
+        "entity": "object",
+        "confidence": 0.7347311891423529,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 27,
+        "end": 32,
+        "value": "black",
+        "entity": "colour",
+        "confidence": 0.9899029016543502,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "what color are the lids of the bottles",
+    "entities": [
+      {
+        "start": 19,
+        "end": 38,
+        "value": "lids of the bottles",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 31,
+        "end": 38,
+        "value": "bottles",
+        "entity": "object",
+        "confidence": 0.9824401768734872,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "what color exactly is this? it's gatorade but what color is it",
+    "entities": [
+      {
+        "start": 33,
+        "end": 41,
+        "value": "gatorade",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "where are the whiteboard markers",
+    "entities": [
+      {
+        "start": 14,
+        "end": 32,
+        "value": "whiteboard markers",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "where is my black braille book",
+    "entities": [
+      {
+        "start": 12,
+        "end": 30,
+        "value": "black braille book",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 12,
+        "end": 17,
+        "value": "black",
+        "entity": "colour",
+        "confidence": 0.8620968534571002,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "can that candy bar be identified",
+    "entities": [
+      {
+        "start": 9,
+        "end": 18,
+        "value": "candy bar",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "and what flavor is this pasta sauce",
+    "entities": [
+      {
+        "start": 9,
+        "end": 15,
+        "value": "flavor",
+        "entity": "aim"
+      },
+      {
+        "start": 24,
+        "end": 35,
+        "value": "pasta sauce",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 9,
+        "end": 15,
+        "value": "flavor",
+        "entity": "aim",
+        "confidence": 0.9117938339622786,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 24,
+        "end": 29,
+        "value": "pasta",
+        "entity": "object",
+        "confidence": 0.662914372382337,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "and what's the name of this package of chocolates",
+    "entities": [
+      {
+        "start": 15,
+        "end": 19,
+        "value": "name",
+        "entity": "aim"
+      },
+      {
+        "start": 28,
+        "end": 49,
+        "value": "package of chocolates",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 15,
+        "end": 19,
+        "value": "name",
+        "entity": "aim",
+        "confidence": 0.936108222511366,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 28,
+        "end": 35,
+        "value": "package",
+        "entity": "object",
+        "confidence": 0.9725062339873388,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 39,
+        "end": 49,
+        "value": "chocolates",
+        "entity": "object",
+        "confidence": 0.9235268486990535,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are you able to read what this food item is on this box",
+    "entities": [
+      {
+        "start": 31,
+        "end": 40,
+        "value": "food item",
+        "entity": "aim"
+      },
+      {
+        "start": 52,
+        "end": 55,
+        "value": "box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 52,
+        "end": 55,
+        "value": "box",
+        "entity": "object",
+        "confidence": 0.9860129882941419,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "cooking directions",
+    "entities": [
+      {
+        "start": 0,
+        "end": 18,
+        "value": "cooking directions",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 8,
+        "end": 18,
+        "value": "directions",
+        "entity": "aim",
+        "confidence": 0.8460343356275363,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "does that sign say",
+    "entities": [
+      {
+        "start": 10,
+        "end": 14,
+        "value": "sign",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "does this have a date",
+    "entities": [
+      {
+        "start": 17,
+        "end": 21,
+        "value": "date",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 17,
+        "end": 21,
+        "value": "date",
+        "entity": "object",
+        "confidence": 0.8253356360815348,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are these bananas green or yellow",
+    "entities": [
+      {
+        "start": 10,
+        "end": 17,
+        "value": "bananas",
+        "entity": "object"
+      },
+      {
+        "start": 18,
+        "end": 23,
+        "value": "green",
+        "entity": "colour"
+      },
+      {
+        "start": 27,
+        "end": 33,
+        "value": "yellow",
+        "entity": "colour"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "tell me what color is these chips",
+    "entities": [
+      {
+        "start": 28,
+        "end": 33,
+        "value": "chips",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color is that candy that i am holding in my hand",
+    "entities": [
+      {
+        "start": 19,
+        "end": 24,
+        "value": "candy",
+        "entity": "object"
+      },
+      {
+        "start": 49,
+        "end": 53,
+        "value": "hand",
+        "entity": "position"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 49,
+        "end": 53,
+        "value": "hand",
+        "entity": "position",
+        "confidence": 0.777684683026399,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "where is telephone",
+    "entities": [
+      {
+        "start": 9,
+        "end": 18,
+        "value": "telephone",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "and if pills are in the box",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "start": 24,
+        "end": 27,
+        "value": "box",
+        "entity": "object",
+        "confidence": 0.9941809402038145,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are these cheese or blueberry",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "start": 20,
+        "end": 29,
+        "value": "blueberry",
+        "entity": "colour",
+        "confidence": 0.5227035957621656,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "and what kind of oatmeal is this one",
+    "entities": [
+      {
+        "start": 9,
+        "end": 24,
+        "value": "kind of oatmeal",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 9,
+        "end": 24,
+        "value": "kind of oatmeal",
+        "entity": "aim",
+        "confidence": 0.769062113981913,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 33,
+        "end": 36,
+        "value": "one",
+        "entity": "object",
+        "confidence": 0.5734913497740991,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are there any interim stages of cooking, like, turning or shaking or anything like that",
+    "entities": [
+      {
+        "start": 14,
+        "end": 39,
+        "value": "interim stages of cooking",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 32,
+        "end": 45,
+        "value": "cooking, like",
+        "entity": "aim",
+        "confidence": 0.6073918415927463,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are there cool ranch doritos or sour cream and onion chips",
+    "entities": [
+      {
+        "start": 10,
+        "end": 28,
+        "value": "cool ranch doritos",
+        "entity": "object"
+      },
+      {
+        "start": 37,
+        "end": 58,
+        "value": "cream and onion chips",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 53,
+        "end": 58,
+        "value": "chips",
+        "entity": "object",
+        "confidence": 0.857786741227221,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "read all the things on the cans",
+    "entities": [
+      {
+        "start": 5,
+        "end": 8,
+        "value": "all",
+        "entity": "aim"
+      },
+      {
+        "start": 27,
+        "end": 31,
+        "value": "cans",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 27,
+        "end": 31,
+        "value": "cans",
+        "entity": "object",
+        "confidence": 0.9930340803070127,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "read me the directions on this box of mccormick's chili seasoning",
+    "entities": [
+      {
+        "start": 12,
+        "end": 22,
+        "value": "directions",
+        "entity": "aim"
+      },
+      {
+        "start": 31,
+        "end": 34,
+        "value": "box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 12,
+        "end": 22,
+        "value": "directions",
+        "entity": "aim",
+        "confidence": 0.9846387182497301,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 31,
+        "end": 47,
+        "value": "box of mccormick",
+        "entity": "object",
+        "confidence": 0.43535501554491224,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "read the name of this type of coffee",
+    "entities": [
+      {
+        "start": 9,
+        "end": 13,
+        "value": "name",
+        "entity": "aim"
+      },
+      {
+        "start": 22,
+        "end": 36,
+        "value": "type of coffee",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 9,
+        "end": 13,
+        "value": "name",
+        "entity": "aim",
+        "confidence": 0.9376319511200667,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 22,
+        "end": 36,
+        "value": "type of coffee",
+        "entity": "object",
+        "confidence": 0.4812828173994552,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "what color coffee mug do i have",
+    "entities": [
+      {
+        "start": 11,
+        "end": 21,
+        "value": "coffee mug",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color is the drinking glass",
+    "entities": [
+      {
+        "start": 18,
+        "end": 32,
+        "value": "drinking glass",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "where is the white cup",
+    "entities": [
+      {
+        "start": 13,
+        "end": 22,
+        "value": "white cup",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 19,
+        "end": 22,
+        "value": "cup",
+        "entity": "object",
+        "confidence": 0.7982217027648266,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are these strawberries",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "start": 10,
+        "end": 22,
+        "value": "strawberries",
+        "entity": "object",
+        "confidence": 0.9110156906587654,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are the instructions for the oven on this product",
+    "entities": [
+      {
+        "start": 8,
+        "end": 33,
+        "value": "instructions for the oven",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 8,
+        "end": 20,
+        "value": "instructions",
+        "entity": "aim",
+        "confidence": 0.9611141972071725,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 29,
+        "end": 33,
+        "value": "oven",
+        "entity": "object",
+        "confidence": 0.6508725224099976,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are there any directions on this package that tell me how to cook these beats",
+    "entities": [
+      {
+        "start": 14,
+        "end": 24,
+        "value": "directions",
+        "entity": "aim"
+      },
+      {
+        "start": 33,
+        "end": 40,
+        "value": "package",
+        "entity": "object"
+      },
+      {
+        "start": 61,
+        "end": 65,
+        "value": "cook",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 14,
+        "end": 24,
+        "value": "directions",
+        "entity": "aim",
+        "confidence": 0.8609825843892709,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 33,
+        "end": 40,
+        "value": "package",
+        "entity": "object",
+        "confidence": 0.8688830106541626,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 61,
+        "end": 65,
+        "value": "cook",
+        "entity": "aim",
+        "confidence": 0.6977072264342346,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 72,
+        "end": 77,
+        "value": "beats",
+        "entity": "object",
+        "confidence": 0.5113229327020049,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "read everything on that",
+    "entities": [
+      {
+        "start": 5,
+        "end": 15,
+        "value": "everything",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "is this brown or gray",
+    "entities": [
+      {
+        "start": 8,
+        "end": 13,
+        "value": "brown",
+        "entity": "colour"
+      },
+      {
+        "start": 17,
+        "end": 21,
+        "value": "gray",
+        "entity": "colour"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color does this wine have",
+    "entities": [
+      {
+        "start": 21,
+        "end": 25,
+        "value": "wine",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color is on the left",
+    "entities": [
+      {
+        "start": 21,
+        "end": 25,
+        "value": "left",
+        "entity": "position"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 21,
+        "end": 25,
+        "value": "left",
+        "entity": "object",
+        "confidence": 0.4883264960423881,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "what color is this cup? i hope i got the cup",
+    "entities": [
+      {
+        "start": 19,
+        "end": 22,
+        "value": "cup",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 19,
+        "end": 22,
+        "value": "cup",
+        "entity": "object",
+        "confidence": 0.8171352747987749,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 41,
+        "end": 44,
+        "value": "cup",
+        "entity": "object",
+        "confidence": 0.9710803028715503,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "where is this item",
+    "entities": [
+      {
+        "start": 14,
+        "end": 18,
+        "value": "item",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "alright this is a closer picture. see the flavor on at",
+    "entities": [
+      {
+        "start": 42,
+        "end": 48,
+        "value": "flavor",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 18,
+        "end": 24,
+        "value": "closer",
+        "entity": "object",
+        "confidence": 0.5831611586473872,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 42,
+        "end": 48,
+        "value": "flavor",
+        "entity": "aim",
+        "confidence": 0.99603106373457,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are any of these cans garbanzo and if so which one? starting from left to right",
+    "entities": [
+      {
+        "start": 17,
+        "end": 21,
+        "value": "cans",
+        "entity": "object"
+      },
+      {
+        "start": 22,
+        "end": 30,
+        "value": "garbanzo",
+        "entity": "aim"
+      },
+      {
+        "start": 66,
+        "end": 70,
+        "value": "left",
+        "entity": "from"
+      },
+      {
+        "start": 74,
+        "end": 79,
+        "value": "right",
+        "entity": "to"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 66,
+        "end": 70,
+        "value": "left",
+        "entity": "from",
+        "confidence": 0.6387328536667265,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 74,
+        "end": 79,
+        "value": "right",
+        "entity": "to",
+        "confidence": 0.7042458663975529,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are there baking directions available on this pizza box",
+    "entities": [
+      {
+        "start": 10,
+        "end": 27,
+        "value": "baking directions",
+        "entity": "aim"
+      },
+      {
+        "start": 46,
+        "end": 55,
+        "value": "pizza box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 10,
+        "end": 27,
+        "value": "baking directions",
+        "entity": "aim",
+        "confidence": 0.5967019882736416,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 52,
+        "end": 55,
+        "value": "box",
+        "entity": "object",
+        "confidence": 0.7673904461510346,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are there chemicals in this product",
+    "entities": [
+      {
+        "start": 10,
+        "end": 19,
+        "value": "chemicals",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "are there microwaveable instructions for this pizza",
+    "entities": [
+      {
+        "start": 10,
+        "end": 36,
+        "value": "microwaveable instructions",
+        "entity": "aim"
+      },
+      {
+        "start": 46,
+        "end": 51,
+        "value": "pizza",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 10,
+        "end": 23,
+        "value": "microwaveable",
+        "entity": "object",
+        "confidence": 0.3928107951865224,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 46,
+        "end": 51,
+        "value": "pizza",
+        "entity": "object",
+        "confidence": 0.8664213156990375,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are these the apple cinnamon or strawberry cereal bars",
+    "entities": [
+      {
+        "start": 43,
+        "end": 54,
+        "value": "cereal bars",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 50,
+        "end": 54,
+        "value": "bars",
+        "entity": "object",
+        "confidence": 0.7742859259674363,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "are you able to read what is on this k cup now",
+    "entities": [
+      {
+        "start": 39,
+        "end": 42,
+        "value": "cup",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "can someone tell me what type of meat is in this package? i'm not sure, i can't identify it",
+    "entities": [
+      {
+        "start": 25,
+        "end": 37,
+        "value": "type of meat",
+        "entity": "aim"
+      },
+      {
+        "start": 49,
+        "end": 56,
+        "value": "package",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 49,
+        "end": 56,
+        "value": "package",
+        "entity": "object",
+        "confidence": 0.8967920031660054,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "does this can say",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "start": 10,
+        "end": 13,
+        "value": "can",
+        "entity": "object",
+        "confidence": 0.8365559587911295,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "read the directions on box to me",
+    "entities": [
+      {
+        "start": 9,
+        "end": 19,
+        "value": "directions",
+        "entity": "aim"
+      },
+      {
+        "start": 23,
+        "end": 26,
+        "value": "box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 9,
+        "end": 19,
+        "value": "directions",
+        "entity": "aim",
+        "confidence": 0.9841076284949687,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "what does the label read for this bread? who made this bread? who's the manufacturer",
+    "entities": [
+      {
+        "start": 14,
+        "end": 19,
+        "value": "label",
+        "entity": "aim"
+      },
+      {
+        "start": 34,
+        "end": 39,
+        "value": "bread",
+        "entity": "object"
+      },
+      {
+        "start": 45,
+        "end": 49,
+        "value": "made",
+        "entity": "aim"
+      },
+      {
+        "start": 72,
+        "end": 84,
+        "value": "manufacturer",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 14,
+        "end": 19,
+        "value": "label",
+        "entity": "aim",
+        "confidence": 0.9385941576691436,
+        "extractor": "CRFEntityExtractor"
+      },
+      {
+        "start": 72,
+        "end": 84,
+        "value": "manufacturer",
+        "entity": "object",
+        "confidence": 0.9361958181945745,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  },
+  {
+    "text": "what color are in these sponges",
+    "entities": [
+      {
+        "start": 24,
+        "end": 31,
+        "value": "sponges",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color is the drink in my cup",
+    "entities": [
+      {
+        "start": 18,
+        "end": 23,
+        "value": "drink",
+        "entity": "object"
+      },
+      {
+        "start": 30,
+        "end": 33,
+        "value": "cup",
+        "entity": "position"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "start": 30,
+        "end": 33,
+        "value": "cup",
+        "entity": "object",
+        "confidence": 0.9772308565215672,
+        "extractor": "CRFEntityExtractor"
+      }
+    ]
+  }
+]

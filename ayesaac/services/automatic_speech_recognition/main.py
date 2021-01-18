@@ -178,7 +178,7 @@ class AutomaticSpeechRecognition(object):
         :return: None
         """
         pprint(body)
-        body = callback_impl(body)
+        # body = callback_impl(body)
 
         pprint(body["query"])
         body["path_done"].append(self.__class__.__name__)
