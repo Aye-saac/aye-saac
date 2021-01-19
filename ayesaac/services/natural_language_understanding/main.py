@@ -1,20 +1,23 @@
-from pprint import pprint
-
-from ayesaac.services_lib.queues.queue_manager import QueueManager
-import logging
-
-logger = logging.getLogger(__name__)
-
-from rasa.nlu.model import Interpreter
 from os import listdir
 from os.path import isdir, join
 from pathlib import Path
+from pprint import pprint
+
+from rasa.nlu.model import Interpreter
+
+from ayesaac.queue_manager import QueueManager
+from ayesaac.utils.logger import get_logger
+
+
+logger = get_logger(__file__)
+
 
 def contains_word(s, w):
     """
     Checks whether a string contains a certain word
     """
-    return f' {w} ' in f' {s} '
+    return f" {w} " in f" {s} "
+
 
 def contains_at_least_one_word(s, arr):
     """
@@ -26,13 +29,17 @@ def contains_at_least_one_word(s, arr):
             return True
     return False
 
+
 def check_followup(query):
     """
     Checks whether the query is a followup query and returns if we should add the last entities found to the current query
     """
-    if (contains_at_least_one_word(query, ['it', 'that', 'this', 'them', 'they', 'those', 'these'])):
+    if contains_at_least_one_word(
+        query, ["it", "that", "this", "them", "they", "those", "these"]
+    ):
         return True
     return False
+
 
 class NaturalLanguageUnderstanding(object):
     """
@@ -54,14 +61,23 @@ class NaturalLanguageUnderstanding(object):
         pprint(model)
         self.interpreter = Interpreter.load(model)
 
+        logger.info(f"{self.__class__.__name__} ready")
+
     def callback(self, body, **_):
         body["asking"] = body["query"].split()
         intents = self.interpreter.parse(body["query"])
         try:
-            if (intents['intent']['name'] == 'same_intent' and self.previous_query != None):
-                intents['intent']['name'] = self.previous_query['intent']['name']
-            if (intents['intent']['name'] != 'recognise' and intents['intent']['name'] != 'identify' and check_followup(body['query']) == True):
-                intents['entities'].extend(self.previous_query['entities'])
+            if (
+                intents["intent"]["name"] == "same_intent"
+                and self.previous_query != None
+            ):
+                intents["intent"]["name"] = self.previous_query["intent"]["name"]
+            if (
+                intents["intent"]["name"] != "recognise"
+                and intents["intent"]["name"] != "identify"
+                and check_followup(body["query"]) == True
+            ):
+                intents["entities"].extend(self.previous_query["entities"])
         except IndexError as error:
             pprint(error)
         except Exception as exception:
@@ -83,10 +99,5 @@ def main():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
-        datefmt="%m-%d %H:%M",
-        filemode="w",
-    )
+
     main()

@@ -1,20 +1,25 @@
+import operator
+from pathlib import Path
+from pprint import pprint
 
 import numpy as np
-from skimage.color import rgb2lab
-from skimage.segmentation import slic
-from skimage.measure import regionprops
-from pprint import pprint
-from pathlib import Path
 import pandas as pd
-import operator
+from skimage.color import rgb2lab
+from skimage.measure import regionprops
+from skimage.segmentation import slic
 
-from ayesaac.services_lib.images.crypter import decode
-from ayesaac.services_lib.queues.queue_manager import QueueManager
+from ayesaac.queue_manager import QueueManager
+from ayesaac.queue_manager.crypter import decode
+from ayesaac.utils.logger import get_logger
+
+
+logger = get_logger(__file__)
 
 
 class ColourDetection:
     """
-        The class ColourDetection purpose is to detect every main colour from objects in the given pictures.
+    The class ColourDetection purpose is to detect every main colour from objects in
+    the given pictures.
     """
 
     def __init__(self):
@@ -23,10 +28,16 @@ class ColourDetection:
         project_root = Path(__file__).parent.parent.parent.parent
         data_file = f"{project_root}/ayesaac/data/colour/lab.txt"
 
-        colour_list = pd.read_csv(data_file, skiprows=28, header=None, names=["l", "a", "b", "name"])
+        colour_list = pd.read_csv(
+            data_file, skiprows=28, header=None, names=["l", "a", "b", "name"]
+        )
         colour_list = colour_list.values.tolist()[1:]
         self.colour_list_names = [x[3] for x in colour_list]
-        self.colour_list_values = np.asarray([np.asarray(x[:3], dtype=np.float32) for x in colour_list])
+        self.colour_list_values = np.asarray(
+            [np.asarray(x[:3], dtype=np.float32) for x in colour_list]
+        )
+
+        logger.info(f"{self.__class__.__name__} ready")
 
     @staticmethod
     def convert_rgb_to_lab(image: np.ndarray) -> np.ndarray:
@@ -44,11 +55,14 @@ class ColourDetection:
 
     @staticmethod
     def create_labelled_image(lab_image) -> np.ndarray:
-        labelled_image = slic(lab_image, n_segments=200,
-                              compactness=10,
-                              sigma=0.1,
-                              convert2lab=False,
-                              enforce_connectivity=True)
+        labelled_image = slic(
+            lab_image,
+            n_segments=200,
+            compactness=10,
+            sigma=0.1,
+            convert2lab=False,
+            enforce_connectivity=True,
+        )
 
         return labelled_image
 
@@ -58,19 +72,23 @@ class ColourDetection:
         image_dimensions = np.shape(labelled_image)
 
         for region in region_segments:
-            region.is_boundary = ColourDetection.is_region_on_boundary(region, image_dimensions)
+            region.is_boundary = ColourDetection.is_region_on_boundary(
+                region, image_dimensions
+            )
             region.average_colour = ColourDetection.get_region_average_colour(
-                region.label,
-                labelled_image,
-                lab_image
+                region.label, labelled_image, lab_image
             )
 
         return region_segments
 
     @staticmethod
     def is_region_on_boundary(region, image_dimensions):
-        if region.bbox[0] == 0 or region.bbox[1] == 0 or region.bbox[2] == \
-                image_dimensions[0] or region.bbox == image_dimensions[1]:
+        if (
+            region.bbox[0] == 0
+            or region.bbox[1] == 0
+            or region.bbox[2] == image_dimensions[0]
+            or region.bbox == image_dimensions[1]
+        ):
             return True
         return False
 
@@ -83,7 +101,9 @@ class ColourDetection:
 
     @staticmethod
     def get_region_average_colour(label_id, labelled_image, image):
-        masked_image = ColourDetection.get_pixels_from_label_id(label_id, labelled_image, image)
+        masked_image = ColourDetection.get_pixels_from_label_id(
+            label_id, labelled_image, image
+        )
         flattened_masked_image = ColourDetection.flatten_image(masked_image)
         average_colour = np.zeros(3, dtype=np.float32)
 
@@ -115,16 +135,22 @@ class ColourDetection:
     def callback(self, body, **_):
         body["path_done"].append(self.__class__.__name__)
 
-        for picture in body['pictures']:
-            image = decode(picture['data'], picture['shape'], np.uint8)
-            for i, obj in enumerate(body['objects']):
-                crop_img = image[int(picture['shape'][0] * obj['bbox'][0]):int(picture['shape'][0] * obj['bbox'][2]),
-                           int(picture['shape'][1] * obj['bbox'][1]):int(picture['shape'][1] * obj['bbox'][3])]
+        for picture in body["pictures"]:
+            image = decode(picture["data"], picture["shape"], np.uint8)
+            for i, obj in enumerate(body["objects"]):
+                crop_img = image[
+                    int(picture["shape"][0] * obj["bbox"][0]) : int(
+                        picture["shape"][0] * obj["bbox"][2]
+                    ),
+                    int(picture["shape"][1] * obj["bbox"][1]) : int(
+                        picture["shape"][1] * obj["bbox"][3]
+                    ),
+                ]
                 colour_name = self.detect_colours(crop_img)
-                body['objects'][i]['colour'] = colour_name
-        del body['pictures']
+                body["objects"][i]["colour"] = colour_name
+        del body["pictures"]
         pprint(body)
-        next_service = body['vision_path'].pop(0)
+        next_service = body["vision_path"].pop(0)
         self.queue_manager.publish(next_service, body)
 
     def run(self):

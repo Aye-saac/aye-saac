@@ -1,18 +1,20 @@
 import os
 import subprocess
 from enum import Enum, auto
-from pprint import pprint
 from pathlib import Path
+from pprint import pprint
 
-from ibm_watson import SpeechToTextV1
+from dotenv import find_dotenv, load_dotenv
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-from playsound import playsound
+from ibm_watson import SpeechToTextV1
 
-from ayesaac.services_lib.queues.queue_manager import QueueManager
-import ayesaac.services.automatic_speech_recognition.speech_recognition.microphone as mic
-import ayesaac.services.automatic_speech_recognition.speech_recognition.recognizer as recogniton
+from ayesaac.queue_manager.queue_manager import QueueManager
+from ayesaac.utils.logger import get_logger
 
-from utils.ibm_key import get_api_key
+
+logger = get_logger(__file__)
+
+load_dotenv(find_dotenv())
 
 
 class Level(Enum):
@@ -22,28 +24,30 @@ class Level(Enum):
         2. Wet-run test; as in 'not a dry run'. Uses a prerecorded message, but still sends it through the web api.
         3. The real deal; record user speech through an attached microphone.
     """
+
     CHEAP_TEST = auto()
     FULL_TEST = auto()
     LIVE_RECORDINGS = auto()
 
 
-class Dinger:
-    """
-    Make the thing go ding when ready to record/finished recording.
-    """
-    project_root = Path(__file__)/ '..' / '..' / '..' / '..'
-    data_dir = project_root / 'ayesaac' / 'data'
-    ding_in = str(data_dir / 'ayesaac-ding-in.wav')
-    ding_out = str(data_dir / 'ayesaac-ding-out.wav')
+# class Dinger:
+#     """
+#     Make the thing go ding when ready to record/finished recording.
+#     """
 
-    def __init__(self):
-        pass
+#     project_root = Path(__file__) / ".." / ".." / ".." / ".."
+#     data_dir = project_root / "ayesaac" / "data"
+#     ding_in = str(data_dir / "ayesaac-ding-in.wav")
+#     ding_out = str(data_dir / "ayesaac-ding-out.wav")
 
-    def __enter__(self):
-        playsound(self.ding_in)
+#     def __init__(self):
+#         pass
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        playsound(self.ding_out)
+#     def __enter__(self):
+#         playsound(self.ding_in)
+
+#     def __exit__(self, exc_type, exc_val, exc_tb):
+#         playsound(self.ding_out)
 
 
 def callback_impl(data, functionality_level=Level.LIVE_RECORDINGS):
@@ -57,8 +61,10 @@ def callback_impl(data, functionality_level=Level.LIVE_RECORDINGS):
         record_and_transcribe(data, functionality_level)
 
     # fallback
-    if 'query' not in data:
-        data["query"] = "Is there a person in the kitchen ?"  # n.b. ibm wouldn't put a '?' here
+    if "query" not in data:
+        data[
+            "query"
+        ] = "Is there a person in the kitchen ?"  # n.b. ibm wouldn't put a '?' here
 
     return data
 
@@ -74,23 +80,27 @@ def record_and_transcribe(data, functionality_level: Level):
     try:
 
         if functionality_level == Level.LIVE_RECORDINGS:
-            wav_audio = get_audio(data) #
+            wav_audio = get_audio(data)  #
             transcribed_to_json = use_ibm_api(wav_audio)
 
         else:
             # obtain audio from file:
             project_root = Path(__file__).parent.parent.parent  # ayesaac
-            audio_file = project_root / 'data' / 'test' / 'test-audio-query.wav'
+            audio_file = project_root / "data" / "test" / "test-audio-query.wav"
 
-            with open(audio_file, 'rb') as audio_file:  # open prerecorded file as binary
+            with open(
+                audio_file, "rb"
+            ) as audio_file:  # open prerecorded file as binary
                 transcribed_to_json = use_ibm_api(audio_file)
 
         # The api returns a dict containing 'results' and some metadata, then a list of options ordered by likelihood.
         # This just takes the top result's text and ignores its probability.
-        transcript = transcribed_to_json.get_result()['results'][0]['alternatives'][0]['transcript']
+        transcript = transcribed_to_json.get_result()["results"][0]["alternatives"][0][
+            "transcript"
+        ]
 
         print("Watson thinks you said " + transcript)
-        data['query'] = transcript
+        data["query"] = transcript
     except Exception as e:
         print("ASR error; {0}".format(e))
         raise e
@@ -101,8 +111,11 @@ def get_audio(body):
         # audio data is in the supplied body
         return get_wav_from_web_input(body)
     else:
+        raise NotImplementedError(
+            "The ability to record from the microphone was disabled because of dependency installation issues. "
+        )
         # get it live
-        return record_from_microphone()
+        # return record_from_microphone()
 
 
 def get_wav_from_web_input(body):
@@ -117,10 +130,9 @@ def get_wav_from_web_input(body):
     out_name = f"{voice_file[:-4]}.wav"
 
     # https://stackoverflow.com/a/60332477
-    subprocess.call(['ffmpeg', '-i', f'{voice_file}',
-                     f'{out_name}'])
+    subprocess.call(["ffmpeg", "-i", f"{voice_file}", f"{out_name}"])
 
-    with open(out_name, 'rb') as f:
+    with open(out_name, "rb") as f:
         wav = f.read()
 
     # cleanup temp files - todo use the proper tempfile library
@@ -137,8 +149,10 @@ def use_ibm_api(audio_file):
     """
 
     # this url is unique to HM's account
-    url = 'https://api.eu-gb.speech-to-text.watson.cloud.ibm.com/instances/0c812d73-03ef-4209-a78e-b73c4781f85a'
-    key = get_api_key()
+    # url = "https://api.eu-gb.speech-to-text.watson.cloud.ibm.com/instances/0c812d73-03ef-4209-a78e-b73c4781f85a"
+
+    url = os.getenv("IBM_WATSON_ENTRYPOINT")
+    key = os.getenv("IBM_API_KEY")
 
     authenticator = IAMAuthenticator(key)
     transcriber = SpeechToTextV1(authenticator=authenticator)
@@ -151,13 +165,13 @@ def use_ibm_api(audio_file):
     return transcribed_to_json
 
 
-def record_from_microphone():
-    r = recogniton.Recognizer()
-    with mic.Microphone() as source, Dinger():
-        print("Say something!")
-        audio = r.listen(source)
-    print("Ok - processing...")
-    return audio.get_wav_data()
+# def record_from_microphone():
+#     r = recogniton.Recognizer()
+#     with mic.Microphone() as source, Dinger():
+#         print("Say something!")
+#         audio = r.listen(source)
+#     print("Ok - processing...")
+#     return audio.get_wav_data()
 
 
 class AutomaticSpeechRecognition(object):
@@ -166,7 +180,11 @@ class AutomaticSpeechRecognition(object):
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, "NaturalLanguageUnderstanding"])
+        self.queue_manager = QueueManager(
+            [self.__class__.__name__, "NaturalLanguageUnderstanding"]
+        )
+
+        logger.info(f"{self.__class__.__name__} ready")
 
     def callback(self, body, **_):
         """

@@ -1,61 +1,64 @@
-
 import copy
-import logging
-from pprint import pprint
 
-from ayesaac.services_lib.queues.queue_manager import QueueManager
-from ayesaac.services_lib.images.crypter import encode
-# from ayesaac.services_lib.service_logger import open_log
-import logging
-logger = logging.getLogger(__file__)
+from ayesaac.queue_manager import QueueManager
+from ayesaac.utils.logger import get_logger
+
+
+logger = get_logger(__file__)
 
 
 class CameraManager(object):
     """
-    The class CameraManager goal is to organise the collect of pictures from different camera sources.
+    The class CameraManager goal is to organise the collect of pictures from different
+     camera sources.
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, 'WebCam', 'WebCamBis',
-                                           'ObjectDetection', 'OCR'])
-        self.camera_names = ['WebCam']
+        self.queue_manager = QueueManager(
+            [self.__class__.__name__, "WebCam", "WebCamBis", "ObjectDetection", "OCR"]
+        )
+        self.camera_names = ["WebCam"]
         self.pictures = []
         self.waiting_cameras = 0
         self.save_body = None
 
+        logger.info(f"{self.__class__.__name__} ready")
+
     def from_cameras(self, body):
-        logger.info('Receiving picture from: ', body['picture']['from'])
-        pprint(body)
-        self.pictures.append(body['picture'])
+        logger.info("Receiving picture from: ", body["picture"]["from"])
+        logger.info(body)
+        self.pictures.append(body["picture"])
         self.waiting_cameras -= 1
 
     def request_pictures_from_all_concern_cameras(self):
-        logger.info('Request pictures !')
+        logger.info("Request pictures !")
         self.waiting_cameras = len(self.camera_names)
         for camera_name in self.camera_names:
-            self.queue_manager.publish(camera_name, {'nb_picture': 1})
+            self.queue_manager.publish(camera_name, {"nb_picture": 1})
 
     def callback(self, body, **_):
-        logger.info('Callback triggered')
+        logger.info("Callback triggered")
         if "run_as_webservice" in body:
             # skip running cameras, we have an image!
-            logger.info("Camera management: don't use cameras as running in webservice mode.")
-            assert 'pictures' in body
-            next_service = body['vision_path'].pop(0)
-            body['path_done'].append(self.__class__.__name__)
+            logger.info(
+                "Camera management: don't use cameras as running in webservice mode."
+            )
+            assert "pictures" in body
+            next_service = body["vision_path"].pop(0)
+            body["path_done"].append(self.__class__.__name__)
             self.queue_manager.publish(next_service, body)
 
         elif self.waiting_cameras:
             self.from_cameras(body)
             if not self.waiting_cameras:
-                self.save_body['pictures'] = copy.deepcopy(self.pictures)
-                self.save_body['path_done'].append(self.__class__.__name__)
-                print('Send pictures !')
+                self.save_body["pictures"] = copy.deepcopy(self.pictures)
+                self.save_body["path_done"].append(self.__class__.__name__)
+                logger.info("Send pictures !")
 
-                #for path in self.save_body['vision_path']:
-                #body_ = self.save_body
-                #body_['vision_path'] = path
-                next_service = self.save_body['vision_path'].pop(0)
+                # for path in self.save_body['vision_path']:
+                # body_ = self.save_body
+                # body_['vision_path'] = path
+                next_service = self.save_body["vision_path"].pop(0)
                 self.queue_manager.publish(next_service, self.save_body)
                 self.pictures = []
                 self.save_body = None
@@ -72,7 +75,6 @@ def main():
     camera_manager.run()
 
 
-if __name__ == '__main__':
-    # open_log('4_0_camera_manager')
+if __name__ == "__main__":
 
     main()
