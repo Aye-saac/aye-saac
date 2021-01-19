@@ -10,7 +10,7 @@ Can also be done by hand by accessing RabbitMQ in the browser 'http://localhost:
 import pika
 
 
-def delete_queues():
+def delete_queues() -> None:
     connection = pika.BlockingConnection(pika.ConnectionParameters("localhost"))
     channel = connection.channel()
     queues_name = [

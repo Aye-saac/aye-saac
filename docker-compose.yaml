@@ -1,4 +1,4 @@
-version: "3"
+version: "3.9"
 
 services:
   rabbitmq:
@@ -18,47 +18,244 @@ services:
       timeout: 15s
       retries: 1
 
-  server:
-    container_name: server
-    build:
-      context: .
-      dockerfile: Dockerfile
+  # --------------------------------- Services --------------------------------- #
+  automatic_speech_recognition:
+    container_name: automatic_speech_recognition
+    image: ayesaac:latest
     restart: always
-    ports:
-      - "5000:5000"
     depends_on:
       - rabbitmq
     environment:
       NONLOCAL_RABBITMQ: "True"
-      FLASK_DEBUG: "False"
-      FLASK_APP: "./ayesaac/web/app.py"
-    entrypoint: "/bin/bash"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
     command:
-      - "./wait-for-it.sh"
-      - "rabbitmq:5672"
-      - "--timeout=100"
-      - "--"
-      - "./ayesaac/start_all_services_in_container.sh"
+      - python
+      - -u
+      - -m
+      - ayesaac.services.automatic_speech_recognition.main
     volumes:
-      - ./ayesaac/services_log:/opt/ayesaac/ayesaac/services_log
-      - ./ayesaac/services:/opt/ayesaac/ayesaac/services
+      - type: bind
+        source: ./ayesaac/services/automatic_speech_recognition
+        target: /app/ayesaac/services/automatic_speech_recognition
 
-  nlu:
-    container_name: nlu
-    build:
-      context: .
-      dockerfile: Dockerfile
+  camera_manager:
+    container_name: camera_manager
+    image: ayesaac:latest
     restart: always
     depends_on:
       - rabbitmq
     environment:
       NONLOCAL_RABBITMQ: "True"
-    entrypoint: "/bin/bash"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
     command:
-      - "./wait-for-it.sh"
-      - "rabbitmq:5672"
-      - "--timeout=100"
-      - "--"
-      - "./ayesaac/start_nlu.sh"
+      - python
+      - -u
+      - -m
+      - ayesaac.services.camera_manager.main
     volumes:
-      - ./ayesaac/services/natural_language_understanding:/opt/ayesaac/ayesaac/services/natural_language_understanding
+      - type: bind
+        source: ./ayesaac/services/camera_manager
+        target: /app/ayesaac/services/camera_manager
+
+  colour_detection:
+    container_name: colour_detection
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.colour_detection.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/colour_detection
+        target: /app/ayesaac/services/colour_detection
+
+  external_interface_bot:
+    container_name: external_interface_bot
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.external_interface_bot.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/external_interface_bot
+        target: /app/ayesaac/services/external_interface_bot
+
+  interpreter:
+    container_name: interpreter
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.interpreter.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/interpreter
+        target: /app/ayesaac/services/interpreter
+
+  manager:
+    container_name: manager
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.manager.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/manager
+        target: /app/ayesaac/services/manager
+
+  natural_language_generator:
+    container_name: natural_language_generator
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.natural_language_generator.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/natural_language_generator
+        target: /app/ayesaac/services/natural_language_generator
+
+  natural_language_understanding:
+    container_name: natural_language_understanding
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.natural_language_understanding.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/natural_language_understanding
+        target: /app/ayesaac/services/natural_language_understanding
+
+  object_detection:
+    container_name: object_detection
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.object_detection.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/object_detection
+        target: /app/ayesaac/services/object_detection
+
+  optical_character_recognition:
+    container_name: optical_character_recognition
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.optical_character_recognition.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/optical_character_recognition
+        target: /app/ayesaac/services/optical_character_recognition
+
+  position_detection:
+    container_name: position_detection
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.position_detection.main
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/position_detection
+        target: /app/ayesaac/services/position_detection
+
+  web:
+    container_name: web
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    environment:
+      NONLOCAL_RABBITMQ: "True"
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      FLASK_DEBUG: "False"
+      FLASK_APP: "./ayesaac/services/web/app.py"
+    command:
+      - flask
+      - run
+      - "--host=0.0.0.0"
+    volumes:
+      - type: bind
+        source: ./ayesaac/services/web
+        target: /app/ayesaac/services/web

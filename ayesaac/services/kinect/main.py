@@ -1,19 +1,17 @@
-
 import cv2
-from pprint import pprint
-
-from services_lib.queues.queue_manager import QueueManager
-from services_lib.images.crypter import encode
-
-from pykinect2 import PyKinectV2
-# from pykinect2.PyKinectV2 import *
-from pykinect2 import PyKinectRuntime
 import numpy as np
-import cv2
-import sys
+from pykinect2 import PyKinectRuntime, PyKinectV2
 
-DEPTH_MODE=PyKinectV2.FrameSourceTypes_Depth
-COLOR_MODE=PyKinectV2.FrameSourceTypes_Color
+from ayesaac.queue_manager import QueueManager
+from ayesaac.queue_manager.crypter import encode
+from ayesaac.utils.logger import get_logger
+
+
+logger = get_logger(__file__)
+
+DEPTH_MODE = PyKinectV2.FrameSourceTypes_Depth
+COLOR_MODE = PyKinectV2.FrameSourceTypes_Color
+
 
 class Kinect(object):
     """
@@ -23,11 +21,20 @@ class Kinect(object):
     def __init__(self, mode=COLOR_MODE):
         self.kinect = PyKinectRuntime.PyKinectRuntime(mode)
         if mode & DEPTH_MODE:
-            self.kinect_frame_size = (self.kinect.depth_frame_desc.Height, self.kinect.depth_frame_desc.Width)
+            self.kinect_frame_size = (
+                self.kinect.depth_frame_desc.Height,
+                self.kinect.depth_frame_desc.Width,
+            )
         if mode & COLOR_MODE:
-            self.kinect_frame_size = (self.kinect.color_frame_desc.Height, self.kinect.color_frame_desc.Width, -1)
+            self.kinect_frame_size = (
+                self.kinect.color_frame_desc.Height,
+                self.kinect.color_frame_desc.Width,
+                -1,
+            )
         self.transform = mode & DEPTH_MODE and cv2.COLOR_GRAY2RGB or cv2.COLOR_RGBA2RGB
-        self.queue_manager = QueueManager([self.__class__.__name__, 'CameraManager'])
+        self.queue_manager = QueueManager([self.__class__.__name__, "CameraManager"])
+
+        logger.info(f"{self.__class__.__name__} ready")
 
     def get_colored_frame(self, size=None):
         frame = self.kinect.get_last_color_frame()
@@ -49,9 +56,12 @@ class Kinect(object):
         # if mode & COLOR_MODE and _kinect.has_new_color_frame():
         frame = self.get_colored_frame()
 
-        pprint(frame.shape)
-        body['picture'] = {'data': encode(frame), 'shape': frame.shape, 'from': self.__class__.__name__}
-        self.queue_manager.publish('CameraManager', body)
+        body["picture"] = {
+            "data": encode(frame),
+            "shape": frame.shape,
+            "from": self.__class__.__name__,
+        }
+        self.queue_manager.publish("CameraManager", body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
@@ -62,5 +72,5 @@ def main():
     web_cam.run()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

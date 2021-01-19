@@ -1,10 +1,13 @@
+import os
 from pathlib import Path
 from pprint import pprint
-
-from ayesaac.services_lib.queues.queue_manager import QueueManager
-
-import os
 from random import choice
+
+from ayesaac.queue_manager import QueueManager
+from ayesaac.utils.logger import get_logger
+
+
+logger = get_logger(__file__)
 
 
 class NaturalLanguageGenerator(object):
@@ -23,8 +26,8 @@ class NaturalLanguageGenerator(object):
             "DESCRIPTION_ANSWER_P",
         ]
         self.build_generator()
-        print("Answers found:")
-        pprint(self.answers)
+
+        logger.info(f"{self.__class__.__name__} ready")
 
     def build_generator(self):
         project_root = Path(__file__).parent.parent.parent.parent  # aye-saac
@@ -69,7 +72,10 @@ class NaturalLanguageGenerator(object):
         objects = []
         for o in body["objects"]:
             if o["name"] != "person":
-                objects.append(o["name"] + (o["lateral_position"] if o.get("lateral_position") else ""))
+                objects.append(
+                    o["name"]
+                    + (o["lateral_position"] if o.get("lateral_position") else "")
+                )
         objects = list(set([(o, objects.count(o)) for o in objects]))
         obj_cnt = sum(n for _, n in objects)
         context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
@@ -82,7 +88,10 @@ class NaturalLanguageGenerator(object):
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
                 if o["name"] == p["value"]:
-                    objects.append(o["name"] + (o["lateral_position"] if o.get("lateral_position") else ""))
+                    objects.append(
+                        o["name"]
+                        + (o["lateral_position"] if o.get("lateral_position") else "")
+                    )
         objects = list(set([(o, objects.count(o)) for o in objects]))
         obj_cnt = sum(n for _, n in objects)
         context = (
@@ -131,7 +140,11 @@ class NaturalLanguageGenerator(object):
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
                 if o["name"] == p["value"]:
-                    if not o.get("lateral_position") and o.get("bbox") and len(o["bbox"]) >= 4:
+                    if (
+                        not o.get("lateral_position")
+                        and o.get("bbox")
+                        and len(o["bbox"]) >= 4
+                    ):
                         bbox = o["bbox"]
                         yStart = bbox[0]
                         xStart = bbox[1]
@@ -147,7 +160,10 @@ class NaturalLanguageGenerator(object):
                             o["lateral_position"] = " in front"
                         elif xCenter > 0.618:
                             o["lateral_position"] = " on the right"
-                    objects.append(o["name"] + (o["lateral_position"] if o.get("lateral_position") else ""))
+                    objects.append(
+                        o["name"]
+                        + (o["lateral_position"] if o.get("lateral_position") else "")
+                    )
         objects = list(set([(o, objects.count(o)) for o in objects]))
         obj_cnt = sum(n for _, n in objects)
         context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
@@ -157,7 +173,10 @@ class NaturalLanguageGenerator(object):
         pprint("default")
 
         # Creates list of object detected in the scene
-        objects = [o["name"] + (o["lateral_position"] if o.get("lateral_position") else "") for o in body["objects"]]
+        objects = [
+            o["name"] + (o["lateral_position"] if o.get("lateral_position") else "")
+            for o in body["objects"]
+        ]
         objects = list(set([(o, objects.count(o)) for o in objects]))
         obj_cnt = sum(n for _, n in objects)
         context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
@@ -167,7 +186,7 @@ class NaturalLanguageGenerator(object):
         pprint(body)
 
         method = getattr(self, body["intents"]["intent"]["name"], self.default)
-        pprint('----- METHOD CALLED -----')
+        pprint("----- METHOD CALLED -----")
         objects, context, obj_cnt = method(body)
 
         print(objects)
@@ -186,8 +205,6 @@ class NaturalLanguageGenerator(object):
             self.queue_manager.publish("ExternalInterface", body)
         else:
             self.queue_manager.publish("TextToSpeech", body)
-
-
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)

@@ -1,10 +1,13 @@
-
-import cv2
 import time
 from pprint import pprint
 
-from ayesaac.services_lib.queues.queue_manager import QueueManager
-from ayesaac.services_lib.images.crypter import encode
+import cv2
+
+from ayesaac.queue_manager import QueueManager
+from ayesaac.queue_manager.crypter import encode
+
+
+logger = get_logger(__file__)
 
 
 class WebCamBis(object):
@@ -14,7 +17,9 @@ class WebCamBis(object):
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, 'CameraManager'])
+        self.queue_manager = QueueManager([self.__class__.__name__, "CameraManager"])
+
+        logger.info(f"{self.__class__.__name__} ready")
 
     def callback(self, body, **_):
         # avoid conflict over opencv between WebCam class
@@ -25,8 +30,12 @@ class WebCamBis(object):
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
         image = cv2.resize(image, (640, 480), cv2.INTER_AREA)
         pprint(image.shape)
-        body['picture'] = {'data': encode(image), 'shape': image.shape, 'from': self.__class__.__name__}
-        self.queue_manager.publish('CameraManager', body)
+        body["picture"] = {
+            "data": encode(image),
+            "shape": image.shape,
+            "from": self.__class__.__name__,
+        }
+        self.queue_manager.publish("CameraManager", body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
@@ -37,5 +46,5 @@ def main():
     web_cam_bis.run()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

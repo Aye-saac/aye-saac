@@ -1,10 +1,13 @@
-class WaitTimeoutError(Exception): pass
+class WaitTimeoutError(Exception):
+    pass
 
 
-class RequestError(Exception): pass
+class RequestError(Exception):
+    pass
 
 
-class UnknownValueError(Exception): pass
+class UnknownValueError(Exception):
+    pass
 
 
 class AudioSource(object):
@@ -16,4 +19,3 @@ class AudioSource(object):
 
     def __exit__(self, exc_type, exc_value, traceback):
         raise NotImplementedError("this is an abstract class")
-

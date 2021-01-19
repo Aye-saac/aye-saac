@@ -1,21 +1,21 @@
 import json
 import os
 import uuid
+from io import BytesIO
 from pathlib import Path
 
+import numpy as np
 from flask import request
 from PIL import Image
-from io import BytesIO
-import numpy as np
 
-from ayesaac.services_lib.images.crypter import encode
+from ayesaac.queue_manager.crypter import encode
 
 
-class UserRequest:
-    """ Get the data from the question and parse it in a form that should be
-        usable by the rest of the system.
-        
-        Only handles FormData from client
+class UserRequest(object):
+    """Get the data from the question and parse it in a form that should be
+    usable by the rest of the system.
+
+    Only handles FormData from client
     """
 
     def __init__(self, service_if_audio, service_if_text):
@@ -85,10 +85,10 @@ class UserRequest:
             # Get the raw bytes from the audio
             # TODO: Is this in the form that will work for the system?
             # a hack a day keeps the doctor in fear
-            dir_path = str(Path(__file__).parent / 'user_audio')
+            dir_path = str(Path(__file__).parent / "user_audio")
             os.makedirs(dir_path, exist_ok=True)
-            file_locus = str(Path(dir_path)/filename)
-            with open(file_locus, 'wb') as f:  # writing bytes
+            file_locus = str(Path(dir_path) / filename)
+            with open(file_locus, "wb") as f:  # writing bytes
                 f.write(stream)
             return file_locus
 
@@ -113,7 +113,11 @@ class UserRequest:
         image = self.__parse_image()
 
         self.body["pictures"] = [
-            {"data": encode(image), "shape": np.shape(image), "from": "Web",}
+            {
+                "data": encode(image),
+                "shape": np.shape(image),
+                "from": "Web",
+            }
         ]
 
     def __get_message(self):

@@ -1,30 +1,66 @@
 [tool.poetry]
 name = "Ayesaac"
-version = "0.1.0"
+version = "1.0.0"
 description = "A bot made to support Alana"
-authors = ["Alexandre Cardaillac", "Amit Parekh <ap41@hw.ac.uk>", "Hamish MacKinnon",  "Vincent Larcher"]
+authors = [
+	"Alexandre Cardaillac", "Amit Parekh", "Hamish MacKinnon",  "Vincent Larcher"
+]
 
 [tool.poetry.dependencies]
-python = "^3.6.10"
-tensorflow = "2.1.0"
-opencv-python = "^4.2.0.32"
+python = "~3.8"
+pandas = "^1.2.0"
+opencv-python = "^4.5.1"
 pika = "^1.1.0"
-utils = {git = "git@github.com:Hangsii/secret_alana_utils.git"}
-gtts = "^2.1.1"
-playsound = "^1.2.2"
-pyaudio = "^0.2.11"
-ibm-watson = "^4.3.0"
-rasa = "^1.8.1"
-keras-ocr = "^0.8.0"
-pyspellchecker = "^0.5.4"
-pandas = "^1.0.3"
-flask_cors = "^3.0.8"
-flask = "^1.1.2"
-scikit-image = "^0.16.2"
+gTTS = "^2.2.1"
+ibm-watson = "^5.1.0"
+keras-ocr = "^0.8.6"
+rasa = "^2.2.5"
+pyspellchecker = "^0.5.6"
+Flask = "^1.1.2"
+Flask-Cors = "^3.0.10"
+scikit-image = "^0.18.1"
+python-dotenv = "^0.15.0"
+pykinect2 = "^0.1.0"
+
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^6.2.1"
+black = "^20.8b1"
+flake8 = "^3.8.4"
+wemake-python-styleguide = "^0.14.1"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    .git
+  | .mypy_cache
+  | .tox
+  | .venv
+	| .pytest_cache
+  | _build
+  | buck-out
+  | build
+  | dist
+  | .vscode
+	| .allennlp_cache
+)/
+'''
+
+
+[tool.isort]
+multi_line_output = 3
+lines_after_imports = 2
+force_grid_wrap = 0
+combine_as_imports = true
+include_trailing_comma = true
+ensure_newline_before_comments = true
+use_parentheses = true
+line_length = 88
+
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

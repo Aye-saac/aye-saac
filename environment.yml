@@ -1,8 +1,0 @@
-name: aye-saac
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - python=3.6
-  - poetry
-  - geos=3.8.1  # bugged dependency of keras-ocr

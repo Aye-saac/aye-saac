@@ -1,0 +1,37 @@
+[flake8]
+ignore =
+		; Do not enforce trailing comma (lets Black decide what is best)
+		C812
+		; Ignore whitespace before ';'
+    E203,
+		; Stop finding commented out code because it's mistaking shape annotations for code
+		E800,
+		; Do not check for docstring within __inii__ method
+    D107,
+		; Ignore errors for internal mypy traceback, stderr output, or an unmatched line.
+    T499,
+		; Allow relative module references
+		WPS300,
+		; Allow f-strings
+    WPS305,
+		; Allow return statement that simply returns a prior statement
+		WPS331,
+		; Allow new lines to start with a dot (as done by Black)
+    WPS348,
+		; Allow logic in __init__ modules
+    WPS412
+max-line-length = 88
+max-complexity = 18
+max-line-complexity = 18
+select = B,C,E,F,W,T4,B9
+max-local-variables = 7
+min-name-length = 1
+format = wemake
+
+allowed-domain-names =
+		data
+
+per-file-ignores =
+    donda/*/__init__.py:F401
+		tests/*:F401,WPS202,WPS118,WPS235,WPS226
+		test_fixtures/*:B950,E501,WPS226

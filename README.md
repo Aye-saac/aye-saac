@@ -1,35 +1,19 @@
 # Ayesaac
 
-This repository contains the source code for Ayesaac, a Python program to help blind people to find what they have lost in a room.  
+This repository contains the source code for Ayesaac, a Python program to help blind people to find what they have lost in a room.
 
 ## Getting started
 
-* Installation methods (pick one)
-    * [Installation instructions (recommended)](https://github.com/Aye-saac/aye-saac/wiki/Installing-things-(Recommended))
-    * [Installation instructions (using pip instead of poetry)](https://github.com/Aye-saac/aye-saac/wiki/Installation-instructions-(pip-instead-of-poetry))
+1. Pull the repo
+1. Pull the files in git-lfs using `git-lfs pull`
 
-## Usage
+Install the prerequisites and dependencies following [these instructions](https://github.com/Aye-saac/aye-saac/wiki/Installing-things) if you want to have things running manually. Alternatively, install [Docker](https://docker.com).
 
-First, start with:
-```
-./start_all_services.sh
-```
-After a few seconds, all the services will run in the background, waiting to do work, some warnings can appear, don't worry, it's just Tensorflow 
-saying it doesn't find any compatible GPU or that CUDA is not installed, just ignore it, running Tensorflow 
-with the GPU is not mandatory.
+### Developing with Docker
 
-Now, we just need to tell the first service that there is job to be done ! 
-`send_one_request.py` will ping the first service and the rest will follow (send_one_request.py will be replace in the future):
-```
-python3 send_one_request.py
-```
+Using `make build_image`, you can build an image which will be used for all services required by the system. Then, you can run it using `docker-compose up` and all related services will load up.
 
-You can look at the `logs/` directory for the services outputs.
-
-To stop the services you just need to enter the following:
-```
-./stop_all_services.sh
-```
+Note: Because they all need RabbitMQ to work, they will error and restart a bunch of times and then stabilise once RabbitMQ is ready and work properly.
 
 ### Architecture
 
