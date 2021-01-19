@@ -229,3 +229,4 @@ fabric.properties
 
 
 .allennlp_cache/
+.vscode/
