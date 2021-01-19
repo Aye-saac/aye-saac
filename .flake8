@@ -32,6 +32,6 @@ allowed-domain-names =
 		data
 
 per-file-ignores =
-    donda/*/__init__.py:F401
+    ayesaac/*/__init__.py:F401
 		tests/*:F401,WPS202,WPS118,WPS235,WPS226
 		test_fixtures/*:B950,E501,WPS226
