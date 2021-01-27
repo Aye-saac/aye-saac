@@ -1,5 +1,4 @@
 import operator
-from pathlib import Path
 from pprint import pprint
 
 import numpy as np
@@ -10,13 +9,17 @@ from skimage.segmentation import slic
 
 from ayesaac.queue_manager import QueueManager
 from ayesaac.queue_manager.crypter import decode
+from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
+
+
+config = Config()
 
 
 logger = get_logger(__file__)
 
 
-class ColourDetection:
+class ColourDetection(object):
     """
     The class ColourDetection purpose is to detect every main colour from objects in
     the given pictures.
@@ -25,13 +28,13 @@ class ColourDetection:
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
 
-        project_root = Path(__file__).parent.parent.parent.parent
-        data_file = f"{project_root}/ayesaac/data/colour/lab.txt"
+        data_file = config.directory.data.joinpath("colour", "lab.txt")
 
         colour_list = pd.read_csv(
             data_file, skiprows=28, header=None, names=["l", "a", "b", "name"]
         )
         colour_list = colour_list.values.tolist()[1:]
+
         self.colour_list_names = [x[3] for x in colour_list]
         self.colour_list_values = np.asarray(
             [np.asarray(x[:3], dtype=np.float32) for x in colour_list]
@@ -55,7 +58,7 @@ class ColourDetection:
 
     @staticmethod
     def create_labelled_image(lab_image) -> np.ndarray:
-        labelled_image = slic(
+        return slic(
             lab_image,
             n_segments=200,
             compactness=10,
@@ -63,8 +66,6 @@ class ColourDetection:
             convert2lab=False,
             enforce_connectivity=True,
         )
-
-        return labelled_image
 
     @staticmethod
     def create_regions(lab_image, labelled_image):

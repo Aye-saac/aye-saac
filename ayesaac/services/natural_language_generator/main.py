@@ -1,10 +1,13 @@
 import os
-from pathlib import Path
 from pprint import pprint
 from random import choice
 
 from ayesaac.queue_manager import QueueManager
+from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
+
+
+config = Config()
 
 
 logger = get_logger(__file__)
@@ -30,14 +33,7 @@ class NaturalLanguageGenerator(object):
         logger.info(f"{self.__class__.__name__} ready")
 
     def build_generator(self):
-        project_root = Path(__file__).parent.parent.parent.parent  # aye-saac
-        folder_path = (
-            project_root
-            / "ayesaac"
-            / "services"
-            / "natural_language_generator"
-            / "answers"
-        )
+        folder_path = config.directory.data.joinpath("sentence_templates")
         for _, _, files in os.walk(folder_path):
             for name in files:
                 with open(str(folder_path / name)) as f:

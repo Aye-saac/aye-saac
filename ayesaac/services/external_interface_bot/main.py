@@ -2,7 +2,11 @@ import json
 from pathlib import Path
 
 from ayesaac.queue_manager import QueueManager
+from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
+
+
+config = Config()
 
 
 logger = get_logger(__file__)
@@ -15,8 +19,7 @@ class ExternalInterface(object):
     """
 
     def __init__(self):
-        project_root = Path(__file__).parent.parent.parent.parent
-        self.output_dir = f"{project_root}/output"
+        self.output_dir = config.directory.output
 
         self.queue_manager = QueueManager([self.__class__.__name__])
 
