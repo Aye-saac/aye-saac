@@ -251,6 +251,8 @@ services:
       RABBITMQ_PORT: 5672
       FLASK_DEBUG: "False"
       FLASK_APP: "./ayesaac/services/web/app.py"
+    ports:
+      - "5000:5000"
     command:
       - flask
       - run
