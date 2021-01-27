@@ -17,4 +17,4 @@ Note: Because they all need RabbitMQ to work, they will error and restart a bunc
 
 ### Architecture
 
-![](ayesaac/data/diagram_aye-saac_v3.png)
+![](docs/diagram_aye-saac_v3.png)
