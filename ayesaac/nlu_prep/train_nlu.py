@@ -1,4 +1,4 @@
-from rasa.nlu.training_data import load_data
+from rasa.shared.nlu.training_data.loading import load_data
 from rasa.nlu.model import Trainer
 from rasa.nlu import config
 

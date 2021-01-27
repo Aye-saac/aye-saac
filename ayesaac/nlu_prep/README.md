@@ -21,3 +21,7 @@ Don't forget to fill the "entries" directory with every entry file you would nee
 ### Usage
 
 python3 train_nlu.py
+
+## Using trained model in Aye-Saac
+
+Move your newly trained model in `../data/models/rasa/nlu/` to `../../data/rasa/nlu/`
