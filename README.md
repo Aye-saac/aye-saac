@@ -9,7 +9,7 @@ This repository contains the source code for Ayesaac, a Python program to help b
 
 Install the prerequisites and dependencies following [these instructions](https://github.com/Aye-saac/aye-saac/wiki/Installing-things) if you want to have things running manually. Alternatively, install [Docker](https://docker.com).
 
-### Developing with Docker
+### Developing with Docker
 
 Using `make build_image`, you can build an image which will be used for all services required by the system. Then, you can run it using `docker-compose up` and all related services will load up.
 
