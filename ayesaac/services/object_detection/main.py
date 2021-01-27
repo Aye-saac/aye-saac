@@ -31,9 +31,7 @@ class ObjectDetection(object):
         )
         self.category_index = coco_category_index
 
-        self.model_path = config.directory.data.joinpath(
-            "resnet", config.getenv("RESNET_MODEL_FILE_NAME")
-        )
+        self.model_path = config.directory.data.joinpath("resnet")
         model = tf.saved_model.load(str(self.model_path))
         self.model = model.signatures["serving_default"]
 
