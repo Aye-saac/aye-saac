@@ -7,7 +7,7 @@ This repository contains the source code for Ayesaac, a Python program to help b
 1. Pull the repo
 1. Pull the files in git-lfs using `git-lfs pull`
 
-Install the prerequisites and dependencies following [these instructions](https://github.com/Aye-saac/aye-saac/wiki/Installing-things) if you want to have things running manually. Alternatively, install [Docker](https://docker.com).
+It's recommended that you use [Docker](https://docker.com) for development to avoid fighting with dependencies, but you can always follow [these instructions](https://github.com/Aye-saac/aye-saac/wiki/Installing-things) if you want to have things running manually.
 
 ### Developing with Docker
 
