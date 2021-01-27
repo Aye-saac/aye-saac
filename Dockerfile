@@ -7,8 +7,6 @@ RUN apt-get update -qq \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
-
-
 # ---------------------------------- Builder --------------------------------- #
 FROM base as builder
 
@@ -47,11 +45,17 @@ RUN python -m venv /opt/venv && \
 # ---------------------------------- Models ---------------------------------- #
 FROM base as models
 
+# Download OCR model
 RUN mkdir -p /root/.keras-ocr && ( \
 	cd /root/.keras-ocr && \
 	curl -L -o craft_mlt_25k.h5 https://github.com/faustomorales/keras-ocr/releases/download/v0.8.4/craft_mlt_25k.h5 && \
 	curl -L -o crnn_kurapan.h5 https://github.com/faustomorales/keras-ocr/releases/download/v0.8.4/crnn_kurapan.h5 \
 	)
+
+# Download Resnet model
+RUN mkdir -p data/resnet && \
+	cd data/resnet && \
+	curl -L -o resnet50_v1_model.pb https://www.dropbox.com/s/icr8tftv7i4zdpd/ssd_resnet50_v1_2018_07_03.pb?dl=1
 
 # ---------------------------------- Runner ---------------------------------- #
 FROM base as runner
@@ -67,6 +71,7 @@ RUN apt-get update -qq && \
 COPY . app/
 COPY --from=builder /opt/venv /opt/venv
 COPY --from=models /root/.keras-ocr /root/.keras-ocr
+COPY --from=models /data/resnet /app/data/resnet
 
 # Add the VirtualEnv to $PATH
 ENV PATH="/opt/venv/bin:$PATH"

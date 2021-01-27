@@ -4,3 +4,4 @@ docs
 **/__pycache__
 .vscode
 .mypy_cache
+data/resnet/

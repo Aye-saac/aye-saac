@@ -1,16 +1,18 @@
-from pathlib import Path
 from pprint import pprint
 
 import numpy as np
 import tensorflow as tf
 
-from ayesaac.data.models.coco_category_index import coco_category_index
 from ayesaac.queue_manager import QueueManager
 from ayesaac.queue_manager.crypter import decode
+from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
+
+from .coco_category_index import coco_category_index
 
 
 logger = get_logger(__file__)
+config = Config()
 
 
 class ObjectDetection(object):
@@ -28,16 +30,9 @@ class ObjectDetection(object):
             ]
         )
         self.category_index = coco_category_index
-        project_root = project_root = Path(
-            __file__
-        ).parent.parent.parent.parent  # aye-saac
-        self.model_path = (
-            project_root
-            / "ayesaac"
-            / "data"
-            / "models"
-            / "ssd_resnet50_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03"
-            / "saved_model"
+
+        self.model_path = config.directory.data.joinpath(
+            "resnet", config.getenv("RESNET_MODEL_FILE_NAME")
         )
         model = tf.saved_model.load(str(self.model_path))
         self.model = model.signatures["serving_default"]

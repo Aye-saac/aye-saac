@@ -5,6 +5,7 @@ import cv2
 
 from ayesaac.queue_manager import QueueManager
 from ayesaac.queue_manager.crypter import encode
+from ayesaac.utils.logger import get_logger
 
 
 logger = get_logger(__file__)
