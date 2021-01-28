@@ -48,12 +48,8 @@ class QueueManager(object):
     def _create_connection(self) -> Connection:
         host = config.rabbitmq.host
 
-        if host != "localhost":
-            # Don't use credentials for rabbitmq deployments on the same machine
-            creds = pika.credentials.PlainCredentials(
-                username=config.rabbitmq.username, password=config.rabbitmq.password
-            )
+        creds = pika.credentials.PlainCredentials(
+            username=config.rabbitmq.username, password=config.rabbitmq.password
+        )
 
-            return Connection(host=host, credentials=creds)
-
-        return Connection(host=host)
+        return Connection(host=host, credentials=creds)

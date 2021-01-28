@@ -3,7 +3,7 @@ from pprint import pprint
 
 from gtts import gTTS
 
-from ayesaac.queue_manager import QueueManager
+from ayesaac.services.common import QueueManager
 from ayesaac.utils.logger import get_logger
 
 

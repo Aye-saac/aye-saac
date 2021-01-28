@@ -2,7 +2,7 @@ import os
 from pprint import pprint
 from random import choice
 
-from ayesaac.queue_manager import QueueManager
+from ayesaac.services.common import QueueManager
 from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
 

@@ -4,10 +4,13 @@ import time
 from flask import Flask, url_for
 from flask_cors import CORS
 
-from ayesaac.queue_manager.queue_manager import QueueManager
+from ayesaac.services.common import QueueManager
+from ayesaac.utils.config import Config
 
 from .user_request import UserRequest
 
+
+config = Config()
 
 # Create Flask app
 app = Flask(__name__)
@@ -15,13 +18,7 @@ app.config["CORS_HEADERS"] = "Location"
 
 CORS(
     app,
-    origins=[
-        "https://ayesaac.netlify.com",
-        "https://ayesaac.netlify.app",
-        "https://ayesaac.xyz",
-        "http://127.0.0.1:3000",
-        "http://localhost:3000",
-    ],
+    origins=config.endpoint_service.cors_origins,
     expose_headers=["Location"],
 )
 
