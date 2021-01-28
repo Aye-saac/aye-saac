@@ -3,7 +3,7 @@ import time
 from pprint import pprint
 from secrets import token_hex
 
-from ayesaac.queue_manager import QueueManager
+from ayesaac.services.common import QueueManager
 from ayesaac.utils.logger import get_logger
 
 

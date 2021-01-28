@@ -8,7 +8,7 @@ import numpy as np
 from flask import request
 from PIL import Image
 
-from ayesaac.queue_manager.crypter import encode
+from ayesaac.services.common.crypter import encode
 
 
 class UserRequest(object):

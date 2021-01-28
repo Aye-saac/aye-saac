@@ -3,8 +3,8 @@ from pprint import pprint
 import numpy as np
 import tensorflow as tf
 
-from ayesaac.queue_manager import QueueManager
-from ayesaac.queue_manager.crypter import decode
+from ayesaac.services.common import QueueManager
+from ayesaac.services.common.crypter import decode
 from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
 

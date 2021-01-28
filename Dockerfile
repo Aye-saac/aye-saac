@@ -33,17 +33,19 @@ ENV PATH "/root/.poetry/bin:/opt/venv/bin:${PATH}"
 # Copy deps information
 COPY pyproject.toml poetry.lock /app/
 
+# Copy spacy install script
+COPY scripts/download-spacy-model.sh /app/
+
 # Instals deps
 RUN python -m venv /opt/venv && \
 	. /opt/venv/bin/activate && \
 	cd /app && \
 	pip install --no-cache-dir -U pip setuptools && \
 	poetry install --no-dev --no-root --no-interaction && \
+	# Download spacy model
+	bash download-spacy-model.sh && \
 	rm -rf dist *.egg-info
 
-# Setup Spacy
-RUN python -m spacy download en_core_web_md && \
-	python -m spacy link en_core_web_md en
 
 
 # ---------------------------------- Models ---------------------------------- #
@@ -57,9 +59,8 @@ RUN mkdir -p /root/.keras-ocr && ( \
 	)
 
 # Download Resnet model
-RUN mkdir -p data/resnet && \
-	cd data/resnet && \
-	curl -L -o saved_model.pb https://www.dropbox.com/s/icr8tftv7i4zdpd/ssd_resnet50_v1_2018_07_03.pb?dl=1
+COPY scripts/download-resnet-model.sh .
+RUN bash download-resnet-model.sh
 
 # ---------------------------------- Runner ---------------------------------- #
 FROM base as runner
@@ -72,10 +73,10 @@ RUN apt-get update -qq && \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
-COPY . app/
 COPY --from=builder /opt/venv /opt/venv
 COPY --from=models /root/.keras-ocr /root/.keras-ocr
 COPY --from=models /data/resnet /app/data/resnet
+COPY . app/
 
 # Add the VirtualEnv to $PATH
 ENV PATH="/opt/venv/bin:$PATH"

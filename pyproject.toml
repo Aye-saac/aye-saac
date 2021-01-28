@@ -28,6 +28,7 @@ pytest = "^6.2.1"
 black = "^20.8b1"
 flake8 = "^3.8.4"
 wemake-python-styleguide = "^0.14.1"
+mypy = "^0.800"
 
 [tool.black]
 line-length = 88

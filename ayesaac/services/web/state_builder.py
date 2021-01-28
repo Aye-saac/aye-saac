@@ -12,7 +12,8 @@ import numpy as np
 from flask import request
 from PIL import Image
 
-from ayesaac.queue_manager.crypter import encode
+from ayesaac.services.common.crypter import encode
+
 
 T = TypeVar("T")
 
@@ -39,7 +40,7 @@ class State(object):
     errors: List[str] = []
 
     def as_dict(self) -> Dict[Any, Any]:
-        {
+        return {
             "uid": self.uid,
             "responses": self.responses,
             "voice_file": self.voice_file,
@@ -123,9 +124,8 @@ class RequestParser(object):
         self.image = self._get_file("image", ImageHandler())
         self.audio = self._get_file("audio", AudioHandler(uid))
 
-    @staticmethod
     def _get_file(
-        file_name: str, callback: Callable[..., T]
+        self, file_name: str, callback: Callable[..., T]
     ) -> Union[T, Literal[False]]:
         file = request.files.get(file_name)
 
@@ -135,13 +135,11 @@ class RequestParser(object):
 
         return False
 
-    @staticmethod
-    def _get_text() -> str:
+    def _get_text(self) -> str:
         default_message = ""
         return request.form.get("message", default_message)
 
-    @staticmethod
-    def _get_responses() -> Any:
+    def _get_responses(self) -> Any:
         default_response = "[]"
         responses = request.form.get("responses", default_response)
         return json.loads(responses)
