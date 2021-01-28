@@ -39,11 +39,11 @@ RUN python -m venv /opt/venv && \
 	cd /app && \
 	pip install --no-cache-dir -U pip setuptools && \
 	poetry install --no-dev --no-root --no-interaction && \
+	# Setup Spacy
+	python -m spacy download en_core_web_md && \
+	python -m spacy link en_core_web_md en && \
 	rm -rf dist *.egg-info
 
-# Setup Spacy
-RUN python -m spacy download en_core_web_md && \
-	python -m spacy link en_core_web_md en
 
 
 # ---------------------------------- Models ---------------------------------- #
