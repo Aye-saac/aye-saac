@@ -33,15 +33,17 @@ ENV PATH "/root/.poetry/bin:/opt/venv/bin:${PATH}"
 # Copy deps information
 COPY pyproject.toml poetry.lock /app/
 
+# Copy spacy install script
+COPY scripts/download-spacy-model.sh /app/
+
 # Instals deps
 RUN python -m venv /opt/venv && \
 	. /opt/venv/bin/activate && \
 	cd /app && \
 	pip install --no-cache-dir -U pip setuptools && \
 	poetry install --no-dev --no-root --no-interaction && \
-	# Setup Spacy
-	python -m spacy download en_core_web_md && \
-	python -m spacy link en_core_web_md en && \
+	# Download spacy model
+	bash download-spacy-model.sh && \
 	rm -rf dist *.egg-info
 
 
@@ -57,9 +59,8 @@ RUN mkdir -p /root/.keras-ocr && ( \
 	)
 
 # Download Resnet model
-RUN mkdir -p data/resnet && \
-	cd data/resnet && \
-	curl -L -o saved_model.pb https://www.dropbox.com/s/icr8tftv7i4zdpd/ssd_resnet50_v1_2018_07_03.pb?dl=1
+COPY scripts/download-resnet-model.sh .
+RUN bash download-resnet-model.sh
 
 # ---------------------------------- Runner ---------------------------------- #
 FROM base as runner
