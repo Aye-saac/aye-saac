@@ -152,7 +152,7 @@ def use_ibm_api(audio_file):
     :return: transcribed text
     """
 
-    url = config.ibmwatson.entrypoint
+    url = config.ibmwatson.endpoint
     key = config.ibmwatson.api_key
 
     authenticator = IAMAuthenticator(key)

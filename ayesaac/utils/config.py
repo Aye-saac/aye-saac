@@ -10,10 +10,7 @@ load_dotenv(find_dotenv())
 class RabbitMQCreds(object):
     @property
     def host(self) -> str:
-        if "NONLOCAL_RABBITMQ" in os.environ:
-            return os.getenv("RABBITMQ_HOST")
-
-        return "localhost"
+        return os.getenv("RABBITMQ_HOST")
 
     @property
     def username(self) -> str:
@@ -30,8 +27,8 @@ class IBMWatsonCreds(object):
         return os.getenv("IBM_API_KEY")
 
     @property
-    def entrypoint(self) -> str:
-        return os.getenv("IBM_WATSON_ENTRYPOINT")
+    def endpoint(self) -> str:
+        return os.getenv("IBM_WATSON_ENDPOINT")
 
 
 class Directories(object):

@@ -5,15 +5,14 @@ services:
     image: rabbitmq:3-management
     container_name: rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_USER=test-user
-      - RABBITMQ_DEFAULT_PASS=test-user
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     ports:
-      - "15672:15672"
+      - "${RABBITMQ_ADMIN_PORT}:15672"
     expose:
-      - "15672"
-      - "5672"
+      - ${RABBITMQ_PORT}
     healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "5672"]
+      test: ["CMD", "nc", "-z", "localhost", "${RABBITMQ_PORT}"]
       interval: 5s
       timeout: 15s
       retries: 1
@@ -25,10 +24,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -45,10 +41,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -65,10 +58,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -85,10 +75,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -105,10 +92,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -125,10 +109,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -145,10 +126,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -165,10 +143,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -185,10 +160,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -205,10 +177,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -225,10 +194,7 @@ services:
     restart: always
     depends_on:
       - rabbitmq
-    environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
+    env_file: .env
     command:
       - python
       - -u
@@ -245,14 +211,11 @@ services:
     restart: always
     depends_on:
       - rabbitmq
+    env_file: .env
     environment:
-      NONLOCAL_RABBITMQ: "True"
-      RABBITMQ_HOST: rabbitmq
-      RABBITMQ_PORT: 5672
-      FLASK_DEBUG: "False"
       FLASK_APP: "./ayesaac/services/web/app.py"
     ports:
-      - "5000:5000"
+      - "${ENDPOINT_PORT}:5000"
     command:
       - flask
       - run
