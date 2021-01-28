@@ -29,7 +29,7 @@ services:
       - python
       - -u
       - -m
-      - ayesaac.services.automatic_speech_recognition.main
+      - ayesaac.services.automatic_speech_recognition
     volumes:
       - type: bind
         source: ./ayesaac/services/automatic_speech_recognition
@@ -69,8 +69,8 @@ services:
         source: ./ayesaac/services/colour_detection
         target: /app/ayesaac/services/colour_detection
 
-  external_interface_bot:
-    container_name: external_interface_bot
+  external_interface:
+    container_name: external_interface
     image: ayesaac:latest
     restart: always
     depends_on:
@@ -80,11 +80,11 @@ services:
       - python
       - -u
       - -m
-      - ayesaac.services.external_interface_bot.main
+      - ayesaac.services.external_interface
     volumes:
       - type: bind
-        source: ./ayesaac/services/external_interface_bot
-        target: /app/ayesaac/services/external_interface_bot
+        source: ./ayesaac/services/external_interface
+        target: /app/ayesaac/services/external_interface
 
   interpreter:
     container_name: interpreter

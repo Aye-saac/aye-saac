@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from typing import List
 
 from dotenv import find_dotenv, load_dotenv
 
@@ -31,6 +32,16 @@ class IBMWatsonCreds(object):
         return os.getenv("IBM_WATSON_ENDPOINT")
 
 
+class EndpointService(object):
+    def __init__(self, delimiter: str) -> None:
+        self._delimiter = delimiter
+
+    @property
+    def cors_origins(self) -> List[str]:
+        url_as_string = os.getenv("ENDPOINT_DOMAINS")
+        return url_as_string.split(self._delimiter)
+
+
 class Directories(object):
     @property
     def root(self) -> Path:
@@ -46,12 +57,13 @@ class Directories(object):
 
 
 class Config(object):
-    __slots__ = ("rabbitmq", "directory", "ibmwatson")
+    __slots__ = ("rabbitmq", "directory", "ibmwatson", "endpoint_service")
 
     def __init__(self) -> None:
         self.rabbitmq = RabbitMQCreds()
         self.ibmwatson = IBMWatsonCreds()
         self.directory = Directories()
+        self.endpoint_service = EndpointService()
 
     def getenv(self, env_key: str) -> str:
         return os.getenv(env_key)
