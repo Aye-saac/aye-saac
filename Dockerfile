@@ -72,10 +72,10 @@ RUN apt-get update -qq && \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
-COPY . app/
 COPY --from=builder /opt/venv /opt/venv
 COPY --from=models /root/.keras-ocr /root/.keras-ocr
 COPY --from=models /data/resnet /app/data/resnet
+COPY . app/
 
 # Add the VirtualEnv to $PATH
 ENV PATH="/opt/venv/bin:$PATH"
