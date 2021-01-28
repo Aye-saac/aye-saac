@@ -63,7 +63,7 @@ class Config(object):
         self.rabbitmq = RabbitMQCreds()
         self.ibmwatson = IBMWatsonCreds()
         self.directory = Directories()
-        self.endpoint_service = EndpointService()
+        self.endpoint_service = EndpointService(" ")
 
     def getenv(self, env_key: str) -> str:
         return os.getenv(env_key)
