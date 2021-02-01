@@ -85,6 +85,9 @@ services:
       - type: bind
         source: ./ayesaac/services/external_interface
         target: /app/ayesaac/services/external_interface
+      - type: bind
+        source: ./output
+        target: /app/output
 
   interpreter:
     container_name: interpreter

@@ -20,7 +20,7 @@ class ExternalInterface(ServiceBase):
         self.__post_init__()
 
     def callback(self, body, **_):
-        body = self._update_path_done(body)
+        body["path_done"].append(self.__class__.__name__)
 
         self.dump_output(body)
 
