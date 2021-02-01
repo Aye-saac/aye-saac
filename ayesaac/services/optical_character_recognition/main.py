@@ -3,8 +3,8 @@ from pprint import pprint
 import keras_ocr
 import numpy as np
 
-from ayesaac.queue_manager import QueueManager
-from ayesaac.queue_manager.crypter import decode
+from ayesaac.services.common import QueueManager
+from ayesaac.services.common.crypter import decode
 from ayesaac.utils.logger import get_logger
 
 from .bounding_box_to_phrases import bb_to_text

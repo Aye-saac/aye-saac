@@ -7,8 +7,6 @@ RUN apt-get update -qq \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
-
-
 # ---------------------------------- Builder --------------------------------- #
 FROM base as builder
 
@@ -35,23 +33,34 @@ ENV PATH "/root/.poetry/bin:/opt/venv/bin:${PATH}"
 # Copy deps information
 COPY pyproject.toml poetry.lock /app/
 
+# Copy spacy install script
+COPY scripts/download-spacy-model.sh /app/
+
 # Instals deps
 RUN python -m venv /opt/venv && \
 	. /opt/venv/bin/activate && \
 	cd /app && \
 	pip install --no-cache-dir -U pip setuptools && \
 	poetry install --no-dev --no-root --no-interaction && \
+	# Download spacy model
+	bash download-spacy-model.sh && \
 	rm -rf dist *.egg-info
+
 
 
 # ---------------------------------- Models ---------------------------------- #
 FROM base as models
 
+# Download OCR model
 RUN mkdir -p /root/.keras-ocr && ( \
 	cd /root/.keras-ocr && \
 	curl -L -o craft_mlt_25k.h5 https://github.com/faustomorales/keras-ocr/releases/download/v0.8.4/craft_mlt_25k.h5 && \
 	curl -L -o crnn_kurapan.h5 https://github.com/faustomorales/keras-ocr/releases/download/v0.8.4/crnn_kurapan.h5 \
 	)
+
+# Download Resnet model
+COPY scripts/download-resnet-model.sh .
+RUN bash download-resnet-model.sh
 
 # ---------------------------------- Runner ---------------------------------- #
 FROM base as runner
@@ -64,9 +73,10 @@ RUN apt-get update -qq && \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
-COPY . app/
 COPY --from=builder /opt/venv /opt/venv
 COPY --from=models /root/.keras-ocr /root/.keras-ocr
+COPY --from=models /data/resnet /app/data/resnet
+COPY . app/
 
 # Add the VirtualEnv to $PATH
 ENV PATH="/opt/venv/bin:$PATH"

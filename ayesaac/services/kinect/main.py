@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 from pykinect2 import PyKinectRuntime, PyKinectV2
 
-from ayesaac.queue_manager import QueueManager
-from ayesaac.queue_manager.crypter import encode
+from ayesaac.services.common import QueueManager
+from ayesaac.services.common.crypter import encode
 from ayesaac.utils.logger import get_logger
 
 

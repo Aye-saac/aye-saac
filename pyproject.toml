@@ -14,7 +14,7 @@ pika = "^1.1.0"
 gTTS = "^2.2.1"
 ibm-watson = "^5.1.0"
 keras-ocr = "^0.8.6"
-rasa = "^2.2.5"
+rasa = {extras = ["spacy"], version = "^2.2.7"}
 pyspellchecker = "^0.5.6"
 Flask = "^1.1.2"
 Flask-Cors = "^3.0.10"
@@ -28,6 +28,7 @@ pytest = "^6.2.1"
 black = "^20.8b1"
 flake8 = "^3.8.4"
 wemake-python-styleguide = "^0.14.1"
+mypy = "^0.800"
 
 [tool.black]
 line-length = 88

@@ -1,10 +1,13 @@
 import os
-from pathlib import Path
 from pprint import pprint
 from random import choice
 
-from ayesaac.queue_manager import QueueManager
+from ayesaac.services.common import QueueManager
+from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
+
+
+config = Config()
 
 
 logger = get_logger(__file__)
@@ -17,7 +20,7 @@ class NaturalLanguageGenerator(object):
 
     def __init__(self):
         self.queue_manager = QueueManager(
-            [self.__class__.__name__, "ExternalInterface", "TextToSpeech"]
+            [self.__class__.__name__, "ExternalInterface"]
         )
         self.answers = {}
         self.description_types = [
@@ -30,14 +33,7 @@ class NaturalLanguageGenerator(object):
         logger.info(f"{self.__class__.__name__} ready")
 
     def build_generator(self):
-        project_root = Path(__file__).parent.parent.parent.parent  # aye-saac
-        folder_path = (
-            project_root
-            / "ayesaac"
-            / "services"
-            / "natural_language_generator"
-            / "answers"
-        )
+        folder_path = config.directory.data.joinpath("sentence_templates")
         for _, _, files in os.walk(folder_path):
             for name in files:
                 with open(str(folder_path / name)) as f:
@@ -201,10 +197,7 @@ class NaturalLanguageGenerator(object):
         pprint(body["response"])
         body["path_done"].append(self.__class__.__name__)
 
-        if "run_as_webservice" in body:
-            self.queue_manager.publish("ExternalInterface", body)
-        else:
-            self.queue_manager.publish("TextToSpeech", body)
+        self.queue_manager.publish("ExternalInterface", body)
 
     def run(self):
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
