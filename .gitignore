@@ -231,3 +231,5 @@ fabric.properties
 .allennlp_cache/
 .vscode/
 data/resnet/
+# Make sure no generated data is tracked
+output/
