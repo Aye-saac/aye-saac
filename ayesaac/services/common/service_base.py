@@ -25,6 +25,3 @@ class ServiceBase(object):
 
     def run(self) -> None:
         self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
-
-    def _update_path_done(self, body: T) -> T:
-        return body["path_done"].append(self.__class__.__name__)
