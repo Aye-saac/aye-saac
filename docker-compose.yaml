@@ -76,12 +76,8 @@ services:
       - -m
       - ayesaac.services.external_interface
     volumes:
-      - type: bind
-        source: ./ayesaac/services/external_interface
-        target: /app/ayesaac/services/external_interface
-      - type: bind
-        source: ./output
-        target: /app/output
+      - ./ayesaac/services/external_interface:/app/ayesaac/services/external_interface
+      - output_data:/app/output
 
   interpreter:
     container_name: interpreter
@@ -205,3 +201,7 @@ services:
       - "--host=0.0.0.0"
     volumes:
       - ./ayesaac/services/web:/app/ayesaac/services/web
+      - output_data:/app/output
+
+volumes:
+  output_data:
