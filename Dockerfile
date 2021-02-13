@@ -62,6 +62,10 @@ RUN mkdir -p /root/.keras-ocr && ( \
 COPY scripts/download-resnet-model.sh .
 RUN bash download-resnet-model.sh
 
+# Download EPIC-KITCHENS baseline model
+COPY scripts/download-epic-kitchens-model.sh .
+RUN bash download-epic-kitchens-model.sh .
+
 # ---------------------------------- Runner ---------------------------------- #
 FROM base as runner
 
@@ -76,6 +80,7 @@ RUN apt-get update -qq && \
 COPY --from=builder /opt/venv /opt/venv
 COPY --from=models /root/.keras-ocr /root/.keras-ocr
 COPY --from=models /data/resnet /app/data/resnet
+COPY --from=models /data/epic-kitchens /app/data/epic-kitchens
 COPY . app/
 
 # Add the VirtualEnv to $PATH
