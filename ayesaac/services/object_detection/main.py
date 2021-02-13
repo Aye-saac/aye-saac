@@ -9,6 +9,7 @@ from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
 
 from .coco_category_index import coco_category_index
+from .epic_kitchens_category_index import epic_kitchens_category_index
 
 
 logger = get_logger(__file__)
@@ -29,9 +30,9 @@ class ObjectDetection(object):
                 "PositionDetection",
             ]
         )
-        self.category_index = coco_category_index
+        self.category_index = epic_kitchens_category_index
 
-        self.model_path = config.directory.data.joinpath("resnet")
+        self.model_path = config.directory.data.joinpath("epic_kitchens")
         model = tf.saved_model.load(str(self.model_path))
         self.model = model.signatures["serving_default"]
 
