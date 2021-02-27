@@ -23,6 +23,8 @@ RUN apt-get update -qq && \
 	libsm6 \
 	libxext6 \
 	libxrender-dev \
+	tesseract-ocr \
+	libtesseract-dev \
 	&& apt-get autoremove -y \
 	&& apt-get clean -y
 
