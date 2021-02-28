@@ -10,7 +10,7 @@ from ayesaac.utils.logger import get_logger
 
 from .coco_category_index import coco_category_index
 from .epic_kitchens_category_index import epic_kitchens_category_index
-
+from .plot_bounding_boxes import draw_bounding_boxes
 
 logger = get_logger(__file__)
 config = Config()
@@ -73,18 +73,24 @@ class ObjectDetection(object):
                 output = self.run_inference_for_single_image(image, model["model"])
                 for i in range(output["num_detections"]):
                     if float(output["detection_scores"][i]) >= 0.5:
+                        bbox = output["detection_boxes"][i].tolist()
                         objects.append(
                             {
                                 "name": model["category_index"][output["detection_classes"][i]][
                                     "name"
                                 ],
                                 "confidence": float(output["detection_scores"][i]),
-                                "bbox": output["detection_boxes"][i].tolist(),
+                                "bbox": bbox,
                                 "from": picture["from"],
                                 "model": model["name"],
                             }
                         )
-        pprint(objects)
+            bboxes = [obj["bbox"] for obj in objects]
+            class_names = [obj["name"] for obj in objects]
+            scores = [obj["confidence"] for obj in objects]
+            draw_bounding_boxes(image, bboxes, class_names, scores)
+            
+        # pprint(objects)
         body["objects"] = objects
         body["path_done"].append(self.__class__.__name__)
 
