@@ -21,7 +21,7 @@ seems to have trouble finding the keras-ocr model and doesn't work because of th
 
 See the OCR class below for a possible replacement using pytesseract.
 '''
-class OCR_OLD(object):
+class OCR(object):
     """
     The class OCR purpose is to detect all the possible text in the picture.
     """
@@ -37,9 +37,9 @@ class OCR_OLD(object):
         predictions = self.pipeline.recognize(image)[0]
 
         # Recomment this
-        fig, axs = plt.subplots(nrows=len(image), figsize=(20, 20))
-        keras_ocr.tools.drawAnnotations(image=image[0], predictions=predictions, ax=axs)
-        plt.show()
+        # fig, axs = plt.subplots(nrows=len(image), figsize=(20, 20))
+        # keras_ocr.tools.drawAnnotations(image=image[0], predictions=predictions, ax=axs)
+        # plt.show()
 
 
         pprint(predictions)
@@ -65,7 +65,7 @@ except ImportError:
     import Image
 import pytesseract
 
-class OCR(object):
+class OCR_TEST(object):
     def __init__(self):
         self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
 
