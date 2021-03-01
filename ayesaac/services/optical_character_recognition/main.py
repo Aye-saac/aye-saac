@@ -14,12 +14,8 @@ from .bounding_box_to_phrases import bb_to_text
 
 logger = get_logger(__file__)
 
-
 '''
-OCR_OLD (previously OCR) was ayesaac's optical character recognition service. It
-seems to have trouble finding the keras-ocr model and doesn't work because of this.
-
-See the OCR class below for a possible replacement using pytesseract.
+See the class below this for a possible replacement using pytesseract.
 '''
 class OCR(object):
     """

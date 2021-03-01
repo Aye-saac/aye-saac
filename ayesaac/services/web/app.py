@@ -57,7 +57,7 @@ def submit_status(task_id):
     file_path = f"output/{task_id}.txt"
 
     attempt_counter = 0
-    attempt_limit = 10
+    attempt_limit = 15
 
     while not os.path.exists(file_path):
         time.sleep(2)
@@ -66,6 +66,7 @@ def submit_status(task_id):
             break
 
     file_exists = os.path.isfile(file_path)
+
 
     # Return if its not there
     if file_exists is not True:
