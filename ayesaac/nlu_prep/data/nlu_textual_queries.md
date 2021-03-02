@@ -59,3 +59,18 @@
 - is [this](designator) recyclable
 - can I recycle [this](designator)
 - can you summarize [this](designator)
+
+## lookup:allergen
+- entries/allergens
+
+## lookup:designator
+entries/designator
+
+## lookup:user
+entries/user
+
+## lookup:desired_servings
+entries/desired_servings
+
+## lookup:nutri
+entries/nutri
