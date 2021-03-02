@@ -61,7 +61,7 @@
 - can you summarize [this](designator)
 
 ## lookup:allergen
-- entries/allergens
+entries/allergens
 
 ## lookup:designator
 entries/designator
