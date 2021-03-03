@@ -3,28 +3,34 @@
 - does [it](designator) have [shellfish](allergen) in [it](designator)
 - has [that](designator) got [eggs](allergen) in [it](designator)
 - is there any [milk](allergen) in [here](designator)
+- does [this](designator) contain [gluten](allergen) 
+- does this have [sesame](allegen) in [it](designator)
 
 ## intent:cooking_info
 - how do [I](user) cook [this](designator)
-- how long do [we](user) cook [this](designator) for
-- can [it](designator) go in the microwave
-- do [I](user) put [this](designator) in the oven
+- how do [I](user) prepare [this](designator)
+- how [long](data) do [we](user) cook [this](designator) for
+- can [it](designator) go in the [microwave](appliance)
+- do [I](user) put [this](designator) in the [oven](appliance)
 - do [you](user) have to take [this](designator) out of its packaging
-- what temperature do [I](user) cook [it](designator) at
+- what [temperature](data) do [I](user) cook [it](designator) at
+- what do [I](user) cook [this](designator) [with](appliance)
 
 ## intent:safety_info
 - can [I](user) eat [this](designator)
-- Is [this](designator) safe to eat
-- will [we](user) die if we eat [these](designator)
+- is [this](designator) [safe](safety) to eat
+- will [we](user) [die](safety) if we eat [these](designator)
+- can [I](user) [consume](safety) [this](designator)
+- is [this](designator) [okay](safety) to eat
 
 ## intent:expiration_info
-- is [this](designator) in date
-- are [those](designator) out of date
-- how long is [this](desingator) good for
-- how many days are [these](designator) good for
-- when does [it](designator) expire
-- is [this](designator) still good to eat
-- when do [these](designator) go off
+- is [this](designator) in [date](date)
+- are [those](designator) out of [date](date)
+- how long is [this](desingator) [good for](date)
+- how many days are [these](designator) [good for](date)
+- when does [it](designator) [expire](date)
+- is [this](designator) still [good to eat](date)
+- when do [these](designator) [go off](date)
 
 ## intent:servings_info
 - how many does [this](designator) serve
@@ -36,12 +42,15 @@
 ## intent:nutritional_info
 - how much [salt](nutri) is in [here](designator)
 - how much [fat](nutri) does [this](designator) have in it
+- how many [calories](nutri) does [this](designator) contain
 - is [this](designator) [alcohol](nutri) free
 - is [this](designator) ok for [diabetics](user)
 - is [this](designator) low [sodium](nutri)
 - how many calories are in [this](designator)
 - is [this](designator) suitable for [vegetarians](user)
 - is [this](designator) ok for [vegans](user)
+- what [vitamins](nutri) does [this](designator) have in it
+- what type of [vitamins](nutri) are in [this](designator)
 
 ## intent:flavour_info
 - is [this](designator) [spicy](flavour)
@@ -60,17 +69,28 @@
 - can I recycle [this](designator)
 - can you summarize [this](designator)
 
-## lookup:allergen
-entries/allergens
+## intent: greet
+- hello
+- good morning
+- hi
 
-## lookup:designator
-entries/designator
+## intent: affirm
+- let's do it
+- i love that
+- it's perfect
+- that looks great
+- yes
+- yes of course
 
-## lookup:user
-entries/user
+## intent: deny 
+ - no thank you
+- do you have something else
+- no this does not work for me
+- no i don't like that
+- no
+- no thanks
 
-## lookup:desired_servings
-entries/desired_servings
-
-## lookup:nutri
-entries/nutri
+## intent: thanking
+- you rock
+- thanks
+- thank you

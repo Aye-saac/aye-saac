@@ -1,0 +1,4 @@
+{
+    "pattern_slots_filled": 0,
+    "max_number_patterns": 10
+}
