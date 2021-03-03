@@ -9,7 +9,8 @@ from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
 
 from .coco_category_index import coco_category_index
-
+from .epic_kitchens_category_index import epic_kitchens_category_index
+from .plot_bounding_boxes import draw_bounding_boxes
 
 logger = get_logger(__file__)
 config = Config()
@@ -29,18 +30,30 @@ class ObjectDetection(object):
                 "PositionDetection",
             ]
         )
-        self.category_index = coco_category_index
-
-        self.model_path = config.directory.data.joinpath("resnet")
-        model = tf.saved_model.load(str(self.model_path))
-        self.model = model.signatures["serving_default"]
-
+        
+        self.models = [
+            {
+                "name": "coco",
+                "model_path": config.directory.data.joinpath("coco_resnet"),
+                "category_index": coco_category_index
+            },
+            {
+                "name": "epic-kitchens",
+                "model_path": config.directory.data.joinpath("epic_kitchens"),
+                "category_index": epic_kitchens_category_index
+            }
+        ]
+        
+        for model in self.models:
+            tf_model = tf.saved_model.load(str(model["model_path"]))
+            model["model"] = tf_model.signatures["serving_default"]
+            
         logger.info(f"{self.__class__.__name__} ready")
 
-    def run_inference_for_single_image(self, image):
+    def run_inference_for_single_image(self, image, model):
         input_tensor = tf.convert_to_tensor(image)
         input_tensor = input_tensor[tf.newaxis, ...]
-        output_dict = self.model(input_tensor)
+        output_dict = model(input_tensor)
 
         num_detections = int(output_dict.pop("num_detections"))
         output_dict = {
@@ -56,20 +69,28 @@ class ObjectDetection(object):
         objects = []
         for picture in body["pictures"]:
             image = decode(picture["data"], picture["shape"], np.uint8)
-            output = self.run_inference_for_single_image(image)
-            for i in range(output["num_detections"]):
-                if float(output["detection_scores"][i]) >= 0.5:
-                    objects.append(
-                        {
-                            "name": self.category_index[output["detection_classes"][i]][
-                                "name"
-                            ],
-                            "confidence": float(output["detection_scores"][i]),
-                            "bbox": output["detection_boxes"][i].tolist(),
-                            "from": picture["from"],
-                        }
-                    )
-        pprint(objects)
+            for model in self.models:
+                output = self.run_inference_for_single_image(image, model["model"])
+                for i in range(output["num_detections"]):
+                    if float(output["detection_scores"][i]) >= 0.5:
+                        bbox = output["detection_boxes"][i].tolist()
+                        objects.append(
+                            {
+                                "name": model["category_index"][output["detection_classes"][i]][
+                                    "name"
+                                ],
+                                "confidence": float(output["detection_scores"][i]),
+                                "bbox": bbox,
+                                "from": picture["from"],
+                                "model": model["name"],
+                            }
+                        )
+            bboxes = [obj["bbox"] for obj in objects]
+            class_names = [obj["name"] for obj in objects]
+            scores = [obj["confidence"] for obj in objects]
+            draw_bounding_boxes(image, bboxes, class_names, scores)
+            
+        # pprint(objects)
         body["objects"] = objects
         body["path_done"].append(self.__class__.__name__)
 

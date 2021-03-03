@@ -153,6 +153,7 @@ services:
       - ayesaac.services.object_detection.main
     volumes:
       - ./ayesaac/services/object_detection:/app/ayesaac/services/object_detection
+      - output_data:/app/output
 
   optical_character_recognition:
     container_name: optical_character_recognition
