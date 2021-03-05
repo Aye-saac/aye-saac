@@ -69,7 +69,8 @@ class NaturalLanguageGenerator(object):
         elif len(words):
             return answer.replace(
                 "*",
-                ((str(words[0][1]) + " ") if words[0][1] > 1 else "") + words[0][0],
+                self.get_det(words[0])
+                + words[0][0],
                 1,
             )
         return answer
@@ -157,7 +158,7 @@ class NaturalLanguageGenerator(object):
             elements = [x for x in objects if x[0] == p["value"]]
             if not len(elements):
                 objects.append((p["value"], 0))
-        context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        context = "DESCRIPTION_COUNT"
         return objects, context, obj_cnt
 
     def locate(self, body):
