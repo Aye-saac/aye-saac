@@ -48,10 +48,6 @@ class NaturalLanguageGenerator(object):
             return "no "
 
     def compare_name_value(self, name, value):
-        pprint(name)
-        pprint(value)
-        pprint(value[:-1])
-        pprint(value[-1])
         if name == value:
             return True
         elif name == value[:-1] and value[-1] == 's':
@@ -101,7 +97,7 @@ class NaturalLanguageGenerator(object):
             for p in body["intents"]["entities"]:
                 if self.compare_name_value(o["name"], p["value"]):
                     objects.append(
-                        o["name"]
+                        p["value"]
                         + (o["lateral_position"] if o.get("lateral_position") else "")
                     )
         objects = list(set([(o, objects.count(o)) for o in objects]))
@@ -154,7 +150,7 @@ class NaturalLanguageGenerator(object):
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
                 if self.compare_name_value(o["name"], p["value"]):
-                    objects.append(o["name"])
+                    objects.append(p["value"])
         objects = list(set([(o, objects.count(o)) for o in objects]))
         obj_cnt = sum(n for _, n in objects)
         for p in body["intents"]["entities"]:
@@ -192,7 +188,7 @@ class NaturalLanguageGenerator(object):
                         elif xCenter > 0.618:
                             o["lateral_position"] = " on the right"
                     objects.append(
-                        o["name"]
+                        p["value"]
                         + (o["lateral_position"] if o.get("lateral_position") else "")
                     )
         objects = list(set([(o, objects.count(o)) for o in objects]))
