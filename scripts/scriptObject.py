@@ -1,5 +1,5 @@
-filepath = './new_object.txt'
-file_object = open('./ayesaac/nlu_prep/entries/objects.txt', 'a')
+filepath = '../new_object.txt'
+file_object = open('../ayesaac/nlu_prep/entries/objects.txt', 'a')
 with open(filepath) as fp:
     line = fp.readline()
     while line:
