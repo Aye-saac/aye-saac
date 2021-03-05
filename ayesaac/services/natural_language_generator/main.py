@@ -41,7 +41,7 @@ class NaturalLanguageGenerator(object):
 
     def get_det(self, word):
         if (word[1] > 1):
-            return str(word[1] + " ")
+            return str(word[1]) + " "
         elif word[1] == 1:
             return "a "
         else:
@@ -69,8 +69,7 @@ class NaturalLanguageGenerator(object):
         elif len(words):
             return answer.replace(
                 "*",
-                self.get_det(words[0])
-                + words[0][0],
+                self.get_det(words[0]) + words[0][0],
                 1,
             )
         return answer
