@@ -58,6 +58,7 @@ class NaturalLanguageUnderstanding(object):
         dirs = [f for f in listdir(model_path) if isdir(join(model_path, f))]
         dirs.sort(reverse=True)
         model = join(model_path, dirs[0])
+        logger.info(f"Model loading: " + model)
         self.interpreter = Interpreter.load(model)
 
         logger.info(f"{self.__class__.__name__} ready")

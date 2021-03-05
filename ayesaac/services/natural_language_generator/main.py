@@ -40,7 +40,23 @@ class NaturalLanguageGenerator(object):
                     self.answers[name] = [line.strip() for line in f]
 
     def get_det(self, word):
-        return str(word[1]) + " " if word[1] > 1 else "a "
+        if (word[1] > 1):
+            return str(word[1] + " ")
+        elif word[1] == 1:
+            return "a "
+        else:
+            return "no "
+
+    def compare_name_value(self, name, value):
+        pprint(name)
+        pprint(value)
+        pprint(value[:-1])
+        pprint(value[-1])
+        if name == value:
+            return True
+        elif name == value[:-1] and value[-1] == 's':
+            return True
+        return False
 
     def generate_text(self, words, context, obj_cnt):
         answer = choice(self.answers[context])
@@ -83,7 +99,7 @@ class NaturalLanguageGenerator(object):
         objects = []
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
-                if o["name"] == p["value"]:
+                if self.compare_name_value(o["name"], p["value"]):
                     objects.append(
                         o["name"]
                         + (o["lateral_position"] if o.get("lateral_position") else "")
@@ -118,7 +134,7 @@ class NaturalLanguageGenerator(object):
 
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
-                if o["name"] == p["value"]:
+                if self.compare_name_value(o["name"], p["value"]):
                     objects = (p["value"], o["colour"])
                     break
                 else:
@@ -129,13 +145,32 @@ class NaturalLanguageGenerator(object):
             context = "COLOR_DETECTION" if obj_cnt else "COLOR_DETECTION_N"
         return objects, context, obj_cnt
 
+    def count(self, body):
+        pprint("count")
+        obj_cnt = 0
+        objects = []
+        context = ""
+
+        for o in body["objects"]:
+            for p in body["intents"]["entities"]:
+                if self.compare_name_value(o["name"], p["value"]):
+                    objects.append(o["name"])
+        objects = list(set([(o, objects.count(o)) for o in objects]))
+        obj_cnt = sum(n for _, n in objects)
+        for p in body["intents"]["entities"]:
+            elements = [x for x in objects if x[0] == p["value"]]
+            if not len(elements):
+                objects.append((p["value"], 0))
+        context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        return objects, context, obj_cnt
+
     def locate(self, body):
         pprint("locate")
 
         objects = []
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
-                if o["name"] == p["value"]:
+                if self.compare_name_value(o["name"], p["value"]):
                     if (
                         not o.get("lateral_position")
                         and o.get("bbox")

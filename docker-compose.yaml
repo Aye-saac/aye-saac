@@ -138,6 +138,7 @@ services:
       - ayesaac.services.natural_language_understanding.main
     volumes:
       - ./ayesaac/services/natural_language_understanding:/app/ayesaac/services/natural_language_understanding
+      - ./data/rasa:/app/data/rasa
 
   object_detection:
     container_name: object_detection
