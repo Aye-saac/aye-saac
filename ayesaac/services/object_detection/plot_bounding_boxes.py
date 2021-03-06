@@ -20,7 +20,7 @@ def draw_bounding_boxes(image, bboxes, class_names, scores):
     fig.savefig(f"{config.directory.output}/bbox_{time.time()}.png", dpi = 180)
 
 
-def draw_boxes(image, bboxes, class_names, scores, max_boxes=10, min_score=0.5):
+def draw_boxes(image, bboxes, class_names, scores, max_boxes=10):
     """Overlay labeled boxes on an image with formatted scores and label names.
     Adapted from https://www.tensorflow.org/hub/tutorials/object_detection"""
 
