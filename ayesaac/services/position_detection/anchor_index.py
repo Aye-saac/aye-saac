@@ -1,3 +1,6 @@
+# This data objects lists the classes that can be considered "anchors", i.e. they
+# might be useful for positioning items of interest. The relationships list likely
+# positioning to be found, e.g. an item is found "on" a table
 ANCHORS = {
     "fridge": {"name": "fridge", "relationships": ["in", "on", "next to"]},
     "refrigerator": {"name": "refrigerator", "relationships": ["in", "on", "next to"]},

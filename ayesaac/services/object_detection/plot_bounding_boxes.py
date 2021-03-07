@@ -12,12 +12,12 @@ from ayesaac.utils.config import Config
 config = Config()
 
 
-def draw_bounding_boxes(image, bboxes, class_names, scores):
+def draw_bounding_boxes(image, bboxes, class_names, scores, prefix="bbox"):
     """Draw bounding boxes and labels on supplied image"""
     fig = plt.figure(figsize=(40, 15))
     img = draw_boxes(image, bboxes, class_names, scores)
     plt.imshow(img)
-    fig.savefig(f"{config.directory.output}/bbox_{time.time()}.png", dpi = 180)
+    fig.savefig(f"{config.directory.output}/{prefix}_{time.time()}.png", dpi = 180)
 
 
 def draw_boxes(image, bboxes, class_names, scores, max_boxes=10):
