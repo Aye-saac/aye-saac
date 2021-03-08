@@ -1,0 +1,1 @@
+{"-1:low": {"True": 0}, "-1:title": {"False": 1}, "-1:upper": {"False": 2}, "0:BOS": {"False": 3, "True": 4}, "0:EOS": {"False": 5, "True": 6}, "0:digit": {"False": 7}, "0:low": {"True": 8}, "0:title": {"False": 9}, "0:upper": {"False": 10}, "1:low": {"True": 11}, "1:title": {"False": 12}, "1:upper": {"False": 13}}

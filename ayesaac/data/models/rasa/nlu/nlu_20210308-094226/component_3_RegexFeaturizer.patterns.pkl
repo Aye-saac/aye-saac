@@ -1,0 +1,22 @@
+[
+    {
+        "name": "allergen",
+        "pattern": "(\\bcelery\\b|\\bceleriac\\b|\\bmustard\\b|\\bpepper\\b|\\bsesame\\b|\\bgluten\\b|\\bwheat\\b|\\brye\\b|\\bbarley\\b|\\boats\\b|\\bcrustaceans\\b|\\bshellfish\\b|\\bcrab\\b|\\blobster\\b|\\bprawn\\b|\\bking\\ prawn\\b|\\bclams\\b|\\bcrustaceans\\b|\\bmussels\\b|\\bshrimp\\b|\\bmollusks\\b|\\boyster\\b|\\bscallops\\b|\\boctopus\\b|\\beggs\\b|\\bfish\\b|\\bparvalbumin\\b|\\bsalmon\\b|\\bhaddock\\b|\\bcod\\b|\\bseabass\\b|\\blubine\\b|\\bsardines\\b|\\blupin\\b|\\bmilk\\b|\\bdairy\\b|\\bdairy\\ products\\b|\\bmilky\\b|\\blacteal\\b|\\bmolluscs\\ \\-\\ including\\ squid,\\ mussels,\\ cockles,\\ whelks\\ and\\ snails\\b|\\bmustard\\b|\\bnuts\\b|\\btree\\ nuts\\b|\\bwalnuts\\b|\\bbrazil\\ nuts\\b|\\balmonds\\b|\\bpistachios\\b|\\bhazelnuts\\b|\\bcashews\\b|\\bpecans\\b|\\bmacadamia\\ nuts\\b|\\bpine\\ nuts\\b|\\bpeanuts\\b|\\bsesame\\ seeds\\b|\\bsoya\\ beans\\b|\\bsoybean\\b|\\bsoy\\b|\\btofu\\b|\\bsulphur\\ dioxide\\b|\\bsulphites\\b|\\blatex\\b|\\bmango\\b|\\bavocado\\b|\\bgelatin\\b|\\bmarshmallows\\b|\\bnitrite\\b|\\bnitrite\\ additives\\b|\\bnitrate\\b)"
+    },
+    {
+        "name": "designator",
+        "pattern": "(\\bit\\b|\\bthis\\b|\\bthat\\b|\\bhere\\b|\\bthese\\b|\\bthose\\b)"
+    },
+    {
+        "name": "user",
+        "pattern": "(\\bI\\b|\\byou\\b|\\bwe\\b|\\bdiabetics\\b|\\bvegans\\b)"
+    },
+    {
+        "name": "desired_servings",
+        "pattern": "(\\bone\\b|\\btwo\\b|\\bthree\\b|\\bfour\\b|\\bfive\\b|\\bsix\\b|\\bseven\\b|\\beight\\b|\\bnine\\b|\\bten\\b)"
+    },
+    {
+        "name": "nutri",
+        "pattern": "(\\bsalt\\b|\\bfat\\b|\\balcohol\\b|\\bsodium\\b)"
+    }
+]
