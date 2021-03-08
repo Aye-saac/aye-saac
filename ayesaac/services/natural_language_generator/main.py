@@ -120,12 +120,7 @@ class NaturalLanguageGenerator(object):
         objects = " ".join(" ".join(t) for t in body["texts"])
         print(objects)
 
-        patterns = [
-            "ingredients",
-            "allergens"
-        ]
-
-        objects = extract_label(objects, patterns)
+        objects = extract_label(objects)
 
         obj_cnt = 1 if len(objects) > 0 else 0
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")

@@ -2,9 +2,13 @@ import unicodedata
 import re
 import json
 
-def extract_label(text, patterns):
-    # text = unicodedata.normalize('NFKD', udata)
+def extract_label(text):
+    patterns = []
+    with open("./group-6-config.json") as f:
+        data = json.load(f)
+        patterns = data["label-keywords"]
 
+    # text = unicodedata.normalize('NFKD', udata)
     text = re.sub('\s+', ' ', text).lower()
     text = re.sub('[^a-z0-9 ]+', '', text)
     text = [text]
