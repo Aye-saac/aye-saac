@@ -28,7 +28,7 @@ class Manager(object):
                 ["CameraManager", "ObjectDetection", "Interpreter"],
             ],
             "recognise": [["CameraManager", "ObjectDetection", "Interpreter"]],
-            "locate": [["CameraManager", "ObjectDetection", "Interpreter"]],
+            "locate": [["CameraManager", "ObjectDetection", "PositionDetection", "Interpreter"]],
         }
 
         logger.info(f"{self.__class__.__name__} ready")
