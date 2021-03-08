@@ -22,10 +22,6 @@ class ExternalInterface(ServiceBase):
 
     def callback(self, body, **_):
         body["path_done"].append(self.__class__.__name__)
-        pprint("attempting to dump body:")
-        pprint("=====================")
-        pprint(body)
-        pprint("=====================")
 
         self.dump_output(body)
 

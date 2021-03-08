@@ -5,6 +5,7 @@ from random import choice
 from ayesaac.services.common import QueueManager
 from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
+from .label_formatter import extract_label
 
 
 config = Config()
@@ -100,11 +101,32 @@ class NaturalLanguageGenerator(object):
             obj_cnt = sum(n for _, n in objects)
         return objects, context, obj_cnt
 
-    def read_text(self, body):
+    def REAL_read_text(self, body):
         pprint("read_text")
 
         objects = " ".join(" ".join(t) for t in body["texts"])
         print(objects)
+        obj_cnt = 1 if len(objects) > 0 else 0
+        context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+        return objects, context, obj_cnt
+
+    '''
+    TEMPORARILY HIJACKING THE read_text FUNCTION ABOVE
+    THIS SHOULD BE CHANGED BACK TO extract_label ONCE
+    SUCH AN INTENT HAS BEEN TRAINED WITH THE NLU!!!
+    '''
+    def read_text(self, body):
+    # def extract_label(self, body):
+        objects = " ".join(" ".join(t) for t in body["texts"])
+        print(objects)
+
+        patterns = [
+            "ingredients",
+            "allergens"
+        ]
+
+        objects = extract_label(objects, patterns)
+
         obj_cnt = 1 if len(objects) > 0 else 0
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt

@@ -21,45 +21,73 @@ class OCR(object):
     """
     The class OCR purpose is to detect all the possible text in the picture.
     """
+    if (True):
+        def __init__(self):
+            self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
+            self.pipeline = keras_ocr.pipeline.Pipeline()
 
-    def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
-        self.pipeline = keras_ocr.pipeline.Pipeline()
+        def callback(self, body, **_):
+            image = [
+                decode(body["pictures"][0]["data"], body["pictures"][0]["shape"], np.uint8)
+            ]
+            predictions = self.pipeline.recognize(image)[0]
 
-    def callback(self, body, **_):
-        image = [
-            decode(body["pictures"][0]["data"], body["pictures"][0]["shape"], np.uint8)
-        ]
-        predictions = self.pipeline.recognize(image)[0]
-
-        # Recomment this
-        # fig, axs = plt.subplots(nrows=len(image), figsize=(20, 20))
-        # keras_ocr.tools.drawAnnotations(image=image[0], predictions=predictions, ax=axs)
-        # plt.show()
-
-
-        pprint(predictions)
-        text = bb_to_text(predictions)
-
-        body["texts"] = text
-        body["path_done"].append(self.__class__.__name__)
-        del body["pictures"]
-        pprint(body)
-        next_service = body["vision_path"].pop(0)
-        self.queue_manager.publish(next_service, body)
-
-        logger.info(f"{self.__class__.__name__} ready")
-
-    def run(self):
-        self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
+            # Recomment this
+            # fig, axs = plt.subplots(nrows=len(image), figsize=(20, 20))
+            # keras_ocr.tools.drawAnnotations(image=image[0], predictions=predictions, ax=axs)
+            # plt.show()
 
 
+            pprint(predictions)
+            text = bb_to_text(predictions)
 
-try:
-    from PIL import Image
-except ImportError:
-    import Image
-import pytesseract
+            body["texts"] = text
+            body["path_done"].append(self.__class__.__name__)
+            del body["pictures"]
+            pprint(body)
+            next_service = body["vision_path"].pop(0)
+            self.queue_manager.publish(next_service, body)
+
+            logger.info(f"{self.__class__.__name__} ready")
+
+        def run(self):
+            self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
+
+
+    else:
+        try:
+            from PIL import Image
+        except ImportError:
+            import Image
+        import pytesseract
+
+        def __init__(self):
+            self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
+
+        def callback(self, body, **_):
+
+            pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
+
+            image = [
+                decode(body["pictures"][0]["data"], body["pictures"][0]["shape"], np.uint8)
+            ]
+
+            text = pytesseract.image_to_string(image[0])
+
+            body["texts"] = text
+            body["path_done"].append(self.__class__.__name__)
+            del body["pictures"]
+            pprint(body)
+            next_service = body["vision_path"].pop(0)
+            self.queue_manager.publish(next_service, body)
+
+            logger.info(f"{self.__class__.__name__} ready")
+
+        def run(self):
+            self.queue_manager.start_consuming(self.__class__.__name__, self.callback)
+
+
+
 
 class OCR_TEST(object):
     def __init__(self):
