@@ -1,6 +1,12 @@
 salt
 fat
-alcohol
-sodium
-calories
-vitamins
+energy value
+saturates
+carbohydrates
+sugar
+protein
+monosaturates
+polysaturates
+polyols
+starch
+fibre

@@ -1,0 +1,73 @@
+celery
+celeriac
+mustard
+pepper
+sesame
+gluten
+wheat
+rye
+barley
+oats
+crustaceans
+shellfish
+crab
+lobster
+prawn
+king prawn
+clams
+crustaceans
+mussels
+shrimp
+mollusks
+oyster
+scallops
+octopus
+eggs
+fish
+parvalbumin
+salmon
+haddock
+cod
+seabass
+lubine
+sardines
+lupin
+milk
+dairy
+dairy products
+milky
+lacteal
+molluscs 
+squid
+mussels
+cockles
+whelks
+snails
+mustard
+nuts
+tree nuts
+walnuts
+brazil nuts
+almonds
+pistachios
+hazelnuts
+cashews
+pecans
+macadamia nuts
+pine nuts
+peanuts
+sesame seeds
+soya beans
+soybean
+soy
+tofu
+sulphur dioxide
+sulphites
+latex
+mango
+avocado
+gelatin
+marshmallows
+nitrite
+nitrite additives
+nitrate

@@ -96,16 +96,16 @@
 - can I recycle [this](designator)
 
 ## lookup:allergen
-entries/allergens
+entries/allergens.txt
 
 ## lookup:designator
-entries/designator
+entries/designator.txt
 
 ## lookup:user
-entries/user
+entries/user.txt
 
 ## lookup:desired_servings
-entries/desired_servings
+entries/desired_servings.txt
 
 ## lookup:nutri
-entries/nutri
+entries/nutri.txt

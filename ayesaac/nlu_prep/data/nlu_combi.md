@@ -1,0 +1,536 @@
+## intent:identify
+- alright tell me what this is
+- alright, last try on this. i think i know what it is but try to tell me, thanks
+- and if pills are in the box
+- and what is this
+- are these beets
+- are these blueberry or cheese
+- are these cheese or blueberry
+- are these chocolate or vanilla [cookies](object)
+- are these fruit crisps
+- are these strawberries
+- can somebody tell me what this is
+- can somebody tell me what this is and what kind of [flavor](aim) is it
+- can someone tell me the [content](aim) of this [tin](object)
+- can someone tell me what that is
+- can someone tell me what the [date](aim) is
+- can someone tell me what this [can](object) is
+- can someone tell me what this is
+- can someone tell me what this is a [bottle](object) of
+- could you tell me what is this
+- could you tell me what it is and what color is it
+- could you tell me what item this is
+- could you tell me what that is
+- could you tell me what these are
+- could you tell me what this is
+- could you tell me what this is, ? thanks
+- could you tell me what this item is
+- could you tell me what this product is
+- could you tell me what this thing is
+- could you tell me what this, tell me what this is
+- could you tell what this item is
+- hello tell me what this product is
+- hello there, tell me whatever this is
+- hello, what is this
+- help me? what is this
+- hey, tell me what this is
+- hey, what is this
+- hi tell me what this product is
+- hi there can somebody tell me what this is? thanks
+- hi what is this
+- hi, tell me what this is
+- hi, tell me what this is? again you've been very helpful
+- hi, tell me what this item is? so much
+- hi, what is this
+- hi, what is this, ? tell me what this is
+- i just want to know what this is
+- i need to know what this is, in advance
+- i would like to know what product this is
+- identify this
+- identify this for me
+- identify this item
+- identify this item for me
+- identify this object
+- identify this product
+- what is, what is this
+- what is. what is this
+- what is...what is this
+- what it is
+- what it this
+- what item is this
+- what item is this? what item is this
+- what kind of object is this
+- what kind of stuff is this
+- what kind of thing it is
+- what object is this
+- what the fuck is this
+- what the heck is that
+- what the hell is that
+- what these
+- what thing
+- what thing is this
+- what this
+- what this is
+- what this is? what is this
+- what this? what this
+- what was that
+- what was that item
+- what was that object
+- what was this
+- what what is it
+- what, what is this
+- what, what is this? what is it
+- what, what is, what is this
+- what, what's this
+- what. what is this? what is this
+- what...what is it
+- what? what is this
+- what's is this
+- what's is this item
+- whats that
+- what's that
+- what's that object
+- what's that? what is this
+- what's the item
+- whats this
+- what's this
+- can that [candy bar](object) be identified
+- any clue what this [box](object) is? thanks in advance for your help
+
+## intent:recognise
+- is it a [bag](object)
+- is it a [bottle](object)
+- is it a [box](object)
+- is it a [glass](object)
+- is it a [table](object)
+- is that an [orange](object)
+- is this a [beer can](object)
+- is this a [bin](object)
+- is this a [cable](object)
+- is this a [calculator](object)
+- is this a [cat](object)
+- is this a [charger](object)
+- is this a [cup](object)
+- is this a [fruit](object)
+- is this a [mobile](object)
+- is this a [mouse](object)
+- is this a [passport](object)
+- is this a [pear](object)
+- is this a [pen](object)
+- is this an [orange](object)
+- is there a [bag](object)
+- is there a [beer can](object)
+- is there a [bin](object)
+- is there a [bottle](object)
+- is there a [box](object)
+- is there a [cable](object)
+- is there a [calculator](object)
+- is there a [cat](object)
+- is there a [charger](object)
+- is there a [cup](object)
+- is there a [fruit](object)
+- is there a [glass](object)
+- is there a [mobile](object)
+- is there a [mouse](object)
+- is there an [orange](object)
+- is there a [passport](object)
+- is there a [pear](object)
+- is there a [pen](object)
+- is there a [table](object)
+- are there [bags](object)
+- are there [beer cans](object)
+- are there [bins](object)
+- are there [bottles](object)
+- are there [boxes](object)
+- are there [cables](object)
+- are there [calculators](object)
+- are there [cats](object)
+- are there [chargers](object)
+- are there [cups](object)
+- are there [fruits](object)
+- are there [glasses](object)
+- are there [mobiles](object)
+- are there [mouses](object)
+- are there [oranges](object)
+- are there [passports](object)
+- are there [pears](object)
+- are there [pens](object)
+- are there [tables](object)
+- alright, then do you see the [box of cereals](object)
+- do you see the [box of cereals](object)
+- then do you see the [box of cereals](object)
+- alright, do you see the [box of cereals](object)
+- do you see the [spoon](object)
+- do you see the [orange](object)
+- can you see the [spoon](object)
+- can you see the [orange](object)
+- can you see the [box of cereals](object)
+
+
+## intent:detect_ingredients
+- alright tell me the ingredients in here
+- alirght tell me what this is made of
+- alright tell me what's in this
+- alright tell me what is in this
+- alright tell me what is in here
+- can you tell me what is in this
+- can you tell me the ingredients in here
+- can you tell me the ingredients of this
+- what ingredients does this have
+- what does this have in it
+- what is this made of
+- what is this made with
+- read the ingredients to me
+- read me the ingredients
+- read me the list of ingredients in this
+- read the list of ingredients on the package please
+- please tell me what is in here
+- please inform me of the ingredients in this
+- please read me the ingredients
+- alright has this got [peanuts](ingredient) in it
+- alright are there [allergens](ingredient) or traces of [allergens](ingredient) in this
+- alright what allergens are in this
+- does this contain [nuts](ingredient)
+- does this contain any [nuts](ingredient) in it
+- does this have [eggs](ingredient) as an ingredient
+- does it have [fish](ingredient)
+- does it contain [peanuts](ingredient) 
+- does this have [sesame](ingredient)
+- does it have [shellfish](ingredient) in it
+- does it include [gluten](ingredient)
+- has that got [eggs](ingredient) in it
+- is there any [milk](ingredient) in here
+- can you check if this food has [milk](ingredient)
+- can you tell me if there are [allergens](ingredient) in this
+- can you let me know what [allergens](ingredient) are in this
+- are [eggs](ingredient) one of the ingredients in this
+- I can't eat [fish](ingredient), can I eat this
+- I cannot eat [celery](ingredient), is this safe for me
+- I can't eat [dairy](ingredient) products, so is this okay for me to eat 
+- I'm allergic to [soy](ingredient), can I eat this
+- I'm [lactose](ingredient) intolerant, will this make me feel sick
+- what [allergens](ingredient) are in this product
+- what [allergens](ingredient) are in this
+- are there [allergens](ingredient) or traces of [allergens](ingredient) in this
+- does this product contain traces of [nuts](ingredient)
+- does this have traces of [gluten](ingredient)
+
+## intent: detect_expiration
+- alright what's the expiration date on this
+- alright what's the expiration date of this
+- alright what's the use by date on this
+- alright what's the use by date of this
+- alright can you tell me when this expires
+- alright can you tell me when I need to use this by
+- can you tell me when I should use this by
+- can you tell me when this goes off
+- can you tell me how long this is good for
+- can you tell me how long until this goes off
+- can you read when I should eat this
+- can you read the date on this
+- can you read the expiration date on this
+- can you read the use by date on this
+- can you read the use by date 
+- can you let me know when this expires
+- can you let me know the date on this item
+- can you let me know if this is in date
+- could i get the expiration date on this 
+- could i have the expiration date of this 
+- is this in date
+- is this still good to eat
+- are these out of date
+- are these still good
+- are these expired
+- how long is this good for
+- how long do I have before this goes bad
+- how long do I have before this expires
+- how long do I have before this make me feel ill
+- how long do I have before this food makes me sick
+- how many days are these good for
+- how many days do I have to eat this
+- how many days until this goes bad
+- have these expired yet
+- have these gone out of date
+- what is the date on this
+- what is the expiration date on this
+- what is the use by date on this
+- what date is on this
+- what date is on the package
+- what date does this go off
+- what day does this go off
+- what day should I use this by
+- what day should I eat this by
+- when does it expire
+- when do these go off
+- when do I need to use this by
+- when is the expiration date
+- when is the use by date
+- when should I used this item of food by
+- when should I throw this out
+- when does this go bad
+- by when should I eat this
+- by what date should I eat this
+
+## intent:detect_nutri
+- can you tell me the nutritional information of this
+- can you tell me about the nutritional information of this
+- can you tell me the nutrition information about this food
+- can you tell me if this is nutritious
+- can you read me the nutritional information on this
+- can you read me the nutritional information of this food
+- can you read the nutritional information of this to me
+- tell me about the nutritional information
+- tell me about how nutritious this is
+- what is the nutritional information of this food
+- what about the nutritional information of this
+- what nutritional information is in this
+- what is the nutritional value of this
+- what nutritional information do you see
+- how much [salt](nutri) is in here
+- how much [fat](nutri) does this have
+- how much [protein] is in this item of food
+- how much [fat](nutri) does this have in it
+- how many [calories](nutri) are in this
+- what is the [sugar](nutri) content of this
+- what is the amount of [protein](nutri)
+- what about the [salt](nutri)
+- is there a lot of [sugar](nutri) in this
+- is this low [sodium](nutri)
+- does this have a lot of [carbohydrates](nutri)
+- does this contain [salt](nutri)
+- does this food have a high amount of [protein](nutri)
+
+## intent: detect_safety
+- alright does this have anything that will kill me
+- alright will I die if I eat this
+- alright if i eat this
+- will I be okay if I eat this
+- will I be fine if I eat this
+- will I feel sick if I eat this
+- will I feel ill when I eat this
+- will it be okay if I eat this
+- can I eat this safely
+- can I eat this food safely
+- can I eat this
+- can this be eaten
+- can this food be eaten
+- can this be eaten safely
+- can I eat this safely
+- is it safe for me to eat this
+- is it okay for me to eat this
+- is it bad if I eat this
+- is this safe to eat
+- is this okay to eat
+
+## intent:detect_colour
+- are these [bananas](object) [green](colour) or [yellow](colour)
+- color is this what color is this
+- color is this? what color is this
+- could you tell me what color this [cup](object) is
+- could you tell me what color this is
+- could you tell me what color this is? what it is
+- hello, could you tell me what color is this
+- hello, could you tell me what color that is
+- hello, tell me the color
+- hello. could you tell me what color that is
+- hi tell me what color that is
+- hi, tell me what color that is
+- i want to know what color thanks
+- is it [black](colour)
+- is it [blue](colour)
+- is this [black](colour)
+- is this [black](colour) or [blue](colour)
+- is this [black](colour) or [purple](colour)
+- is this [blue](colour) or [purple](colour)
+- is this [blue](colour) or [red](colour)
+- is this [brown](colour) or [gray](colour)
+- is this color [black](colour)
+- is this color [blue](colour) or [purple](colour)
+- is this [pepper mill](object) [red](colour) or [black](colour)
+- ok i tried a different angle is this [peppermill](object) [red](colour) or [black](colour)
+- tell me the color
+- tell me the color of this [table](object)
+- tell me the color of this [tie](object)
+- tell me what color is it
+- tell me what color is these [chips](object)
+- tell me what color that is
+- tell me what color this is ? thanks
+- the color
+- the color is
+- what are the colors from [left](from) to [right](to)
+- what are the colors in these
+- what color
+- what color and what is that
+- what color are in these [sponges](object)
+- what color are the [cabinets](object)
+- what color are the [flowers](object)
+- what color are the [letters](object)
+- what color are the [lids of the bottles](object)
+- what color are the [potatoes](object)
+- what color are these
+- what color are they
+- what color are this
+- what color [bottle](object) is this
+- what color [coffee mug](object) do i have
+- what color [cup](object) is this
+- what color do these look
+- what color do you see
+- what color does this [wine](object) have
+- what color exactly is this? it's [gatorade](object) but what color is it
+- what color is [cup](object)
+- what color is it
+- what color is it? what is this object
+- what color is my [mug](object)
+- what color is on the [left](position)
+- what color is that
+- what color is that and what brand if it says is that
+- what color is that [candy](object) that i am holding in my [hand](position)
+- what color is that, ? what color is that
+- what color is that? what color is that
+- what color is the [cup](object)
+- what color is the [drink](object) in my [cup](position)
+- what color is the [drinking glass](object)
+- what color is the [egg](object)
+- what color is the [pepper](object)
+- what color is the [water bottle](object)
+- what color is this
+- what color is this ? color
+- what color is this ? the color
+- what color is this and what does it say
+- what color is this and what is it
+- what color is this [beer](object)
+- what color is this [can](object)
+- what color is this [candy](object) that's in my [hand](position)
+- what color is this [cup](object)
+- what color is this [cup](object)? i hope i got the cup
+- what color is this [mug](object)
+- what color is this [package](object)? thanks
+- what color is this [pepper](object)
+- what color is this [refrigerator](object)
+- what the color
+- what the color is
+- what this color
+- what whats the color
+- what, what color is it
+- what's color
+- what's that color
+- what's the color
+- what's the color for this item
+- what's the color of this
+
+## intent:same_intent
+- what about it
+- what about this
+- what about this thing
+- what about that
+- what about that thing
+- what about these
+- what about them
+- what 'bout it
+- what 'bout this
+- what 'bout this thing
+- what 'bout that
+- what 'bout that thing
+- what 'bout these
+- what 'bout them
+- what about the [shirt](object)
+- what about the [jacket](object)
+- what about the [umbrella](object)
+- what about the [computer](object)
+- what about the [mouse](object)
+- what about the [paper](object)
+- what about the [pen](object)
+- what about the [fork](object)
+- what about the [box of cereals](object)
+- what about the [bag](object)
+- what about the [bottle](object)
+- what about the [box](object)
+- what about the [glass](object)
+- what about the [table](object)
+- and this
+- and that
+- and about it
+- and about this
+- and about that
+- and about these
+- and about them
+- and about the [bag](object)
+- and about the [cup](object)
+- and about the [bowl](object)
+- and about the [spoon](object)
+
+## intent:locate
+- where's the [bowl](object)
+- where's the [spoon](object)
+- where's the [milk bottle](object)
+- where's the [milk](object)
+- where's the [water](object)
+- where's the [water bottle](object)
+- where's the [chocolate](object)
+- where's the [box of cereals](object)
+- where's the [cake rack](object)
+- where's the [wire rack](object)
+- where are my [pants](object)
+- where are my [stairs](object)
+- where are the [keys](object)
+- where are the [whiteboard markers](object)
+- where is the [bowl](object)
+- where is the [spoon](object)
+- where is the [milk bottle](object)
+- where is the [milk](object)
+- where is the [water](object)
+- where is the [chocolate](object)
+- where is the [box of cereals](object)
+- where is the [cake rack](object)
+- where is the [wire rack](object)
+- where is the [webcam](object)
+- where is the [white cup](object)
+- where is the [ashtray](object)
+- where is the [bowl](object)
+- where is the [broiler switch](object)
+- where is the [coffee](object)
+- where is the [dog](object)
+- where is the [food](object)
+- where is the [handle](object)
+- where is the [mint](object)
+- where is the [paddle](object)
+- where is the [phone](object)
+- where is the [printer](object)
+- where is the [red car](object)
+- where is the [salt](object)
+- where is the [silver](object)
+- where is the [sky](object)
+- where is [telephone](object)
+- where is it
+- where are they
+- where are them
+- where are those
+- where is that
+- where is this
+- where is this [item](object)
+- where is this [shirt](object)
+- where is this [table](object)
+- where is this [top](object)
+- where is my [black braille book](object)
+- where is my [brush](object)
+- where is my [cane](object)
+- where is my [cat](object)
+- where is my [ipad](object)
+- where is my [laptop](object)
+- where is my [money](object)
+- where is my [napkin](object)
+- where is my [school uniform](object)
+- where is my [slipper](object)
+- where is my [water bottle](object)
+
+## lookup:object
+entries/objects.txt
+
+## lookup:colour
+entries/colours.txt
+
+## lookup:nutri
+entries/nutri.txt
+
+## lookup:ingredient
+entries/ingredient.txt
