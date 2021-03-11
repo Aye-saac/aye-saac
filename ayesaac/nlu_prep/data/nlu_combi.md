@@ -168,28 +168,40 @@
 
 
 ## intent:detect_ingredients
-- alright tell me the ingredients in here
+- alright tell me the [ingredients](aim) in here
 - alirght tell me what this is made of
 - alright tell me what's in this
 - alright tell me what is in this
 - alright tell me what is in here
+- alright are there [allergens](aim) or [traces of allergens](aim) in this
+- alright are there any [allergens](aim) in here
+- alright what [allergens](aim) are in this
+- alright tell me the [allergens](aim) in here
+- alright tell me the [allergens](aim)
+- alright has this got [peanuts](ingredient) in it
 - can you tell me what is in this
-- can you tell me the ingredients in here
-- can you tell me the ingredients of this
-- what ingredients does this have
+- can you tell me the [ingredients](aim) in here
+- can you tell me the [ingredients](aim) of this
+- can you tell me if there are [allergens](aim) in this
+- can you let me know what [allergens](aim) are in this
+- can you read the [allergens](aim)
+- can you read out the [allergens](aim) in this product
+- what [ingredients](aim) does this have
 - what does this have in it
 - what is this made of
 - what is this made with
-- read the ingredients to me
-- read me the ingredients
-- read me the list of ingredients in this
-- read the list of ingredients on the package please
+- what [allergens](aim) are in this food item
+- what [allergens](aim) are in this item
+- what [allergens](aim) are in this
+- what [allergens](aim) are in here
+- read the [ingredients](aim) to me
+- read me the [ingredients](aim)
+- read me the list of [ingredients](aim) in this
+- read the list of [ingredients](aim) on the package please
+- read me the [allergens](aim) in this
 - please tell me what is in here
-- please inform me of the ingredients in this
-- please read me the ingredients
-- alright has this got [peanuts](ingredient) in it
-- alright are there [allergens](ingredient) or traces of [allergens](ingredient) in this
-- alright what allergens are in this
+- please inform me of the [ingredients](aim) in this
+- please read me the [ingredients](aim)
 - does this contain [nuts](ingredient)
 - does this contain any [nuts](ingredient) in it
 - does this have [eggs](ingredient) as an ingredient
@@ -201,17 +213,17 @@
 - has that got [eggs](ingredient) in it
 - is there any [milk](ingredient) in here
 - can you check if this food has [milk](ingredient)
-- can you tell me if there are [allergens](ingredient) in this
-- can you let me know what [allergens](ingredient) are in this
-- are [eggs](ingredient) one of the ingredients in this
+- there are some foods I can't eat, can I eat this
+- are [eggs](ingredient) one of the [ingredients](aim) in this
+- are there [allergens](aim) or [traces of allergens](aim) in this
+- are there foods people are allergic to in this
 - I can't eat [fish](ingredient), can I eat this
 - I cannot eat [celery](ingredient), is this safe for me
 - I can't eat [dairy](ingredient) products, so is this okay for me to eat 
 - I'm allergic to [soy](ingredient), can I eat this
 - I'm [lactose](ingredient) intolerant, will this make me feel sick
-- what [allergens](ingredient) are in this product
-- what [allergens](ingredient) are in this
-- are there [allergens](ingredient) or traces of [allergens](ingredient) in this
+- I have some food allergies, are there any [allergens](aim) in this
+- I am allergic to some foods, what [allergens](aim) are in this
 - does this product contain traces of [nuts](ingredient)
 - does this have traces of [gluten](ingredient)
 
