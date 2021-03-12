@@ -44,7 +44,7 @@ class Interpreter(object):
         if body["wait_package"] == 1:
             body["path_done"].append(self.__class__.__name__)
             del body["vision_path"]
-            pprint(body)
+            # pprint(body)
             # TODO: uncomment if you wanna test the NLG, it could be text, objects,
             # objects + colour, objects + lateral position
             self.queue_manager.publish("NaturalLanguageGenerator", body)
@@ -60,7 +60,7 @@ class Interpreter(object):
                 for key in self.memory[body["intern_token"]]:
                     body[key] = self.memory[body["intern_token"]][key]
                 del self.memory[body["intern_token"]][key]
-                pprint(body)
+                # pprint(body)
                 # TODO: uncomment if you wanna test the NLG
                 self.queue_manager.publish("NaturalLanguageGenerator", body)
 

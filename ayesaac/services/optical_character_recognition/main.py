@@ -35,7 +35,7 @@ class OCR(object):
 
     if (default_ocr_model == "keras-ocr"):
         def __init__(self):
-            self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
+            self.queue_manager = QueueManager([self.__class__.__name__, "LabelFormatter"])
             self.pipeline = keras_ocr.pipeline.Pipeline()
 
         def callback(self, body, **_):
@@ -68,7 +68,7 @@ class OCR(object):
 
     elif (default_ocr_model == "tesseract"):
         def __init__(self):
-            self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
+            self.queue_manager = QueueManager([self.__class__.__name__, "LabelFormatter"])
 
         def callback(self, body, **_):
 

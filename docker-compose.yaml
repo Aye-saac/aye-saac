@@ -169,6 +169,21 @@ services:
     volumes:
       - ./ayesaac/services/optical_character_recognition:/app/ayesaac/services/optical_character_recognition
 
+  label_formatter:
+    container_name: label_formatter
+    image: ayesaac:latest
+    restart: always
+    depends_on:
+      - rabbitmq
+    env_file: .env
+    command:
+      - python
+      - -u
+      - -m
+      - ayesaac.services.label_formatter.main
+    volumes:
+      - ./ayesaac/services/label_formatter:/app/ayesaac/services/label_formatter
+
   position_detection:
     container_name: position_detection
     image: ayesaac:latest

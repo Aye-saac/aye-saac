@@ -19,7 +19,7 @@ class Manager(object):
         self.queue_manager = QueueManager([self.__class__.__name__, "CameraManager"])
         # TODO: Missing intent for lateral position
         self.intents_to_path = {
-            "read_text": [["CameraManager", "OCR", "Interpreter"]],
+            "read_text": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
             "detect_colour": [
                 ["CameraManager", "ObjectDetection", "ColourDetection", "Interpreter"]
             ],
