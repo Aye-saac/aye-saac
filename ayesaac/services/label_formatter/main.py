@@ -16,31 +16,8 @@ class LabelFormatter(object):
             patterns = data["label-keywords"]
 
         text = " ".join(" ".join(t) for t in body["texts"])
-        # text = unicodedata.normalize('NFKD', udata)
-        # text = re.sub('\s+', ' ', text).lower()
-        # text = re.sub('[^a-z0-9 ]+', '', text)
-        # text = [text]
-        #
-        # data = {}
-        #
-        # max_len = -1
-        # likely_string = None
-        # for pattern in patterns:
-        #     likely_string = ""
-        #     for element in text:
-        #         split = re.split('('+pattern+')', element)
-        #
-        #         for i in range(len(split)):
-        #             if (split[i] == pattern):
-        #                 next_string = split[i+1]
-        #                 cur_len = len(next_string)
-        #
-        #                 if (cur_len > max_len):
-        #                     max_len = cur_len
-        #                     likely_string = next_string
-        #     data[pattern] = likely_string
         text = re.sub('\s+\n', ' ', text).lower()
-        text = re.sub('[^a-z0-9() ]+', '', text)
+        text = re.sub('[^a-z0-9(),%*. ]+', '', text)
         text = [text]
         regex = '(^.*'
         regex += "|".join(pattern for pattern in patterns)

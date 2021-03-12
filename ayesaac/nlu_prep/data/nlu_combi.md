@@ -169,7 +169,7 @@
 
 ## intent:detect_ingredients
 - alright tell me the [ingredients](aim) in here
-- alirght tell me what this is made of
+- alright tell me what this is made of
 - alright tell me what's in this
 - alright tell me what is in this
 - alright tell me what is in here
@@ -206,7 +206,7 @@
 - does this contain any [nuts](ingredient) in it
 - does this have [eggs](ingredient) as an ingredient
 - does it have [fish](ingredient)
-- does it contain [peanuts](ingredient) 
+- does it contain [peanuts](ingredient)
 - does this have [sesame](ingredient)
 - does it have [shellfish](ingredient) in it
 - does it include [gluten](ingredient)
@@ -219,7 +219,7 @@
 - are there foods people are allergic to in this
 - I can't eat [fish](ingredient), can I eat this
 - I cannot eat [celery](ingredient), is this safe for me
-- I can't eat [dairy](ingredient) products, so is this okay for me to eat 
+- I can't eat [dairy](ingredient) products, so is this okay for me to eat
 - I'm allergic to [soy](ingredient), can I eat this
 - I'm [lactose](ingredient) intolerant, will this make me feel sick
 - I have some food allergies, are there any [allergens](aim) in this
@@ -242,12 +242,12 @@
 - can you read the date on this
 - can you read the expiration date on this
 - can you read the use by date on this
-- can you read the use by date 
+- can you read the use by date
 - can you let me know when this expires
 - can you let me know the date on this item
 - can you let me know if this is in date
-- could i get the expiration date on this 
-- could i have the expiration date of this 
+- could i get the expiration date on this
+- could i have the expiration date of this
 - is this in date
 - is this still good to eat
 - are these out of date

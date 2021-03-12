@@ -100,7 +100,6 @@ class NaturalLanguageGenerator(object):
             obj_cnt = sum(n for _, n in objects)
         return objects, context, obj_cnt
 
-    '''def REAL_read_text(self, body):
     def read_text(self, body):
         pprint("read_text")
 
@@ -108,20 +107,40 @@ class NaturalLanguageGenerator(object):
         obj_cnt = 1 if len(objects) > 0 else 0
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt
-    '''
-    '''
-    TEMPORARILY HIJACKING THE read_text FUNCTION ABOVE
-    THIS SHOULD BE CHANGED BACK TO extract_label ONCE
-    SUCH AN INTENT HAS BEEN TRAINED WITH THE NLU!!!
-    '''
-    def read_text(self, body):
+
+    # def read_text(self, body):
+    #     label_json = body["extracted_label"]
+    #     objects = ""
+    #     for key in list(label_json.keys()):
+    #         objects += key + ": " + label_json[key] + ", "
+    #
+    #     print(label_json)
+    #     print(objects)
+    #     obj_cnt = 1 if len(objects) > 0 else 0
+    #     context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+    #     return objects, context, obj_cnt
+
+    def detect_ingredients(self, body):
+        pprint("detect_ingredients")
         label_json = body["extracted_label"]
         objects = ""
-        for key in list(label_json.keys()):
-            objects += key + ": " + label_json[key] + ", "
 
+        # Assuming "ingredients is already a key in extracted_"
+        key = "ingredients"
+        objects += key + ": " + label_json[key]
+
+        obj_cnt = 1 if len(objects) > 0 else 0
+        context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+        return objects, context, obj_cnt
+
+    def detect_nutri(self, body):
+        pprint("detect_nutri")
+        label_json = body["extracted_label"]
+        objects = ""
         print(label_json)
-        print(objects)
+        key = "nutrition facts"
+        objects += key + ": " + label_json[key]
+
         obj_cnt = 1 if len(objects) > 0 else 0
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt

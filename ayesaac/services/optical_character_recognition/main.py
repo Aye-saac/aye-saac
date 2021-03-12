@@ -49,14 +49,12 @@ class OCR(object):
             # keras_ocr.tools.drawAnnotations(image=image[0], predictions=predictions, ax=axs)
             # plt.show()
 
-
-            pprint(predictions)
+            # pprint(predictions)
             text = bb_to_text(predictions)
 
             body["texts"] = text
             body["path_done"].append(self.__class__.__name__)
             del body["pictures"]
-            pprint(body)
             next_service = body["vision_path"].pop(0)
             self.queue_manager.publish(next_service, body)
 
@@ -83,7 +81,6 @@ class OCR(object):
             body["texts"] = text
             body["path_done"].append(self.__class__.__name__)
             del body["pictures"]
-            pprint(body)
             next_service = body["vision_path"].pop(0)
             self.queue_manager.publish(next_service, body)
 
