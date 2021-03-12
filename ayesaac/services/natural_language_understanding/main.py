@@ -84,7 +84,7 @@ class NaturalLanguageUnderstanding(object):
         self.previous_query = intents
         body["intents"] = intents
         body["path_done"].append(self.__class__.__name__)
-        logger.info(body)
+        # logger.info(body)
 
         self.queue_manager.publish("Manager", body)
 

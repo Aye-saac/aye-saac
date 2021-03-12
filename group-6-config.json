@@ -1,0 +1,1 @@
+{"default-ocr-model": "keras-ocr", "supported-ocr-models": ["keras-ocr", "tesseract"], "label-keywords": ["ingredients", "allergens"]}
