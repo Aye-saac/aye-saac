@@ -80,7 +80,7 @@ class NaturalLanguageUnderstanding(object):
         except IndexError as error:
             logger.error(error)
         except Exception as exception:
-            logger.warn(exception)
+            logger.warning(exception)
         self.previous_query = intents
         body["intents"] = intents
         body["path_done"].append(self.__class__.__name__)

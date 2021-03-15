@@ -108,26 +108,25 @@ class NaturalLanguageGenerator(object):
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt
 
-    # def read_text(self, body):
-    #     label_json = body["extracted_label"]
-    #     objects = ""
-    #     for key in list(label_json.keys()):
-    #         objects += key + ": " + label_json[key] + ", "
-    #
-    #     print(label_json)
-    #     print(objects)
-    #     obj_cnt = 1 if len(objects) > 0 else 0
-    #     context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
-    #     return objects, context, obj_cnt
-
     def detect_ingredients(self, body):
         pprint("detect_ingredients")
         label_json = body["extracted_label"]
+        print(body["intents"])
         objects = ""
 
         # Assuming "ingredients is already a key in extracted_"
-        key = "ingredients"
-        objects += key + ": " + label_json[key]
+        # key = "ingredients"
+        # objects += key + ": " + label_json[key]
+        print(body["intents"]["entities"])
+        ingredient = body["intents"]["entities"][0]["value"]
+        print("Looking for " + ingredient + "...")
+        # ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
+        instances = label_json["ingredients"].split().count(ingredient)
+        if (instances > 0):
+            objects = "This contains " + ingredient
+        else:
+            objects = "This doesn't contain " + ingredient
+        print("Found " + str(instances) + " instances of " + ingredient + ".")
 
         obj_cnt = 1 if len(objects) > 0 else 0
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
