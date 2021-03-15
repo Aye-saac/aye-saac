@@ -544,5 +544,4 @@ entries/colours.txt
 ## lookup:nutri
 entries/nutri.txt
 
-## lookup:ingredient
-entries/ingredient.txt
+
