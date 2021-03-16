@@ -30,7 +30,8 @@ class Manager(object):
             "recognise": [["CameraManager", "ObjectDetection", "Interpreter"]],
             "locate": [["CameraManager", "ObjectDetection", "Interpreter"]],
             "detect_ingredients": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
-            "detect_nutri": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]]
+            "detect_nutri": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
+            "detect_safety": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]]
         }
 
         logger.info(f"{self.__class__.__name__} ready")

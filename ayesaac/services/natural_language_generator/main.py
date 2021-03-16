@@ -108,11 +108,16 @@ class NaturalLanguageGenerator(object):
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt
 
+    def detect_safety(self, body):
+        objects = ""
+        obj_cnt = 1
+        context = "SAFETY_CLARIFY"
+        return objects, context, obj_cnt
+
     def detect_ingredients(self, body):
         pprint("detect_ingredients")
         label_json = body["extracted_label"]
         print(body["intents"])
-        print(label_json)
         objects = ""
 
         # Assuming "ingredients is already a key in extracted_"
