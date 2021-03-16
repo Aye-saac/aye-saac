@@ -112,6 +112,7 @@ class NaturalLanguageGenerator(object):
         pprint("detect_ingredients")
         label_json = body["extracted_label"]
         print(body["intents"])
+        print(label_json)
         objects = ""
 
         # Assuming "ingredients is already a key in extracted_"
@@ -122,14 +123,21 @@ class NaturalLanguageGenerator(object):
         print("Looking for " + ingredient + "...")
         # ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
         instances = label_json["ingredients"].split().count(ingredient)
-        if (instances > 0):
-            objects = "This contains " + ingredient
+        objects = ingredient
+        all_ingredients = label_json["ingredients"]
+        if (len(all_ingredients) > 0):
+            if (instances > 0):
+                #objects = "This contains " + ingredient
+                context = "ALLERGENS_POSITIVE_ANSWER"
+            else:
+                #objects = "This doesn't contain " + ingredient
+                context = "ALLERGENS_NEGATIVE_ANSWER"
+            print("Found " + str(instances) + " instances of " + ingredient + ".")
         else:
-            objects = "This doesn't contain " + ingredient
-        print("Found " + str(instances) + " instances of " + ingredient + ".")
+            context = "READ_TEXT_NEGATIVE"
 
-        obj_cnt = 1 if len(objects) > 0 else 0
-        context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+        obj_cnt = 1 if len(all_ingredients) > 0 else 0
+        #context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt
 
     def detect_nutri(self, body):
