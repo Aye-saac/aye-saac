@@ -300,7 +300,7 @@
 - what nutritional information do you see
 - how much [salt](nutri) is in here
 - how much [fat](nutri) does this have
-- how much [protein] is in this item of food
+- how much [protein](nutri) is in this item of food
 - how much [fat](nutri) does this have in it
 - how many [calories](nutri) are in this
 - what is the [sugar](nutri) content of this
