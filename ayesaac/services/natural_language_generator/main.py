@@ -39,7 +39,9 @@ class NaturalLanguageGenerator(object):
                 with open(str(folder_path / name)) as f:
                     self.answers[name] = [line.strip() for line in f]
 
-    def get_det(self, word):
+    def get_det(self, word, context):
+        if context == "CONFIDENCE_SOMETHING":
+            return ""
         if (word[1] > 1):
             return str(word[1]) + " "
         elif word[1] == 1:
@@ -60,16 +62,16 @@ class NaturalLanguageGenerator(object):
             return answer.replace("*", words, 1)
         elif len(words) > 1:
             tmp = (
-                ", ".join([self.get_det(w) + w[0] for w in words[:-1]])
+                ", ".join([self.get_det(w, context) + w[0] for w in words[:-1]])
                 + " and "
-                + self.get_det(words[-1])
+                + self.get_det(words[-1], context)
                 + words[-1][0]
             )
             return answer.replace("*", tmp, 1)
         elif len(words):
             return answer.replace(
                 "*",
-                self.get_det(words[0]) + words[0][0],
+                self.get_det(words[0], context) + words[0][0],
                 1,
             )
         return answer
@@ -158,6 +160,38 @@ class NaturalLanguageGenerator(object):
             if not len(elements):
                 objects.append((p["value"], 0))
         context = "DESCRIPTION_COUNT"
+        return objects, context, obj_cnt
+
+    def confidence(self, body):
+        pprint("confidence")
+        obj_cnt = 0
+        objects = []
+
+        can_answer = len(body["responses"]) > 0
+        previous_question = None
+
+        if can_answer:
+            previous_question = body["responses"][-1]
+
+        if can_answer and (not previous_question["intents"]["intent"]["name"] in ["identify", "recognise", "locate", "count"]):
+            can_answer = False
+
+        if can_answer:
+            for e in previous_question["intents"]["entities"]:
+                percentage = 0
+                nb_object = 0
+                for o in previous_question["objects"]:
+                    if self.compare_name_value(o["name"], e["value"]):
+                        percentage += o["confidence"]
+                        nb_object += 1
+                if nb_object > 0:
+                    percentage /= nb_object
+                    objects.append((str(round(percentage * 100)) + "% that there is " + str(nb_object) + " " + e["value"], nb_object))
+                else:
+                    objects.append(("more than 50% that there is no " + e["value"], 0))
+
+        obj_cnt = sum(n for _, n in objects)
+        context = "CONFIDENCE_SOMETHING" if can_answer else "CONFIDENCE_NOTHING"
         return objects, context, obj_cnt
 
     def locate(self, body):

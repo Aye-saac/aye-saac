@@ -1,50 +1,58 @@
 [
   {
-    "text": "can we tell what kind of beer this is",
-    "intent": "read_text",
-    "intent_prediction": {
-      "name": "identify",
-      "confidence": 0.9620394706726074
-    }
-  },
-  {
-    "text": "cookies are these",
-    "intent": "read_text",
-    "intent_prediction": {
-      "name": "identify",
-      "confidence": 0.8762027025222778
-    }
-  },
-  {
-    "text": "could you tell me what color this is? what it is",
-    "intent": "detect_colour",
-    "intent_prediction": {
-      "name": "identify",
-      "confidence": 0.690150260925293
-    }
-  },
-  {
-    "text": "is it blue",
-    "intent": "detect_colour",
-    "intent_prediction": {
-      "name": "identify",
-      "confidence": 0.36288511753082275
-    }
-  },
-  {
-    "text": "where is my black braille book",
-    "intent": "locate",
-    "intent_prediction": {
-      "name": "detect_colour",
-      "confidence": 0.8582837581634521
-    }
-  },
-  {
     "text": "can somebody tell me what this is and what kind of flavor is it",
     "intent": "identify",
     "intent_prediction": {
       "name": "read_text",
-      "confidence": 0.9992874264717102
+      "confidence": 0.999986469745636
+    }
+  },
+  {
+    "text": "contents",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.5906149744987488
+    }
+  },
+  {
+    "text": "contents of can",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.7961558103561401
+    }
+  },
+  {
+    "text": "any clue what this box is? thanks in advance for your help",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "detect_colour",
+      "confidence": 0.8730593919754028
+    }
+  },
+  {
+    "text": "and what's the name of this package of chocolates",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.9910461902618408
+    }
+  },
+  {
+    "text": "can you count the number of eggs",
+    "intent": "count",
+    "intent_prediction": {
+      "name": "confidence",
+      "confidence": 0.6182445883750916
+    }
+  },
+  {
+    "text": "are these chocolate cookies or vanilla cookies",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "read_text",
+      "confidence": 0.9953269362449646
     }
   },
   {
@@ -52,111 +60,7 @@
     "intent": "identify",
     "intent_prediction": {
       "name": "read_text",
-      "confidence": 0.9800026416778564
-    }
-  },
-  {
-    "text": "could you tell me what it is and what color is it",
-    "intent": "identify",
-    "intent_prediction": {
-      "name": "detect_colour",
-      "confidence": 0.999977707862854
-    }
-  },
-  {
-    "text": "can that candy bar be identified",
-    "intent": "identify",
-    "intent_prediction": {
-      "name": "read_text",
-      "confidence": 0.420518696308136
-    }
-  },
-  {
-    "text": "are these bananas green or yellow",
-    "intent": "detect_colour",
-    "intent_prediction": {
-      "name": "identify",
-      "confidence": 0.3129546046257019
-    }
-  },
-  {
-    "text": "alright, last try on this. i think i know what it is but try to tell me, thanks",
-    "intent": "identify",
-    "intent_prediction": {
-      "name": "read_text",
-      "confidence": 0.7251101136207581
-    }
-  },
-  {
-    "text": "and if pills are in the box",
-    "intent": "identify",
-    "intent_prediction": {
-      "name": "same_intent",
-      "confidence": 0.33941006660461426
-    }
-  },
-  {
-    "text": "are these chocolate or vanilla cookies",
-    "intent": "identify",
-    "intent_prediction": {
-      "name": "read_text",
-      "confidence": 0.9685250520706177
-    }
-  },
-  {
-    "text": "are these fruit crisps",
-    "intent": "identify",
-    "intent_prediction": {
-      "name": "recognise",
-      "confidence": 0.7003246545791626
-    }
-  },
-  {
-    "text": "are these strawberries",
-    "intent": "identify",
-    "intent_prediction": {
-      "name": "read_text",
-      "confidence": 0.814544677734375
-    }
-  },
-  {
-    "text": "can tell what is in this packet",
-    "intent": "read_text",
-    "intent_prediction": {
-      "name": "identify",
-      "confidence": 0.353305846452713
-    }
-  },
-  {
-    "text": "now read what is in this",
-    "intent": "read_text",
-    "intent_prediction": {
-      "name": "identify",
-      "confidence": 0.3804442286491394
-    }
-  },
-  {
-    "text": "are these beets",
-    "intent": "identify",
-    "intent_prediction": {
-      "name": "recognise",
-      "confidence": 0.3873293399810791
-    }
-  },
-  {
-    "text": "are there chemicals in this product",
-    "intent": "read_text",
-    "intent_prediction": {
-      "name": "recognise",
-      "confidence": 0.532253623008728
-    }
-  },
-  {
-    "text": "are these the apple cinnamon or strawberry cereal bars",
-    "intent": "read_text",
-    "intent_prediction": {
-      "name": "identify",
-      "confidence": 0.5501028299331665
+      "confidence": 0.8677175045013428
     }
   },
   {
@@ -164,15 +68,71 @@
     "intent": "read_text",
     "intent_prediction": {
       "name": "identify",
-      "confidence": 0.9996991157531738
+      "confidence": 0.9965812563896179
     }
   },
   {
-    "text": "what color is that and what brand if it says is that",
-    "intent": "detect_colour",
+    "text": "how many bowl are there",
+    "intent": "count",
+    "intent_prediction": {
+      "name": "locate",
+      "confidence": 0.6509943008422852
+    }
+  },
+  {
+    "text": "are these blueberry or cheese",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "detect_colour",
+      "confidence": 0.9802771210670471
+    }
+  },
+  {
+    "text": "could you tell me what it is and what color is it",
+    "intent": "identify",
+    "intent_prediction": {
+      "name": "detect_colour",
+      "confidence": 0.9999679327011108
+    }
+  },
+  {
+    "text": "is this a beer can",
+    "intent": "recognise",
+    "intent_prediction": {
+      "name": "read_text",
+      "confidence": 0.9997521042823792
+    }
+  },
+  {
+    "text": "what is the number of telephone",
+    "intent": "count",
     "intent_prediction": {
       "name": "identify",
-      "confidence": 0.6628373265266418
+      "confidence": 0.8125100135803223
+    }
+  },
+  {
+    "text": "really ?",
+    "intent": "confidence",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.7442470788955688
+    }
+  },
+  {
+    "text": "can we tell what kind of beer this is",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "identify",
+      "confidence": 0.998809814453125
+    }
+  },
+  {
+    "text": "does this cup say tim horton's or timothy's coffee of the world",
+    "intent": "read_text",
+    "intent_prediction": {
+      "name": "detect_colour",
+      "confidence": 0.5163453221321106
     }
   }
 ]

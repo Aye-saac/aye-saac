@@ -369,6 +369,20 @@
 - can you count the number of [eggs](object)
 - what is the number of [telephone](object)
 
+## intent:confidence
+- are you sure
+- how sure are you
+- really ?
+- what is your confidence
+- how certain are you
+- can you be certain
+- how confident are you
+- can you give me the confidence percentage
+- can you give me your confidence percentage
+- is it sure
+- I don't think there is
+- I think there is more
+
 ## lookup:object
 entries/objects.txt
 
