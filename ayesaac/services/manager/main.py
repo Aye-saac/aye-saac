@@ -28,7 +28,7 @@ class Manager(object):
                 ["CameraManager", "ObjectDetection", "Interpreter"],
             ],
             "recognise": [["CameraManager", "ObjectDetection", "Interpreter"]],
-            "locate": [["CameraManager", "ObjectDetection", "Interpreter"]],
+            "locate": [["CameraManager", "ObjectDetection", "PositionDetection", "Interpreter"]],
             "count": [["CameraManager", "ObjectDetection", "Interpreter"]],
             "confidence": [["Interpreter"]],
         }
