@@ -205,13 +205,12 @@
 - does this contain [nuts](ingredient)
 - does this contain any [nuts](ingredient) in it
 - does this have [eggs](ingredient) as an ingredient
-- does it have [fish](ingredient)
-- does it contain [peanuts](ingredient)
 - does this have [sesame](ingredient)
+- does it have [baking soda](ingredient)
+- does it contain [peanuts](ingredient)
 - does it have [shellfish](ingredient) in it
 - does it include [gluten](ingredient)
-- has that got [eggs](ingredient) in it
-- is there any [milk](ingredient) in here
+- is there any [baking powder](ingredient) in here
 - can you check if this food has [milk](ingredient)
 - there are some foods I can't eat, can I eat this
 - are [eggs](ingredient) one of the [ingredients](aim) in this
