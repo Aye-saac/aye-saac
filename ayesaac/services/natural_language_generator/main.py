@@ -27,6 +27,7 @@ class NaturalLanguageGenerator(object):
             "DESCRIPTION_NOTHING",
             "DESCRIPTION_ANSWER_S",
             "DESCRIPTION_ANSWER_P",
+            "DESCRIPTION_UNKNOWN"
         ]
         self.build_generator()
 
@@ -201,33 +202,33 @@ class NaturalLanguageGenerator(object):
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
                 if self.compare_name_value(o["name"], p["value"]):
-                    if (
-                        not o.get("lateral_position")
-                        and o.get("bbox")
-                        and len(o["bbox"]) >= 4
-                    ):
-                        bbox = o["bbox"]
-                        yStart = bbox[0]
-                        xStart = bbox[1]
-                        yEnd = bbox[2]
-                        xEnd = bbox[3]
-                        xCenter = (xEnd + xStart) / 2
-                        yCenter = (yEnd + yStart) / 2
-                        pprint("xCenter")
-                        pprint(xCenter)
-                        if xCenter < 0.382:
-                            o["lateral_position"] = " on the left"
-                        elif xCenter >= 0.382 and xCenter <= 0.618:
-                            o["lateral_position"] = " in front"
-                        elif xCenter > 0.618:
-                            o["lateral_position"] = " on the right"
+                    pos_str = ""
+                    if (len(o.get("anchored_position")) > 0):
+                        pos_list = o.get("anchored_position")
+                        for pos in pos_list:
+                            if pos_list.index(pos) != (len(pos_list) - 1):
+                                pos_str += ", " + pos
+                            else:
+                                pos_str += " and" + pos
+                    elif (o.get("hand_position") != ""):
+                        pos_str = o.get("hand_position")
+                    else:
+                        pos_str = o.get("lateral_position")
                     objects.append(
-                        p["value"]
-                        + (o["lateral_position"] if o.get("lateral_position") else "")
+                        p["value"] + pos_str
                     )
         objects = list(set([(o, objects.count(o)) for o in objects]))
         obj_cnt = sum(n for _, n in objects)
-        context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        
+        context_index = 0
+        if len(objects) == 1:
+            context_index = 1
+        elif len(objects) > 1:
+            context_index = 2
+        elif len(body["objects"]) > 0:
+            context_index = 3
+        context = self.description_types[context_index]
+        
         return objects, context, obj_cnt
 
     def default(self, body):
