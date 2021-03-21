@@ -131,10 +131,11 @@ class ObjectDetection(object):
             bboxes = [obj["bbox"] for obj in objects]
             class_names = [obj["name"] for obj in objects]
             scores = [obj["confidence"] for obj in objects]
+            models = [obj["model"] for obj in objects]
             
             # draw the bounding boxes
             # (outputs image to docker/volumes/aye-saac_output_data/_data/bbox_[timestamp].png)
-            draw_bounding_boxes(image, bboxes, class_names, scores, prefix="bbox")
+            draw_bounding_boxes(image, bboxes, class_names, scores, models, prefix="bbox")
             
             # need to filter the results to remove massively overlapping object detections
             # (this can arise when different models identify the same object for example)
@@ -143,10 +144,11 @@ class ObjectDetection(object):
             bboxes = [obj["bbox"] for obj in objects]
             class_names = [obj["name"] for obj in objects]
             scores = [obj["confidence"] for obj in objects]
+            models = [obj["model"] for obj in objects]
 
             # draw the bounding boxes
             # (outputs image to docker/volumes/aye-saac_output_data/_data/bbox_[timestamp].png)
-            draw_bounding_boxes(image, bboxes, class_names, scores, prefix="bbox_filtered")
+            draw_bounding_boxes(image, bboxes, class_names, scores, models, prefix="bbox_filtered")
             
             # append the objects to all_objects
             all_objects.extend(objects)
