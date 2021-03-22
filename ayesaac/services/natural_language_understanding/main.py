@@ -12,6 +12,14 @@ config = Config()
 
 logger = get_logger(__file__)
 
+dairy = ["dairy", "milk", "butter", "cream", "cheese", "yogurt"]
+nuts = ["nuts", "peanuts", "pecans", "walnuts", "almonds", "brazil nuts", "cashews",
+    "chesnuts", "filberts", "hazelnuts", "macadamia", "pine nuts", "pistachios"]
+meat = ["meat", "chicken", "pork", "beef", "veal"]
+allergens = ["celery", "gluten", "crustaceans", "eggs", "fish", "lupin", "milk",
+    "molluscs", "mustard", "peanuts", "sesame", "soybeans", "sulphur dioxide",
+    "sulphites", "tree nuts"]
+
 
 def contains_word(s, w):
     """
@@ -63,6 +71,7 @@ class NaturalLanguageUnderstanding(object):
         logger.info(f"{self.__class__.__name__} ready")
 
     def callback(self, body, **_):
+        body["ingredientClass"] = ""  # ingredient classifications
         body["asking"] = body["query"].split()
         intents = self.interpreter.parse(body["query"])
         try:
@@ -77,6 +86,21 @@ class NaturalLanguageUnderstanding(object):
                 and check_followup(body["query"]) == True
             ):
                 intents["entities"].extend(self.previous_query["entities"])
+			# set list of ingredients classed as dairy/meat/nuts to ingredient class in body
+			# removes trailing and before spaces with strip, and all lower case with lower
+            if (intents["entities"]["value"].strip().lower() == "dairy"):
+                body["ingredientClass"] = dairy
+                pprint("dairy")
+            if (intents["entities"]["value"].strip().lower() == "meat"):
+                body["ingredientClass"] = meat
+                pprint("meat")
+            if (intents["entities"]["value"].strip().lower() == "nuts"):
+                body["ingredientClass"] = nuts
+                pprint("nuts")
+            if (intents["entities"]["value"].strip().lower() == "allergens"):
+                body["ingredientClass"] = allergens
+                pprint("allergens")
+
         except IndexError as error:
             logger.error(error)
         except Exception as exception:
