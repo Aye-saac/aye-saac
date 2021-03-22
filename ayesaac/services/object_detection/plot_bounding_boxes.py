@@ -12,15 +12,15 @@ from ayesaac.utils.config import Config
 config = Config()
 
 
-def draw_bounding_boxes(image, bboxes, class_names, scores, prefix="bbox"):
+def draw_bounding_boxes(image, bboxes, class_names, scores, models, prefix="bbox"):
     """Draw bounding boxes and labels on supplied image"""
     fig = plt.figure(figsize=(40, 15))
-    img = draw_boxes(image, bboxes, class_names, scores)
+    img = draw_boxes(image, bboxes, class_names, scores, models)
     plt.imshow(img)
     fig.savefig(f"{config.directory.output}/{prefix}_{time.time()}.png", dpi = 180)
 
 
-def draw_boxes(image, bboxes, class_names, scores, max_boxes=10):
+def draw_boxes(image, bboxes, class_names, scores, models, max_boxes=10):
     """Overlay labeled boxes on an image with formatted scores and label names.
     Adapted from https://www.tensorflow.org/hub/tutorials/object_detection"""
 
@@ -33,7 +33,7 @@ def draw_boxes(image, bboxes, class_names, scores, max_boxes=10):
     # Iterate through the bounding boxes, drawing them on the image one by one
     for i in range(0, max_boxes):
         bbox = bboxes[i]
-        display_str = "{}: {}%".format(class_names[i], int(100 * scores[i]))
+        display_str = "{} [{}]: {}%".format(class_names[i], models[i], int(100 * scores[i]))
         colour = colours[-i]
         image_pil = Image.fromarray(np.uint8(image)).convert("RGB")
         draw_bounding_box_on_image(image_pil, bbox, colour, display_str=display_str)

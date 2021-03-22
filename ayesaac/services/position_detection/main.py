@@ -57,7 +57,7 @@ class PositionDetection(object):
         return " on the right"
     
     def get_hand_position(self, obj, objects):
-        '''Method identifies position relative to hands using bounding boxes'''
+        '''Method identifies position relative to hands or people using bounding boxes'''
         
         # Set default to ""
         position_str = ""
@@ -87,10 +87,10 @@ class PositionDetection(object):
         y_obj = (top_obj + bottom_obj) / 2
 
         # If there are two objects, see if the object is positioned between the hands
-        if len(hand_objects) == 2:
+        if len(hand_objects) == 2 and hand_objects[0]["name"] == "hand" and hand_objects[1]["name"] == "hand":
             
             if self.__obj_is_between_hands__(x_obj, y_obj, hand_objects):
-                position_str = "between hands"
+                position_str = " is between hands"
                 
         elif len(hand_objects) == 1:
             
@@ -102,10 +102,10 @@ class PositionDetection(object):
             y_hand = (top_hand + bottom_hand) / 2
         
             if self.__obj_is_right_of_hand__(x_obj, x_hand):
-                position_str = "right of hand"
+                position_str = " is to the right of a " + hand_objects[0]["name"]
             
             if self.__obj_is_left_of_hand__(x_obj, x_hand):
-                position_str = "left of hand"
+                position_str = " is to the left of a " + hand_objects[0]["name"]
                 
         return position_str
         
@@ -153,12 +153,14 @@ class PositionDetection(object):
         # Set default to [] because anchored position may not be possible
         position_str_list = []
         
-        # If the object is an anchor itself, it does not need to be anchored 
-        if obj["name"] in ANCHORS.keys():
-            return position_str_list
+        # List the anchors in the image
+        anchors = copy.deepcopy([o for o in objects if o["from"] == obj["from"] and o["name"] in ANCHORS.keys()])
+        
+        # Remove self from anchors
+        if obj["name"] in [anchor["name"] for anchor in anchors]:
+            anchors.remove(obj)
         
         # Determine if there are anchors in the image, if not return None
-        anchors = copy.deepcopy([o for o in objects if o["from"] == obj["from"] and o["name"] in ANCHORS.keys()])
         if len(anchors) == 0:
             return position_str_list
         
@@ -176,28 +178,32 @@ class PositionDetection(object):
             if "in" in anchor["relationships"]:
                 if self.__obj_is_on_anchor__(left_obj, left_anchor, right_obj, right_anchor,
                                          bottom_obj, bottom_anchor):
-                    position_str_list.append("in the " + anchor["name"])
+                    position_str_list.append(" it's in the " + anchor["name"])
                     continue
             
             if "on" in anchor["relationships"]:
                 if self.__obj_is_on_anchor__(left_obj, left_anchor, right_obj, right_anchor,
                                          bottom_obj, bottom_anchor):
-                    position_str_list.append("on the " + anchor["name"])
+                    position_str_list.append(" it's on the " + anchor["name"])
                     continue
             
             if "next to" in anchor["relationships"]:
-                if self.__obj_is_next_to_anchor__(left_obj, left_anchor, right_obj, right_anchor):
-                    position_str_list.append("next to the " + anchor["name"])
+                if self.__obj_is_left_of_anchor__(left_obj, left_anchor, right_obj, right_anchor):
+                    position_str_list.append(" it's left of the " + anchor["name"])
+                    continue
+                
+                elif self.__obj_is_right_of_anchor__(left_obj, left_anchor, right_obj, right_anchor):
+                    position_str_list.append(" it's right of the " + anchor["name"])
                     continue
                 
             if "below" in anchor["relationships"]:
                 if self.__obj_is_below_anchor__(left_obj, left_anchor, right_obj, right_anchor,
                                          top_obj, top_anchor):
-                    position_str_list.append("below the " + anchor["name"])
+                    position_str_list.append(" it's below the " + anchor["name"])
                     continue
             
             # Default position if the above conditions cannot be met
-            position_str_list.append("near the " + anchor["name"])
+            position_str_list.append(" it's near the " + anchor["name"])
         
         return position_str_list
     
@@ -214,17 +220,23 @@ class PositionDetection(object):
         
         return is_on
 
-    def __obj_is_next_to_anchor__(self, left_obj, left_anchor, right_obj, right_anchor):
-        '''Method to determine whether obj is next to anchor.'''
-        is_next_to = False
+    def __obj_is_left_of_anchor__(self, left_obj, left_anchor, right_obj, right_anchor):
+        '''Method to determine whether obj is left of anchor.'''
+        is_left_of = False
         
-        if (
-            left_obj < left_anchor
-            or right_obj > right_anchor
-            ):
-            is_next_to = True
+        if (left_obj < left_anchor):
+            is_left_of = True
         
-        return is_next_to
+        return is_left_of
+    
+    def __obj_is_right_of_anchor__(self, left_obj, left_anchor, right_obj, right_anchor):
+        '''Method to determine whether obj is right of anchor.'''
+        is_right_of = False
+        
+        if (right_obj > right_anchor):
+            is_right_of = True
+        
+        return is_right_of
             
     def __obj_is_below_anchor__(self, left_obj, left_anchor, right_obj, right_anchor, top_obj, top_anchor):
         '''Method to determine whether obj is below anchor.'''
