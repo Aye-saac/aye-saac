@@ -31,7 +31,9 @@ class Manager(object):
             "locate": [["CameraManager", "ObjectDetection", "Interpreter"]],
             "detect_ingredients": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
             "detect_nutri": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
-            "detect_safety": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]]
+            "detect_safety": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
+            "inform_allergen": [["CameraManager","ObjectDetection","Interpreter"]],
+            "detect_expiration": [["CameraManager","OCR","LabelFormatter","Interpreter"]]
         }
 
         logger.info(f"{self.__class__.__name__} ready")
