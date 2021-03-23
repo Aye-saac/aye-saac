@@ -12,6 +12,14 @@ config = Config()
 
 logger = get_logger(__file__)
 
+dairy = ["dairy", "milk", "butter", "cream", "cheese", "yogurt"]
+nuts = ["nuts", "peanuts", "pecans", "walnuts", "almonds", "brazil nuts", "cashews",
+    "chesnuts", "filberts", "hazelnuts", "macadamia", "pine nuts", "pistachios"]
+meat = ["meat", "chicken", "pork", "beef", "veal"]
+allergens = ["celery", "gluten", "crustaceans", "eggs", "fish", "lupin", "milk",
+    "molluscs", "mustard", "peanuts", "sesame", "soybeans", "sulphur dioxide",
+    "sulphites", "tree nuts"]
+
 
 class NaturalLanguageGenerator(object):
     """
@@ -126,8 +134,28 @@ class NaturalLanguageGenerator(object):
         print(body["intents"]["entities"])
         ingredient = body["intents"]["entities"][0]["value"]
         print("Looking for " + ingredient + "...")
-        # ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
-        instances = label_json["ingredients"].split().count(ingredient)
+        if ingredient == "dairy":
+            print("Looking for dairy products in ingredients...")
+            for i in dairy:
+                instances = label_json["ingredients"].split().count(i)
+        elif ingredient == "nuts":
+            print("Looking for nuts in ingredients...")
+            for i in nuts:
+                instances = label_json["ingredients"].split().count(i)
+        elif ingredient == "meat":
+            print("Looking for meat in ingredients...")
+            for i in meat:
+                instances = label_json["ingredients"].split().count(i)
+        elif ingredient == "allergens":
+            print("Looking for allergens in ingredients...")
+            for i in allergens:
+                instances = label_json["ingredients"].split().count(i)
+        else:
+            #ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
+            instances = label_json["ingredients"].split().count(ingredient)
+
+        print(instances)
+
         objects = ingredient
         all_ingredients = label_json["ingredients"]
         if (len(all_ingredients) > 0):
