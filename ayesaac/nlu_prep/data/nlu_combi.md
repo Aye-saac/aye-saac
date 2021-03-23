@@ -228,15 +228,17 @@
 - does it contain [peanuts](ingredient)
 - does it have [shellfish](ingredient) in it
 - does it include [gluten](ingredient)
-- is there any [baking powder](ingredient) in here
 - is there [lettuce](ingredient) in this
+- is there [meat](ingredient) in this
+- is there [dairy](ingredient) in this
+- is there any [baking powder](ingredient) in here
 - is there any [tomato](ingredient) in here
 - is there any [carrot](ingredient) on this
 - can you check if this food has [milk](ingredient)
 - there are some foods I can't eat, can I eat this
 - are [eggs](ingredient) one of the [ingredients](aim) in this
 - are there [allergens](aim) or [traces of allergens](aim) in this
-- are there foods people are allergic to in this
+- are there [nuts](ingredient) in this
 - I can't have [nuts](inform), is this okay for me
 - I can't eat [fish](inform), can I eat this
 - I can't ingest [gluten](inform), can I eat this

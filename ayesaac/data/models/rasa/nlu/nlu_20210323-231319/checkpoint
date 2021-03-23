@@ -1,0 +1,2 @@
+model_checkpoint_path: "component_7_DIETClassifier.tf_model"
+all_model_checkpoint_paths: "component_7_DIETClassifier.tf_model"
