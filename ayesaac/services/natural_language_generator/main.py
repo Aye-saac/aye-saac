@@ -155,16 +155,30 @@ class NaturalLanguageGenerator(object):
         #context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt
 
+    #Assuming label formatter can detect Cooking instructions and classify it as "cooking_info"
+    def cooking_info(self, body):
+        pprint("cooking_info")
+        label_json = body["extracted_label"]
+        print(body["intents"])
+        instructions = label_json["cooking_info"]
+        objects = instructions
+        logger.info(label_json)
+        if (len(instructions) > 0):
+            objects = instructions
+            context = "READ_TEXT_POSITIVE"
+        else:
+            objects = "Instructions not included"
+            context = "READ_TEXT_NEGATIVE"
+
+        obj_cnt = 1 if len(instructions) > 0 else 0
+        return objects, context, obj_cnt
+
     #Assuming the label formatter can detect expiry date and classify it as "expiry_date"
     def detect_expiration(self, body):
         pprint("detect_expiration")
         label_json = body["extracted_label"]
         print(body["intents"])
-        objects = ""
-        print(body["intents"]["entities"])
-        print("Looking for " + ingredient + "...")
-        # ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
-        expiry_date = label_json["expiry_date"][0]["value"]
+        expiry_date = label_json["expiry_date"]
         objects = expiry_date
 
         if (len(expiry_date) > 0):
@@ -173,7 +187,7 @@ class NaturalLanguageGenerator(object):
             context = "EXPIRY_DATE_NEGATIVE_ANSWER"
 
         obj_cnt = 1 if len(expiry_date) > 0 else 0
-        #context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+
         return objects, context, obj_cnt  
 
     def detect_nutri(self, body):
