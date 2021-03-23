@@ -166,6 +166,24 @@
 - can you see the [orange](object)
 - can you see the [box of cereals](object)
 
+## intent: inform_allergen
+- I'm allergic to [nuts](inform)
+- I am allergic to [dairy](inform)
+- I am intolerant to [dairy](inform)
+- I am [lactose](inform) intorlerant
+- I will have an allergic reaction if I eat [soy](inform)
+- I will feel sick if I eat [eggs](inform)
+- I will feel unwell if I have [moluscs](inform)
+- I will not feel well if I eat [peanuts](inform)
+- I can't eat [sesame](inform) 
+- I cannot have [celery](inform)
+- I cannot ingest [gluten](inform)
+- I have a [gluten](inform) intolerance
+- I should stay away from eating [gluten](inform)
+- I shouldn't eat [nuts](inform)
+- add [gluten](inform) to my list of allergies
+- add [peanuts](inform) to food I can't eat
+- add [nuts](inform) to my allergens
 
 ## intent:detect_ingredients
 - alright tell me the [ingredients](aim) in here
@@ -216,11 +234,15 @@
 - are [eggs](ingredient) one of the [ingredients](aim) in this
 - are there [allergens](aim) or [traces of allergens](aim) in this
 - are there foods people are allergic to in this
-- I can't eat [fish](ingredient), can I eat this
-- I cannot eat [celery](ingredient), is this safe for me
-- I can't eat [dairy](ingredient) products, so is this okay for me to eat
-- I'm allergic to [soy](ingredient), can I eat this
-- I'm [lactose](ingredient) intolerant, will this make me feel sick
+- I can't have [nuts](inform), is this okay for me
+- I can't eat [fish](inform), can I eat this
+- I can't ingest [gluten](inform), can I eat this
+- I cannot eat [celery](inform), is this safe for me
+- I can't eat [dairy](inform) products, so is this okay for me to eat
+- I shouldn't eat [dairy](inform), can I eat this
+- I should stay away from eating [gluten](inform), is this safe for me
+- I'm allergic to [soy](inform), can I eat this
+- I'm [lactose](inform) intolerant, will this make me feel sick
 - I have some food allergies, are there any [allergens](aim) in this
 - I am allergic to some foods, what [allergens](aim) are in this
 - does this product contain traces of [nuts](ingredient)
@@ -332,6 +354,67 @@
 - is it bad if I eat this
 - is this safe to eat
 - is this okay to eat
+
+## intent:cooking_info
+- how do I cook this
+- how do I prepare this
+- how do I go about cooking this
+- how do I go about preparing this
+- how does this cook
+- how [long](aim) do I cook this for
+- how [long](aim) should I cook this for, and at what [temperature](aim)
+- how should I cook this
+- what should I do to cook this
+- what [temperature](aim) do I cook it at
+- can I cook this in the oven
+- can you tell me how to cook this
+- can you tell me how to prepare this
+- can you tell me how I should cook this
+- can you tell me how I need to cook this
+- can you tell me how [long](aim) I need to cook this for
+- can you tell me the [time](aim) this needs to cook for
+- can you tell me the length of [time](aim) I should cook this 
+- can you tell me the [temperature](aim) I need to set the oven 
+- can you tell me the [temperature](aim) I need to cook this at
+- can you tell me the way I should cook this
+- can you tell me the instructions for this packaging
+- can you tell me the instructions I need to follow to cook this
+- can you tell me the cooking instructions
+- can you read me the method of cooking
+- can you read me the cooking instructions
+- can you read the cooking instructions, please
+- can you read the instructions
+- can you help me prepare this
+- can you help me cook this
+- can you let me know how to cook this
+- can you let me know how I should prepare this
+- can you let me know if there are instructions on this
+- can you let me know how [long](aim) I should cook this
+- can you let me know the [temperature](aim) I need to set the oven
+- read me the instructions to make this
+- read me the preperation instructions
+- read me the cooking information
+- read me the cooking instructions
+- read me the instructions I need to follow to make this
+- are there any instructions to prepare this
+- are there any preperation instructions on this
+- are there cooking instructions here
+- are there cooking instructions on this
+- are there cooking instructions I need to follow on this
+- is there any instructions on this
+- is there cooking instructions here
+- is there a specified [temperature](aim) I should cook this at
+- I want to cook this
+- I want information on how to cook this
+- I want the [temperature](aim)
+- I want the [time](aim)
+- I want help cooking this
+- I want you to read the cooking instructions of this
+- I want you to tell me how to cook this
+- I want you to inform me of the cooking instructions
+- help me make this
+- help me cook this, please
+- help me prepare this
 
 ## intent:detect_colour
 - are these [bananas](object) [green](colour) or [yellow](colour)
@@ -533,6 +616,8 @@
 - where is my [school uniform](object)
 - where is my [slipper](object)
 - where is my [water bottle](object)
+
+
 
 ## lookup:object
 entries/objects.txt
