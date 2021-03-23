@@ -12,12 +12,6 @@ config = Config()
 
 logger = get_logger(__file__)
 
-dairy = ["dairy", "milk", "butter", "cream", "cheese", "yogurt"]
-nuts = ["nuts", "peanuts", "pecans", "walnuts", "almonds", "brazil nuts", "cashews",
-	"chesnuts", "filberts", "hazelnuts", "macadamia nuts", "pine nuts", "pistachios"]
-meat = ["meat", "chicken", "pork", "beef", "veal"]
-
-
 def contains_word(s, w):
     """
     Checks whether a string contains a certain word
