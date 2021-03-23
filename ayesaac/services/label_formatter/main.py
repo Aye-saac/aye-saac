@@ -16,6 +16,8 @@ class LabelFormatter(object):
             patterns = data["label-keywords"]
 
         text = " ".join(" ".join(t) for t in body["texts"])
+        logger.info(text)
+        logger.info(body["texts"])
         text = re.sub('\s+\n', ' ', text).lower()
         text = re.sub('[^a-z0-9(),%*. ]+', '', text)
         text = [text]
