@@ -167,8 +167,8 @@ class NaturalLanguageGenerator(object):
             objects = instructions
             context = "READ_TEXT_POSITIVE"
         else:
-            objects = "Instructions not included"
-            context = "READ_TEXT_NEGATIVE"
+            objects = ""
+            context = "COOKING_INFO_NEGATIVE"
 
         obj_cnt = 1 if len(instructions) > 0 else 0
         return objects, context, obj_cnt
