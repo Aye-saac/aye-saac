@@ -120,22 +120,19 @@ class NaturalLanguageGenerator(object):
         print(body["intents"])
         objects = ""
 
-        # Assuming "ingredients is already a key in extracted_"
-        # key = "ingredients"
-        # objects += key + ": " + label_json[key]
-        print(body["intents"]["entities"])
         ingredient = body["intents"]["entities"][0]["value"]
-        print("Looking for " + ingredient + "...")
+        logger.info("Looking for " + ingredient + "...")
         # ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
         instances = label_json["ingredients"].split().count(ingredient)
         objects = ingredient
-        all_ingredients = label_json["ingredients"]
+        all_ingredients = label_json["ingredients"].split()
+        logger.info(label_json)
         if (len(all_ingredients) > 0):
             if (instances > 0):
-                #objects = "This contains " + ingredient
+                objects = ingredient
                 context = "ALLERGENS_POSITIVE_ANSWER"
             else:
-                #objects = "This doesn't contain " + ingredient
+                objects = "This doesn't contain " + ingredient
                 context = "ALLERGENS_NEGATIVE_ANSWER"
             print("Found " + str(instances) + " instances of " + ingredient + ".")
         else:

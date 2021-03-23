@@ -1,1 +1,1 @@
-{"default-ocr-model": "keras-ocr", "supported-ocr-models": ["keras-ocr", "tesseract"], "label-keywords": ["ingredients", "allergens", "nutrition facts"], "attempt-skew-correction": false}
+{"default-ocr-model": "keras-ocr", "supported-ocr-models": ["keras-ocr", "tesseract"], "label-keywords": ["ingredients", "allergens", "nutrition facts"], "attempt-skew-correction": "false"}

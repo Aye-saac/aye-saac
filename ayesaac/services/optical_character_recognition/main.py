@@ -14,6 +14,8 @@ from .bounding_box_to_phrases import bb_to_text
 from .skew_correction import getSkewAngle
 from .skew_correction import rotate_image
 
+from ayesaac.services.common.group_6_config_interface import get_value
+
 try:
 	from PIL import Image
 except ImportError:
@@ -27,41 +29,34 @@ class OCR(object):
 	"""
 	The class OCR purpose is to detect all the possible text in the picture.
 	"""
-	default_ocr_model, supported_ocr_models = None, []
-	attempt_skew_correction = False
-	import json
-	with open("./group-6-config.json") as f:
-		data = json.load(f)
-		default_ocr_model = data["default-ocr-model"]
-		supported_ocr_models = data["supported-ocr-models"]
-		attempt_skew_correction = data["attempt-skew-correction"]
-		print("Using OCR model: " + default_ocr_model)
 
-
-	if (default_ocr_model == "keras-ocr"):
+	if (get_value("default-ocr-model") == "keras-ocr"):
 		def __init__(self):
 			self.queue_manager = QueueManager([self.__class__.__name__, "LabelFormatter"])
 			self.pipeline = keras_ocr.pipeline.Pipeline()
 
 		def callback(self, body, **_):
+			logger.info("attempt-skew-correction: " + get_value("attempt-skew-correction"))
+
 			image = [
 				decode(body["pictures"][0]["data"], body["pictures"][0]["shape"], np.uint8)
 			]
 
-			attempt_skew_correction = False;
-			if (attempt_skew_correction == False): #<= Weird error, it's defined above
+			if (get_value("attempt-skew-correction") == "false"):
 				predictions = self.pipeline.recognize(image)[0]
-				text = bb_to_text(predictions)
-			else:
+				text = bb_to_text(predictions, False)
+				logger.info("no skew correction")
+			elif (get_value("attempt-skew-correction") == "true"):
 				attempt = 0
 				text = None
 				noSkewimages = []
 				noSkewimages.append(None)
 
-				while (attempt < 4):
+				# while (attempt < 4):
+				while (attempt < 1):
 					# ----- TODO: check syntax (either "image[0]" or simply "image") ------
 					# Skew correction (USELESS?)
-					noSkewimages[0] = rotate_image(image, -getSkewAngle(image))
+					noSkewimages[0] = rotate_image(image[0], -getSkewAngle(image[0]))
 					# ---------------------------------------------------------------------
 
 					predictions = self.pipeline.recognize(image)[0]
@@ -69,7 +64,7 @@ class OCR(object):
 					"""fig, axs = plt.subplots(nrows=len(image), figsize=(20, 20))
 					keras_ocr.tools.drawAnnotations(image=image[0], predictions=predictions, ax=axs)
 					plt.show()"""
-					pprint(predictions)
+					# pprint(predictions)
 
 
 					# ------ APPROXIMATE CONFIDENCE RATING --------------------------------
@@ -86,11 +81,11 @@ class OCR(object):
 					percentage = nbCorrectWords/nbTotalWords * 100
 
 					if( percentage < 50 ):
-						pprint("I cannot read this confidently, try reorientating the object.") # TODO: check use pprint or logger?
+						logger.info("Cannot read this confidently, reorientating the object.")
 						image = np.rot90(image) # This method prevent edges being cut during rotation
 						attempt = attempt + 1
 					else:
-						pprint("Reading successfully.") # TODO: check use pprint or logger?
+						logger.info("Read successfully.")
 						text = bb_to_text(predictions, True);
 						attempt = 4; # "while" exit condition
 					# ---------------------------------------------------------------------
