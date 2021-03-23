@@ -229,6 +229,9 @@
 - does it have [shellfish](ingredient) in it
 - does it include [gluten](ingredient)
 - is there any [baking powder](ingredient) in here
+- is there [lettuce](ingredient) in this
+- is there any [tomato](ingredient) in here
+- is there any [carrot](ingredient) on this
 - can you check if this food has [milk](ingredient)
 - there are some foods I can't eat, can I eat this
 - are [eggs](ingredient) one of the [ingredients](aim) in this
@@ -557,7 +560,6 @@
 - where's the [bowl](object)
 - where's the [spoon](object)
 - where's the [milk bottle](object)
-- where's the [milk](object)
 - where's the [water](object)
 - where's the [water bottle](object)
 - where's the [chocolate](object)
@@ -571,7 +573,6 @@
 - where is the [bowl](object)
 - where is the [spoon](object)
 - where is the [milk bottle](object)
-- where is the [milk](object)
 - where is the [water](object)
 - where is the [chocolate](object)
 - where is the [box of cereals](object)
@@ -617,10 +618,6 @@
 - where is my [slipper](object)
 - where is my [water bottle](object)
 
-
-
-## lookup:object
-entries/objects.txt
 
 ## lookup:colour
 entries/colours.txt
