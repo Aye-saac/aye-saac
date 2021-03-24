@@ -178,7 +178,10 @@ class NaturalLanguageGenerator(object):
             can_answer = False
 
         if can_answer:
-            for e in previous_question["intents"]["entities"]:
+            entities = previous_question["intents"]["entities"]
+            if len(entities) == 0:
+                entities = [{"value": o["name"]} for o in previous_question["objects"]]
+            for e in entities:
                 percentage = 0
                 nb_object = 0
                 for o in previous_question["objects"]:
