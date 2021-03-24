@@ -6,6 +6,11 @@ from ayesaac.services.common import QueueManager
 from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
 
+from ayesaac.services.common.group_6_config_interface import get_config
+from ayesaac.services.common.group_6_config_interface import get_value
+from ayesaac.services.common.group_6_config_interface import set_value
+from ayesaac.services.common.group_6_config_interface import set_arr_value
+
 
 config = Config()
 
@@ -125,6 +130,15 @@ class NaturalLanguageGenerator(object):
     def inform_allergen(self, body):
         pprint("inform_allergen")
         allergen = body["intents"]["entities"][0]["value"]
+
+        if allergen not in get_value("allergens"): #  if allegen not in list, add
+            set_arr_value("allergens", allergen)
+            print("Set allergen to list")
+        else:
+            print("Already in list")
+        #set_value("allergen", allergen)
+        print(get_value("allergens"))
+
         objects = allergen
         if (len(allergen) > 0):
             context = "ALLERGEN_ADDED_POSITIVE"
@@ -132,7 +146,6 @@ class NaturalLanguageGenerator(object):
             context = "ALLERGEN_ADDED_NEGATIVE"
         print("Allergen detected: " + allergen + ". Added to list.")
         obj_cnt = 1 if len(allergen) > 0 else 0
-
         return objects, context, obj_cnt
 
     def detect_ingredients(self, body):
