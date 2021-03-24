@@ -24,7 +24,7 @@ meat = ["meat", "chicken", "pork", "beef", "veal"]
 allergens = ["celery", "gluten", "crustaceans", "eggs", "fish", "lupin", "milk",
     "molluscs", "mustard", "peanuts", "sesame", "soybeans", "sulphur dioxide",
     "sulphites", "tree nuts"]
-
+ingredient_testing = ["milk", "water", "flour", "potato"]
 
 class NaturalLanguageGenerator(object):
     """
@@ -163,8 +163,6 @@ class NaturalLanguageGenerator(object):
             else:
                 print("Already in list")
 
-            print(get_value("allergens"))
-
         ingredient = body["intents"]["entities"][0]["value"]
         print("Looking for " + ingredient + "...")
         if ingredient == "dairy":
@@ -187,7 +185,16 @@ class NaturalLanguageGenerator(object):
             #ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
             instances = label_json["ingredients"].split().count(ingredient)
 
-        print(instances)
+		 # looking for user allergens
+        user_allergens = get_value("allergens")
+        print(get_value("allergens"))
+        print("Looking for user allergens in ingredients...")
+        for i in user_allergens:
+            instances_allergens = label_json["ingredients"].split().count(i)
+            #instances_allergens = ingredient_testing.count(i)
+            if instances_allergens == 1:
+                print("allergen in ingredients: " + i)
+            print(instances_allergens)
 
         objects = ingredient
         all_ingredients = label_json["ingredients"].split()
