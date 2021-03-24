@@ -152,6 +152,8 @@ class NaturalLanguageGenerator(object):
         pprint("detect_ingredients")
         label_json = body["extracted_label"]
         print(body["intents"])
+        instances = 0
+        instances_allergens = 0
         objects = ""
 
         # check list of allergens in config and add
@@ -168,19 +170,21 @@ class NaturalLanguageGenerator(object):
         if ingredient == "dairy":
             print("Looking for dairy products in ingredients...")
             for i in dairy:
-                instances = label_json["ingredients"].split().count(i)
+                instances += label_json["ingredients"].split().count(i)
         elif ingredient == "nuts":
             print("Looking for nuts in ingredients...")
             for i in nuts:
-                instances = label_json["ingredients"].split().count(i)
+                instances += label_json["ingredients"].split().count(i)
         elif ingredient == "meat":
             print("Looking for meat in ingredients...")
             for i in meat:
-                instances = label_json["ingredients"].split().count(i)
+                instances += label_json["ingredients"].split().count(i)
+            if instances>=1:
+                print("Meat item found")
         elif ingredient == "allergens":
             print("Looking for allergens in ingredients...")
             for i in allergens:
-                instances = label_json["ingredients"].split().count(i)
+                instances += label_json["ingredients"].split().count(i)
         else:
             #ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
             instances = label_json["ingredients"].split().count(ingredient)
@@ -190,11 +194,13 @@ class NaturalLanguageGenerator(object):
         print(get_value("allergens"))
         print("Looking for user allergens in ingredients...")
         for i in user_allergens:
-            instances_allergens = label_json["ingredients"].split().count(i)
+            instances_allergens += label_json["ingredients"].split().count(i)
             #instances_allergens = ingredient_testing.count(i)
             if instances_allergens == 1:
                 print("allergen in ingredients: " + i)
             print(instances_allergens)
+		 ## -- ADD RESPONSE FOR USER ALLERGEN
+
 
         objects = ingredient
         all_ingredients = label_json["ingredients"].split()
