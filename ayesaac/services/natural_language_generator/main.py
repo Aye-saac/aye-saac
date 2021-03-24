@@ -136,7 +136,7 @@ class NaturalLanguageGenerator(object):
             print("Set allergen to list")
         else:
             print("Already in list")
-        #set_value("allergen", allergen)
+
         print(get_value("allergens"))
 
         objects = allergen
@@ -153,6 +153,17 @@ class NaturalLanguageGenerator(object):
         label_json = body["extracted_label"]
         print(body["intents"])
         objects = ""
+
+        # check list of allergens in config and add
+        if body["intents"]["entities"][0]["entity"] == "inform":
+            allergen = body["intents"]["entities"][0]["value"]
+            if allergen not in get_value("allergens"): # if allegen not in list, add
+                set_arr_value("allergens", allergen)
+                print("Set allergen to list")
+            else:
+                print("Already in list")
+
+            print(get_value("allergens"))
 
         ingredient = body["intents"]["entities"][0]["value"]
         print("Looking for " + ingredient + "...")
