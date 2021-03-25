@@ -113,9 +113,23 @@ class NaturalLanguageGenerator(object):
         return objects, context, obj_cnt
 
     def detect_safety(self, body):
+        print("detect_safety")
         objects = ""
-        obj_cnt = 1
+        obj_cnt = 0
         context = "SAFETY_CLARIFY"
+        label_json = body["extracted_label"]
+        user_allergens = get_value("allergens")
+        length = len(user_allergens)
+        for i in range(length):
+            instances_allergens = label_json["ingredients"].split().count(user_allergens[i])
+            if instances_allergens > 0:
+                print("Allergen in ingredients: " + user_allergens[i])
+                context = "ALLERGENS_INCLUDED_POSITIVE"
+                if i > 0:
+                    objects += ", "
+                objects += user_allergens[i]
+                obj_cnt = 1
+            print("Instances detected: " + instances_allergens)        
         return objects, context, obj_cnt
 
     def inform_allergen(self, body):
@@ -166,7 +180,7 @@ class NaturalLanguageGenerator(object):
         elif (ingredient == "nuts"):
             objects = "This contains the following nuts: " + " ".join(" ".join(t) for t in label_json["nuts"])
         else:
-    		 # looking for user allergens
+             # looking for user allergens
             user_allergens = get_value("allergens")
             print(get_value("allergens"))
             print("Looking for user allergens in ingredients...")
