@@ -3,37 +3,25 @@ from ayesaac.utils.logger import get_logger
 import re
 import json
 
+from ayesaac.services.common.group_6_config_interface import get_value
+
 logger = get_logger(__file__)
 
 class LabelFormatter(object):
-    def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
-
-    def callback(self, body, **_):
-        patterns = []
-        with open("./group-6-config.json") as f:
-            data = json.load(f)
-            patterns = data["label-keywords"]
-
-        text = " ".join(" ".join(t) for t in body["texts"])
-        logger.info(text)
-        logger.info(body["texts"])
-        text = re.sub('\s+\n', ' ', text).lower()
-        text = re.sub('[^a-z0-9(),%*. ]+', '', text)
+    def split_by_keywords(self, text, keywords):
         text = [text]
         regex = '(^.*'
-        regex += "|".join(pattern for pattern in patterns)
+        regex += "|".join(keyword for keyword in keywords)
         regex += ')'
         text = re.split(regex, text[0])
         data = {}
-        print(text)
         max_len = -1
         likely_string = None
-        for pattern in patterns:
+        for keyword in keywords:
             likely_string = ""
             for i in range(len(text)):
                 if (text[i] != ''):
-                    if (text[i] == pattern):
+                    if (text[i] == keyword):
                         next_string = text[i+1]
                         cur_len = len(next_string)
 
@@ -41,9 +29,52 @@ class LabelFormatter(object):
                         if (cur_len > max_len):
                             max_len = cur_len
                             likely_string = next_string
-                    data[pattern] = likely_string
 
-        body["extracted_label"] = data
+                    data[keyword] = likely_string
+        return data
+
+    def find_category(self, text, category):
+        matches = []
+        for item in category:
+            match = re.search(item, text)
+            if (match != None):
+                matches.append(item)
+                print(matches)
+        return matches
+
+
+    def __init__(self):
+        self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
+
+    def callback(self, body, **_):
+        # Normalize texts array into a string
+        text = " ".join(" ".join(t) for t in body["texts"])
+
+        # Replace all whitespaces by single space
+        text = re.sub('\s+\n', ' ', text).lower()
+
+        # Keep only alphanumerics, parentheses, commas, asterisks, and percent signs
+        text = re.sub('[^a-z0-9(),%*. ]+', '', text)
+
+        # Get keywords to look for from config file
+        keywords = get_value("label-keywords")
+
+        # Split label text by keyword and return as json
+        body["extracted_label"] = self.split_by_keywords(text, keywords)
+
+        dairy = ["dairy", "milk", "butter", "cream", "cheese", "yogurt"]
+        nuts = ["nuts", "peanuts", "pecans", "walnuts", "almonds", "brazil nuts", "cashews",
+            "chesnuts", "filberts", "hazelnuts", "macadamia", "pine nuts", "pistachios"]
+        meat = ["meat", "chicken", "pork", "beef", "veal"]
+        allergens = ["celery", "gluten", "crustaceans", "eggs", "fish", "lupin", "milk",
+            "molluscs", "mustard", "peanuts", "sesame", "soybeans", "sulphur dioxide",
+            "sulphites", "tree nuts"]
+        ingredient_testing = ["milk", "water", "flour", "potato"]
+
+        body["extracted_label"]["allergens"] = self.find_category(text, allergens)
+        body["extracted_label"]["nuts"]      = self.find_category(text, nuts)
+        body["extracted_label"]["meat"]      = self.find_category(text, meat)
+        body["extracted_label"]["dairy"]     = self.find_category(text, dairy)
 
         next_service = body["vision_path"].pop(0)
         self.queue_manager.publish(next_service, body)

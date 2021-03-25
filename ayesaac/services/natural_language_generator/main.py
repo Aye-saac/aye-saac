@@ -17,15 +17,6 @@ config = Config()
 
 logger = get_logger(__file__)
 
-dairy = ["dairy", "milk", "butter", "cream", "cheese", "yogurt"]
-nuts = ["nuts", "peanuts", "pecans", "walnuts", "almonds", "brazil nuts", "cashews",
-    "chesnuts", "filberts", "hazelnuts", "macadamia", "pine nuts", "pistachios"]
-meat = ["meat", "chicken", "pork", "beef", "veal"]
-allergens = ["celery", "gluten", "crustaceans", "eggs", "fish", "lupin", "milk",
-    "molluscs", "mustard", "peanuts", "sesame", "soybeans", "sulphur dioxide",
-    "sulphites", "tree nuts"]
-ingredient_testing = ["milk", "water", "flour", "potato"]
-
 class NaturalLanguageGenerator(object):
     """
     The class NaturalLanguageGenerator purpose is to translate the results obtained to a nicely formatted sentence.
@@ -151,7 +142,6 @@ class NaturalLanguageGenerator(object):
     def detect_ingredients(self, body):
         pprint("detect_ingredients")
         label_json = body["extracted_label"]
-        print(body["intents"])
         objects = ""
 
         # check list of allergens in config and add
@@ -163,40 +153,33 @@ class NaturalLanguageGenerator(object):
             else:
                 print("Already in list")
 
+
+
         ingredient = body["intents"]["entities"][0]["value"]
-        print("Looking for " + ingredient + "...")
-        if ingredient == "dairy":
-            print("Looking for dairy products in ingredients...")
-            for i in dairy:
-                instances = label_json["ingredients"].split().count(i)
-        elif ingredient == "nuts":
-            print("Looking for nuts in ingredients...")
-            for i in nuts:
-                instances = label_json["ingredients"].split().count(i)
-        elif ingredient == "meat":
-            print("Looking for meat in ingredients...")
-            for i in meat:
-                instances = label_json["ingredients"].split().count(i)
-        elif ingredient == "allergens":
-            print("Looking for allergens in ingredients...")
-            for i in allergens:
-                instances = label_json["ingredients"].split().count(i)
+
+        if (ingredient == "allergens"):
+            objects = "This contains the following allergens: " + " ".join(" ".join(t) for t in label_json["allergens"])
+        elif (ingredient == "meat"):
+            objects = "This contains meat: " + " ".join(" ".join(t) for t in label_json["meat"])
+        elif (ingredient == "dairy"):
+            objects = "This contains the following dairy products: " + " ".join(" ".join(t) for t in label_json["dairy"])
+        elif (ingredient == "nuts"):
+            objects = "This contains the following nuts: " + " ".join(" ".join(t) for t in label_json["nuts"])
         else:
-            #ingredient_found = [ingredient == x for x in label_json["ingredients"].split()]
-            instances = label_json["ingredients"].split().count(ingredient)
+    		 # looking for user allergens
+            user_allergens = get_value("allergens")
+            print(get_value("allergens"))
+            print("Looking for user allergens in ingredients...")
+            for i in user_allergens:
+                instances_allergens = label_json["ingredients"]["allergens"].count(i)
+                if instances_allergens == 1: # should this be > 0?
+                    print("allergen in ingredients: " + i)
+                print(instances_allergens)
 
-		 # looking for user allergens
-        user_allergens = get_value("allergens")
-        print(get_value("allergens"))
-        print("Looking for user allergens in ingredients...")
-        for i in user_allergens:
-            instances_allergens = label_json["ingredients"].split().count(i)
-            #instances_allergens = ingredient_testing.count(i)
-            if instances_allergens == 1:
-                print("allergen in ingredients: " + i)
-            print(instances_allergens)
 
-        objects = ingredient
+        # TODO: Ayesaac will still look for e.g., "allergens" as an ingredient
+        print("Looking for " + ingredient + "...")
+        instances = label_json["ingredients"].split().count(ingredient)
         all_ingredients = label_json["ingredients"].split()
         logger.info(label_json)
         if (len(all_ingredients) > 0):
