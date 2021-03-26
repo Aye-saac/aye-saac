@@ -129,7 +129,7 @@ class NaturalLanguageGenerator(object):
                     objects += ", "
                 objects += user_allergens[i]
                 obj_cnt = 1
-            print("Instances detected: " + instances_allergens)        
+            print("Instances detected: " + instances_allergens)
         return objects, context, obj_cnt
 
     def inform_allergen(self, body):
@@ -185,13 +185,12 @@ class NaturalLanguageGenerator(object):
             print(get_value("allergens"))
             print("Looking for user allergens in ingredients...")
             for i in user_allergens:
-                instances_allergens = label_json["ingredients"]["allergens"].count(i)
+                # instances_allergens = label_json["ingredients"]["allergens"].count(i)
+                instances_allergens = label_json["allergens"].count(i)
                 if instances_allergens == 1: # should this be > 0?
                     print("allergen in ingredients: " + i)
                 print(instances_allergens)
 
-
-        # TODO: Ayesaac will still look for e.g., "allergens" as an ingredient
         print("Looking for " + ingredient + "...")
         instances = label_json["ingredients"].split().count(ingredient)
         all_ingredients = label_json["ingredients"].split()
