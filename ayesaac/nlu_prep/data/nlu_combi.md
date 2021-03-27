@@ -170,18 +170,23 @@
 - I'm allergic to [nuts](inform)
 - I am allergic to [dairy](inform)
 - I am intolerant to [dairy](inform)
+- I'm allergic to [nuts](inform) and [gluten](inform)
 - I am [lactose](inform) intorlerant
 - I will have an allergic reaction if I eat [soy](inform)
+- I will have an allergic reaction if I eat [soy](inform) or [celery](inform)
 - I will feel sick if I eat [eggs](inform)
+- I will feel sick if I eat [dairy](inform) or [nuts](inform)
 - I will feel unwell if I have [moluscs](inform)
 - I will not feel well if I eat [peanuts](inform)
 - I can't eat [sesame](inform)
 - I cannot have [celery](inform)
+- I cannot have [celery](inform), [soy](inform) or [nuts](inform)
 - I cannot ingest [gluten](inform)
 - I have a [gluten](inform) intolerance
 - I should stay away from eating [gluten](inform)
 - I shouldn't eat [nuts](inform)
 - add [gluten](inform) to my list of allergies
+- add [gluten](inform) and [dairy](inform) to my list of allergies
 - add [peanuts](inform) to food I can't eat
 - add [nuts](inform) to my allergens
 

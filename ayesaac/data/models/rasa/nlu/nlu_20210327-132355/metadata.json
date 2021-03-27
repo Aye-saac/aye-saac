@@ -1,0 +1,243 @@
+{
+    "language": "en",
+    "pipeline": [
+        {
+            "model": "en",
+            "case_sensitive": false,
+            "name": "SpacyNLP",
+            "class": "rasa.nlu.utils.spacy_utils.SpacyNLP"
+        },
+        {
+            "intent_tokenization_flag": false,
+            "intent_split_symbol": "_",
+            "token_pattern": null,
+            "name": "SpacyTokenizer",
+            "class": "rasa.nlu.tokenizers.spacy_tokenizer.SpacyTokenizer"
+        },
+        {
+            "pooling": "mean",
+            "name": "SpacyFeaturizer",
+            "alias": "SpacyFeaturizer",
+            "class": "rasa.nlu.featurizers.dense_featurizer.spacy_featurizer.SpacyFeaturizer"
+        },
+        {
+            "case_sensitive": true,
+            "use_lookup_tables": true,
+            "use_regexes": true,
+            "number_additional_patterns": null,
+            "use_word_boundaries": true,
+            "name": "RegexFeaturizer",
+            "alias": "RegexFeaturizer",
+            "file": "component_3_RegexFeaturizer",
+            "class": "rasa.nlu.featurizers.sparse_featurizer.regex_featurizer.RegexFeaturizer"
+        },
+        {
+            "features": [
+                [
+                    "low",
+                    "title",
+                    "upper"
+                ],
+                [
+                    "BOS",
+                    "EOS",
+                    "low",
+                    "upper",
+                    "title",
+                    "digit"
+                ],
+                [
+                    "low",
+                    "title",
+                    "upper"
+                ]
+            ],
+            "name": "LexicalSyntacticFeaturizer",
+            "alias": "LexicalSyntacticFeaturizer",
+            "file": "component_4_LexicalSyntacticFeaturizer",
+            "class": "rasa.nlu.featurizers.sparse_featurizer.lexical_syntactic_featurizer.LexicalSyntacticFeaturizer"
+        },
+        {
+            "use_shared_vocab": false,
+            "analyzer": "word",
+            "strip_accents": null,
+            "stop_words": null,
+            "min_df": 1,
+            "max_df": 1.0,
+            "min_ngram": 1,
+            "max_ngram": 1,
+            "max_features": null,
+            "lowercase": true,
+            "OOV_token": null,
+            "OOV_words": [],
+            "use_lemma": true,
+            "additional_vocabulary_size": {
+                "text": null,
+                "response": null,
+                "action_text": null
+            },
+            "name": "CountVectorsFeaturizer",
+            "alias": "CountVectorsFeaturizer",
+            "file": "component_5_CountVectorsFeaturizer.pkl",
+            "class": "rasa.nlu.featurizers.sparse_featurizer.count_vectors_featurizer.CountVectorsFeaturizer"
+        },
+        {
+            "use_shared_vocab": false,
+            "analyzer": "char_wb",
+            "strip_accents": null,
+            "stop_words": null,
+            "min_df": 1,
+            "max_df": 1.0,
+            "min_ngram": 1,
+            "max_ngram": 4,
+            "max_features": null,
+            "lowercase": true,
+            "OOV_token": null,
+            "OOV_words": [],
+            "use_lemma": true,
+            "additional_vocabulary_size": {
+                "text": null,
+                "response": null,
+                "action_text": null
+            },
+            "name": "CountVectorsFeaturizer",
+            "alias": "CountVectorsFeaturizer",
+            "file": "component_6_CountVectorsFeaturizer.pkl",
+            "class": "rasa.nlu.featurizers.sparse_featurizer.count_vectors_featurizer.CountVectorsFeaturizer"
+        },
+        {
+            "hidden_layers_sizes": {
+                "text": [],
+                "label": []
+            },
+            "share_hidden_layers": false,
+            "transformer_size": 256,
+            "number_of_transformer_layers": 2,
+            "number_of_attention_heads": 4,
+            "use_key_relative_attention": false,
+            "use_value_relative_attention": false,
+            "max_relative_position": null,
+            "unidirectional_encoder": false,
+            "batch_size": [
+                64,
+                256
+            ],
+            "batch_strategy": "balanced",
+            "epochs": 100,
+            "random_seed": null,
+            "learning_rate": 0.001,
+            "embedding_dimension": 20,
+            "dense_dimension": {
+                "text": 128,
+                "label": 20
+            },
+            "concat_dimension": {
+                "text": 128,
+                "label": 20
+            },
+            "number_of_negative_examples": 20,
+            "similarity_type": "inner",
+            "loss_type": "softmax",
+            "ranking_length": 10,
+            "maximum_positive_similarity": 0.8,
+            "maximum_negative_similarity": -0.4,
+            "use_maximum_negative_similarity": true,
+            "scale_loss": false,
+            "regularization_constant": 0.002,
+            "negative_margin_scale": 0.8,
+            "drop_rate": 0.2,
+            "drop_rate_attention": 0,
+            "weight_sparsity": 0.8,
+            "use_sparse_input_dropout": true,
+            "use_dense_input_dropout": true,
+            "evaluate_every_number_of_epochs": 20,
+            "evaluate_on_number_of_examples": 0,
+            "intent_classification": true,
+            "entity_recognition": true,
+            "use_masked_language_model": false,
+            "BILOU_flag": true,
+            "tensorboard_log_directory": null,
+            "tensorboard_log_level": "epoch",
+            "checkpoint_model": false,
+            "featurizers": [],
+            "split_entities_by_comma": true,
+            "name": "DIETClassifier",
+            "file": "component_7_DIETClassifier",
+            "class": "rasa.nlu.classifiers.diet_classifier.DIETClassifier"
+        },
+        {
+            "name": "EntitySynonymMapper",
+            "file": null,
+            "class": "rasa.nlu.extractors.entity_synonyms.EntitySynonymMapper"
+        },
+        {
+            "hidden_layers_sizes": {
+                "text": [
+                    256,
+                    128
+                ],
+                "label": [
+                    256,
+                    128
+                ]
+            },
+            "share_hidden_layers": false,
+            "transformer_size": null,
+            "number_of_transformer_layers": 0,
+            "number_of_attention_heads": 4,
+            "use_key_relative_attention": false,
+            "use_value_relative_attention": false,
+            "max_relative_position": null,
+            "unidirectional_encoder": false,
+            "batch_size": [
+                64,
+                256
+            ],
+            "batch_strategy": "balanced",
+            "epochs": 100,
+            "random_seed": null,
+            "learning_rate": 0.001,
+            "embedding_dimension": 20,
+            "dense_dimension": {
+                "text": 512,
+                "label": 512
+            },
+            "concat_dimension": {
+                "text": 512,
+                "label": 512
+            },
+            "number_of_negative_examples": 20,
+            "similarity_type": "inner",
+            "loss_type": "softmax",
+            "ranking_length": 10,
+            "maximum_positive_similarity": 0.8,
+            "maximum_negative_similarity": -0.4,
+            "use_maximum_negative_similarity": true,
+            "scale_loss": true,
+            "regularization_constant": 0.002,
+            "weight_sparsity": 0.0,
+            "negative_margin_scale": 0.8,
+            "drop_rate": 0.2,
+            "drop_rate_attention": 0,
+            "use_sparse_input_dropout": false,
+            "use_dense_input_dropout": false,
+            "evaluate_every_number_of_epochs": 20,
+            "evaluate_on_number_of_examples": 0,
+            "use_masked_language_model": false,
+            "retrieval_intent": null,
+            "use_text_as_label": false,
+            "tensorboard_log_directory": null,
+            "tensorboard_log_level": "epoch",
+            "featurizers": [],
+            "checkpoint_model": false,
+            "name": "ResponseSelector",
+            "intent_classification": true,
+            "entity_recognition": false,
+            "BILOU_flag": null,
+            "file": null,
+            "class": "rasa.nlu.selectors.response_selector.ResponseSelector"
+        }
+    ],
+    "trained_at": "20210327-132355",
+    "rasa_version": "2.2.7"
+}
