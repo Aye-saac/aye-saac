@@ -183,7 +183,8 @@ class NaturalLanguageGenerator(object):
         ingredient = body["intents"]["entities"][0]["value"]
 
         logger.info("Checking if " + ingredient + " can be expanded into a category")
-        if (len(label_json[ingredient]) > 0):
+        print(label_json)
+        if (ingredient in label_json and len(label_json[ingredient]) > 0):
             objects = ", ".join(label_json[ingredient])
             logger.info(ingredient + " expanded to " + objects)
             context = "ALLERGENS_POSITIVE_ANSWER"
@@ -249,8 +250,10 @@ class NaturalLanguageGenerator(object):
         label_json = body["extracted_label"]
         objects = ""
         print(label_json)
-        key = "nutrition facts"
-        objects += key + ": " + label_json[key]
+        print(get_value("nutirition"))
+        for key in get_value("nutrition"):
+            if key in label_json:
+                objects += key + ": " + label_json[key]
 
         obj_cnt = 1 if len(objects) > 0 else 0
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")

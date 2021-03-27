@@ -1,15 +1,3 @@
-    def split_by_keywords(text, keywords):
-        text = [text]
-        regex = '(^.*'
-        
-        synonyms_regex = []
-        for keyword in keywords:
-          synonyms_regex.append("|".join(synonym for synonym in keywords[keyword]))
-
-        regex += "|".join(synonym_regex for synonym_regex in synonyms_regex)
-        regex += ')'
-
-
 from ayesaac.services.common import QueueManager
 from ayesaac.utils.logger import get_logger
 import re
