@@ -263,13 +263,21 @@
 - are there [allergens](aim) or [traces of allergens](aim) in this
 - are there [nuts](ingredient) in this
 - I can't have [nuts](inform), is this okay for me
+- I can't have [soy](inform) or [dairy](inform), is this okay for me
 - I can't eat [fish](inform), can I eat this
+- I can't eat [nuts](inform) or [celery](inform), can I eat this
+- I can't eat [gluten](inform), [eggs](inform) or [dairy](inform), can I eat this
 - I can't ingest [gluten](inform), can I eat this
 - I cannot eat [celery](inform), is this safe for me
 - I can't eat [dairy](inform) products, so is this okay for me to eat
+- I can't eat [celery](inform) or [soy](inform), so is this okay for me to eat
+- I can't eat [celery](inform), [soy](inform) or [gluten](inform), is this okay for me to eat
 - I shouldn't eat [dairy](inform), can I eat this
 - I should stay away from eating [gluten](inform), is this safe for me
+- I should stay away from eating [dairy](inform) and [molluscs](inform), is this safe for me
 - I'm allergic to [soy](inform), can I eat this
+- I'm allergic to [gluten](inform) and [nuts](inform), can I eat this
+- I'm allergic to [peanuts](inform), [dairy](inform) and [eggs](inform), can I eat this
 - I'm [lactose](inform) intolerant, will this make me feel sick
 - I have some food allergies, are there any [allergens](aim) in this
 - I am allergic to some foods, what [allergens](aim) are in this
