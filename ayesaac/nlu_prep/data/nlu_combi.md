@@ -191,24 +191,6 @@
 - add [nuts](inform) to my allergens
 
 ## intent:detect_ingredients
-- I'm allergic to [nuts](inform). Can I eat this?
-- I'm allergic to [gluten](inform). Is this safe?
-- I'm allergic to [meat](inform). Is this safe to eat?
-- I'm allergic to [cucumber](inform). Am I OK eating this?
-- I'm allergic to [kiwi](inform). It this OK to eat?
-- I'm allergic to [fish](inform). It this fine to eat?
-- I'm allergic to [gluten](inform). Is this safe for me to eat?
-- I can't eat [shellfish](inform). Is this safe to eat?
-- I can't eat [nuts](inform). Can I eat this?
-- I can't eat [soy](inform). Is this safe?
-- I can't eat [soy sauce](inform). Is this safe to eat?
-- I can't eat [eggs](inform). Am I OK eating this?
-- I can't eat [soy](inform). It this OK to eat?
-- I can't eat [celery](inform). It this fine to eat?
-- I can't eat [pork](inform). Is this safe for me to eat?
-- I'm [lactose](inform) intolerant. Can I still eat this?
-- I'm [lactose](inform) intolerant. Can I eat this?
-- I'm [lactose](inform) intolerant. Is this safe to eat?
 - alright tell me the [ingredients](aim) in here
 - alright tell me what this is made of
 - alright tell me what's in this
@@ -262,23 +244,6 @@
 - are [eggs](ingredient) one of the [ingredients](aim) in this
 - are there [allergens](aim) or [traces of allergens](aim) in this
 - are there [nuts](ingredient) in this
-- I can't have [nuts](inform), is this okay for me
-- I can't have [soy](inform) or [dairy](inform), is this okay for me
-- I can't eat [fish](inform), can I eat this
-- I can't eat [nuts](inform) or [celery](inform), can I eat this
-- I can't eat [gluten](inform), [eggs](inform) or [dairy](inform), can I eat this
-- I can't ingest [gluten](inform), can I eat this
-- I cannot eat [celery](inform), is this safe for me
-- I can't eat [dairy](inform) products, so is this okay for me to eat
-- I can't eat [celery](inform) or [soy](inform), so is this okay for me to eat
-- I can't eat [celery](inform), [soy](inform) or [gluten](inform), is this okay for me to eat
-- I shouldn't eat [dairy](inform), can I eat this
-- I should stay away from eating [gluten](inform), is this safe for me
-- I should stay away from eating [dairy](inform) and [molluscs](inform), is this safe for me
-- I'm allergic to [soy](inform), can I eat this
-- I'm allergic to [gluten](inform) and [nuts](inform), can I eat this
-- I'm allergic to [peanuts](inform), [dairy](inform) and [eggs](inform), can I eat this
-- I'm [lactose](inform) intolerant, will this make me feel sick
 - I have some food allergies, are there any [allergens](aim) in this
 - I am allergic to some foods, what [allergens](aim) are in this
 - does this product contain traces of [nuts](ingredient)
@@ -389,6 +354,43 @@
 - is it bad if I eat this
 - is this safe to eat
 - is this okay to eat
+- I'm allergic to [soy](inform), can I eat this
+- I'm allergic to [gluten](inform) and [nuts](inform), can I eat this
+- I'm allergic to [peanuts](inform), [dairy](inform) and [eggs](inform), can I eat this
+- I'm allergic to [soy](inform), can I eat this
+- I'm allergic to [nuts](inform). Can I eat this?
+- I'm allergic to [gluten](inform). Is this safe?
+- I'm allergic to [meat](inform). Is this safe to eat?
+- I'm allergic to [cucumber](inform). Am I OK eating this?
+- I'm allergic to [kiwi](inform). It this OK to eat?
+- I'm allergic to [fish](inform). It this fine to eat?
+- I'm allergic to [gluten](inform). Is this safe for me to eat?
+- I'm [lactose](inform) intolerant. Can I still eat this?
+- I'm [lactose](inform) intolerant. Can I eat this?
+- I'm [lactose](inform) intolerant. Is this safe to eat?
+- I'm [lactose](inform) intolerant, will this make me feel sick
+- I can't eat [shellfish](inform). Is this safe to eat?
+- I can't eat [nuts](inform). Can I eat this?
+- I can't eat [soy](inform). Is this safe?
+- I can't eat [soy sauce](inform). Is this safe to eat?
+- I can't eat [eggs](inform). Am I OK eating this?
+- I can't eat [soy](inform). It this OK to eat?
+- I can't eat [celery](inform). It this fine to eat?
+- I can't eat [pork](inform). Is this safe for me to eat?
+- I can't eat [fish](inform), can I eat this
+- I can't eat [nuts](inform) or [celery](inform), can I eat this
+- I can't eat [gluten](inform), [eggs](inform) or [dairy](inform), can I eat this
+- I can't eat [dairy](inform) products, so is this okay for me to eat
+- I can't eat [celery](inform) or [soy](inform), so is this okay for me to eat
+- I can't eat [celery](inform), [soy](inform) or [gluten](inform), is this okay for me to eat
+- I can't have [nuts](inform), is this okay for me
+- I can't have [soy](inform) or [dairy](inform), is this okay for me
+- I can't ingest [gluten](inform), can I eat this
+- I cannot eat [celery](inform), is this safe for me
+- I cannot eat [celery](inform), is this safe for me
+- I shouldn't eat [dairy](inform), can I eat this
+- I should stay away from eating [gluten](inform), is this safe for me
+- I should stay away from eating [dairy](inform) and [molluscs](inform), is this safe for me
 
 ## intent:cooking_info
 - how do I cook this
