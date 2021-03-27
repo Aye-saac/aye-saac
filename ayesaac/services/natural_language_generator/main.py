@@ -148,22 +148,36 @@ class NaturalLanguageGenerator(object):
 
     def inform_allergen(self, body):
         pprint("inform_allergen")
-        allergen = body["intents"]["entities"][0]["value"]
 
-        if allergen not in get_value("user-allergens"): #  if allegen not in list, add
-            obj = get_value("categories")
-            obj["user-allergens"].append(allergen)
-            set_value("categories", obj)
-            logger.info("Added " + allergen + " to user-allergens in config file")
+        allergens = []
+        for i in body["intents"]["entities"]:  # for every entity in the body want to append to allergen
+            allergens.append(i["value"])
+        j = 0
+        while j is not len(allergens):
+            if allergens[j] not in get_value("user-allergens"): #  if allegen not in list, add
+                obj = get_value("categories")
+                obj["user-allergens"].append(allergens[j])
+                set_value("categories", obj)
+                # append_value("user-allergens", allergen)
+                logger.info("Added " + allergens[j] + " to user-allergens in config file")
+            j = j+1
 
-        objects = allergen
-        if (len(allergen) > 0):
+        objects = ""
+        num = len(allergens)
+        if (num > 0):
             context = "ALLERGEN_ADDED_POSITIVE"
+            if (num < 3):
+                objects = allergens[0]
+                if (num == 2):
+                    objects += " and " + allergens[-1]
+            else:
+                objects = ", ".join(allergens[:-1])
+                objects += " and " + allergens[-1]
         else:
             context = "ALLERGEN_ADDED_NEGATIVE"
-        print("Allergen detected: " + allergen + ". Added to list.")
-        print(get_config())
-        obj_cnt = 1 if len(allergen) > 0 else 0
+
+        print(objects)
+        obj_cnt = 1 if len(allergens) > 0 else 0
         return objects, context, obj_cnt
 
     def detect_expiration(self, body):
