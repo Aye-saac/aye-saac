@@ -1,3 +1,15 @@
+    def split_by_keywords(text, keywords):
+        text = [text]
+        regex = '(^.*'
+        
+        synonyms_regex = []
+        for keyword in keywords:
+          synonyms_regex.append("|".join(synonym for synonym in keywords[keyword]))
+
+        regex += "|".join(synonym_regex for synonym_regex in synonyms_regex)
+        regex += ')'
+
+
 from ayesaac.services.common import QueueManager
 from ayesaac.utils.logger import get_logger
 import re
@@ -11,7 +23,11 @@ class LabelFormatter(object):
     def split_by_keywords(self, text, keywords):
         text = [text]
         regex = '(^.*'
-        regex += "|".join(keyword for keyword in keywords)
+        synonyms_regex = []
+        for keyword in keywords:
+          synonyms_regex.append("|".join(synonym for synonym in keywords[keyword]))
+
+        regex += "|".join(synonym_regex for synonym_regex in synonyms_regex)
         regex += ')'
         text = re.split(regex, text[0])
         data = {}
@@ -21,7 +37,7 @@ class LabelFormatter(object):
             likely_string = ""
             for i in range(len(text)):
                 if (text[i] != ''):
-                    if (text[i] == keyword):
+                    if (text[i] in keywords[keyword]):
                         next_string = text[i+1]
                         cur_len = len(next_string)
 
