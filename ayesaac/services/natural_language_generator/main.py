@@ -132,8 +132,6 @@ class NaturalLanguageGenerator(object):
             print("Instances detected: " + instances_allergens)
         return objects, context, obj_cnt
 
-
-
     def inform_allergen(self, body):
         pprint("inform_allergen")
         print(body["intents"])
@@ -161,9 +159,11 @@ class NaturalLanguageGenerator(object):
         obj_cnt = 1 if len(allergen) > 0 else 0
         return objects, context, obj_cnt
 
-    def detect_allergens(self, body):
-        pprint("detect_allergen")
-
+    def detect_expiration(self, body):
+        pprint("detect_expiration")
+        if "expiry" in body["extracted_label"]:
+            objects = body["extracted_label"]["expiry"]
+        print(objects)
 
 
     def detect_ingredients(self, body):
@@ -233,7 +233,7 @@ class NaturalLanguageGenerator(object):
         pprint("detect_expiration")
         label_json = body["extracted_label"]
         print(body["intents"])
-        expiry_date = label_json["expiry_date"]
+        expiry_date = label_json["expiry"]
         objects = expiry_date
 
         if (len(expiry_date) > 0):
