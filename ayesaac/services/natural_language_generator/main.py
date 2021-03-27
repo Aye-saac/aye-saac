@@ -134,19 +134,12 @@ class NaturalLanguageGenerator(object):
 
     def inform_allergen(self, body):
         pprint("inform_allergen")
-        print(body["intents"])
-        print(get_config())
         allergen = body["intents"]["entities"][0]["value"]
 
-        config_json = get_config()
-        # if allergen not in get_value("user-allergens"): #  if allegen not in list, add
-        if allergen not in config_json["categories"]["user-allergens"]: #  if allegen not in list, add
+        if allergen not in get_value("user-allergens"): #  if allegen not in list, add
             obj = get_value("categories")
-            # print(obj)
             obj["user-allergens"].append(allergen)
             set_value("categories", obj)
-            # print(get_value("categories"))
-            # append_value("user-allergens", allergen)
             logger.info("Added " + allergen + " to user-allergens in config file")
 
         objects = allergen
@@ -177,7 +170,9 @@ class NaturalLanguageGenerator(object):
             allergen = body["intents"]["entities"][0]["value"]
 
             if allergen not in get_value("user-allergens"): #  if allegen not in list, add
-                set_arr_value("user-allergens", allergen)
+                obj = get_value("categories")
+                obj["user-allergens"].append(allergen)
+                set_value("categories", obj)
                 logger.info("Added " + allergen + " to user-allergens in config file")
 
         ingredient = body["intents"]["entities"][0]["value"]
