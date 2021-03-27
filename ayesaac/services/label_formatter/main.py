@@ -122,7 +122,11 @@ class LabelFormatter(object):
 		# Split label text by keyword and return as json
 		body["extracted_label"] = self.split_by_keywords(text, keywords)
 
-		body["extracted_label"]["expiry"] = self.readDate(text).strftime("%d %b %Y")
+		date = self.readDate(text)
+		if (date != None):
+			body["extracted_label"]["expiry"] = date.strftime("%d %b %Y")
+		else:
+			logger.info("No expiry date found")
 
 		categories = get_value("categories")
 		# logger.info(categories)

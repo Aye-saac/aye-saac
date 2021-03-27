@@ -1,4 +1,0 @@
-{
-    "pattern_slots_filled": 3,
-    "max_number_patterns": 13
-}
