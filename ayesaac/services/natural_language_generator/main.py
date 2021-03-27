@@ -182,7 +182,7 @@ class NaturalLanguageGenerator(object):
 
         ingredient = body["intents"]["entities"][0]["value"]
 
-        logger.info("Checking if " + ingredient + " can be expanded into a category")
+        logger.info("Checking if " + ingredient + " can be expanded into an ingredient category")
         print(label_json)
         if (ingredient in label_json and len(label_json[ingredient]) > 0):
             objects = ", ".join(label_json[ingredient])

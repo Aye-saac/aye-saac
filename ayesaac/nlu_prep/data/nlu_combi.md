@@ -175,7 +175,7 @@
 - I will feel sick if I eat [eggs](inform)
 - I will feel unwell if I have [moluscs](inform)
 - I will not feel well if I eat [peanuts](inform)
-- I can't eat [sesame](inform) 
+- I can't eat [sesame](inform)
 - I cannot have [celery](inform)
 - I cannot ingest [gluten](inform)
 - I have a [gluten](inform) intolerance
@@ -186,6 +186,24 @@
 - add [nuts](inform) to my allergens
 
 ## intent:detect_ingredients
+- I'm allergic to [nuts](inform). Can I eat this?
+- I'm allergic to [gluten](inform). Is this safe?
+- I'm allergic to [meat](inform). Is this safe to eat?
+- I'm allergic to [cucumber](inform). Am I OK eating this?
+- I'm allergic to [kiwi](inform). It this OK to eat?
+- I'm allergic to [fish](inform). It this fine to eat?
+- I'm allergic to [gluten](inform). Is this safe for me to eat?
+- I can't eat [shellfish](inform). Is this safe to eat?
+- I can't eat [nuts](inform). Can I eat this?
+- I can't eat [soy](inform). Is this safe?
+- I can't eat [soy sauce](inform). Is this safe to eat?
+- I can't eat [eggs](inform). Am I OK eating this?
+- I can't eat [soy](inform). It this OK to eat?
+- I can't eat [celery](inform). It this fine to eat?
+- I can't eat [pork](inform). Is this safe for me to eat?
+- I'm [lactose](inform) intolerant. Can I still eat this?
+- I'm [lactose](inform) intolerant. Can I eat this?
+- I'm [lactose](inform) intolerant. Is this safe to eat?
 - alright tell me the [ingredients](aim) in here
 - alright tell me what this is made of
 - alright tell me what's in this
@@ -335,7 +353,6 @@
 - is there a lot of [sugar](nutri) in this
 - is this low [sodium](nutri)
 - does this have a lot of [carbohydrates](nutri)
-- does this contain [salt](nutri)
 - does this food have a high amount of [protein](nutri)
 
 ## intent: detect_safety
@@ -378,8 +395,8 @@
 - can you tell me how I need to cook this
 - can you tell me how [long](aim) I need to cook this for
 - can you tell me the [time](aim) this needs to cook for
-- can you tell me the length of [time](aim) I should cook this 
-- can you tell me the [temperature](aim) I need to set the oven 
+- can you tell me the length of [time](aim) I should cook this
+- can you tell me the [temperature](aim) I need to set the oven
 - can you tell me the [temperature](aim) I need to cook this at
 - can you tell me the way I should cook this
 - can you tell me the instructions for this packaging
@@ -626,5 +643,3 @@ entries/colours.txt
 
 ## lookup:nutri
 entries/nutri.txt
-
-
