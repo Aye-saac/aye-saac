@@ -136,25 +136,29 @@ class NaturalLanguageGenerator(object):
         pprint("inform_allergen")
         print(body["intents"])
         print(get_config())
-        allergen = body["intents"]["entities"][0]["value"]
+
+        allergen = []
+        for i in body["intents"]["entities"]:  # for every entity in the body want to append to allergen
+            allergen.append(i["value"])
 
         config_json = get_config()
+        j = 0
         # if allergen not in get_value("user-allergens"): #  if allegen not in list, add
-        if allergen not in config_json["categories"]["user-allergens"]: #  if allegen not in list, add
-            obj = get_value("categories")
-            # print(obj)
-            obj["user-allergens"].append(allergen)
-            set_value("categories", obj)
-            # print(get_value("categories"))
-            # append_value("user-allergens", allergen)
-            logger.info("Added " + allergen + " to user-allergens in config file")
+        while j is not len(allergen):
+            if allergen[j] not in config_json["categories"]["user-allergens"]: #  if allegen not in list, add
+                obj = get_value("categories")
+                obj["user-allergens"].append(allergen[j])
+                set_value("categories", obj)
+                # append_value("user-allergens", allergen)
+                logger.info("Added " + allergen[j] + " to user-allergens in config file")
+            j = j+1
 
         objects = allergen
         if (len(allergen) > 0):
             context = "ALLERGEN_ADDED_POSITIVE"
         else:
             context = "ALLERGEN_ADDED_NEGATIVE"
-        print("Allergen detected: " + allergen + ". Added to list.")
+        #print("Allergen detected: " + allergen + ". Added to list.")
         print(get_config())
         obj_cnt = 1 if len(allergen) > 0 else 0
         return objects, context, obj_cnt
