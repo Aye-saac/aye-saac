@@ -9,7 +9,6 @@ logger = get_logger(__file__)
 
 class LabelFormatter(object):
     def split_by_keywords(self, text, keywords):
-        logger.info(text)
         text = [text]
         regex = '(^.*'
         regex += "|".join(keyword for keyword in keywords)
@@ -36,16 +35,13 @@ class LabelFormatter(object):
 
     def find_category(self, text, cat_name, cat_elems):
         matches = []
-        logger.info("Looking for matches in category: " + cat_name)
         for item in cat_elems:
             match = re.search(item, text)
             if (match != None):
                 matches.append(item)
 
         if (len(matches) > 0):
-            logger.info("Found matches: " + str(matches))
-        else:
-            logger.info("Found no matches.")
+            logger.info("Found matches: " + str(matches) + " for " + cat_name)
         return matches
 
 
@@ -73,8 +69,6 @@ class LabelFormatter(object):
 
         next_service = body["vision_path"].pop(0)
         self.queue_manager.publish(next_service, body)
-
-        logger.info(body)
 
         logger.info(f"{self.__class__.__name__} ready")
 

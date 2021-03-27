@@ -45,7 +45,6 @@ class OCR(object):
 			if (get_value("attempt-skew-correction") == "false"):
 				predictions = self.pipeline.recognize(image)[0]
 				text = bb_to_text(predictions, False)
-				logger.info("no skew correction")
 			elif (get_value("attempt-skew-correction") == "true"):
 				attempt = 0
 				text = None
@@ -60,12 +59,6 @@ class OCR(object):
 					# ---------------------------------------------------------------------
 
 					predictions = self.pipeline.recognize(image)[0]
-
-					"""fig, axs = plt.subplots(nrows=len(image), figsize=(20, 20))
-					keras_ocr.tools.drawAnnotations(image=image[0], predictions=predictions, ax=axs)
-					plt.show()"""
-					# pprint(predictions)
-
 
 					# ------ APPROXIMATE CONFIDENCE RATING --------------------------------
 					rawText = bb_to_text(predictions, False)

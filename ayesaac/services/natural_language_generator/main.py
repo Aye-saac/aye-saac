@@ -9,7 +9,7 @@ from ayesaac.utils.logger import get_logger
 from ayesaac.services.common.group_6_config_interface import get_config
 from ayesaac.services.common.group_6_config_interface import get_value
 from ayesaac.services.common.group_6_config_interface import set_value
-from ayesaac.services.common.group_6_config_interface import set_arr_value
+from ayesaac.services.common.group_6_config_interface import append_value
 
 
 config = Config()
@@ -132,17 +132,24 @@ class NaturalLanguageGenerator(object):
             print("Instances detected: " + instances_allergens)
         return objects, context, obj_cnt
 
+
+
     def inform_allergen(self, body):
         pprint("inform_allergen")
+        print(body["intents"])
+        print(get_config())
         allergen = body["intents"]["entities"][0]["value"]
 
-        if allergen not in get_value("allergens"): #  if allegen not in list, add
-            set_arr_value("allergens", allergen)
-            print("Set allergen to list")
-        else:
-            print("Already in list")
-
-        print(get_value("allergens"))
+        config_json = get_config()
+        # if allergen not in get_value("user-allergens"): #  if allegen not in list, add
+        if allergen not in config_json["categories"]["user-allergens"]: #  if allegen not in list, add
+            obj = get_value("categories")
+            # print(obj)
+            obj["user-allergens"].append(allergen)
+            set_value("categories", obj)
+            # print(get_value("categories"))
+            # append_value("user-allergens", allergen)
+            logger.info("Added " + allergen + " to user-allergens in config file")
 
         objects = allergen
         if (len(allergen) > 0):
@@ -150,64 +157,56 @@ class NaturalLanguageGenerator(object):
         else:
             context = "ALLERGEN_ADDED_NEGATIVE"
         print("Allergen detected: " + allergen + ". Added to list.")
+        print(get_config())
         obj_cnt = 1 if len(allergen) > 0 else 0
         return objects, context, obj_cnt
 
+    def detect_allergens(self, body):
+        pprint("detect_allergen")
+
+
+
     def detect_ingredients(self, body):
         pprint("detect_ingredients")
+        print(body["intents"])
         label_json = body["extracted_label"]
         objects = ""
 
         # check list of allergens in config and add
         if body["intents"]["entities"][0]["entity"] == "inform":
             allergen = body["intents"]["entities"][0]["value"]
-            if allergen not in get_value("allergens"): # if allegen not in list, add
-                set_arr_value("allergens", allergen)
-                print("Set allergen to list")
-            else:
-                print("Already in list")
 
-
+            if allergen not in get_value("user-allergens"): #  if allegen not in list, add
+                set_arr_value("user-allergens", allergen)
+                logger.info("Added " + allergen + " to user-allergens in config file")
 
         ingredient = body["intents"]["entities"][0]["value"]
 
-        if (ingredient == "allergens"):
-            objects = "This contains the following allergens: " + " ".join(" ".join(t) for t in label_json["allergens"])
-        elif (ingredient == "meat"):
-            objects = "This contains meat: " + " ".join(" ".join(t) for t in label_json["meat"])
-        elif (ingredient == "dairy"):
-            objects = "This contains the following dairy products: " + " ".join(" ".join(t) for t in label_json["dairy"])
-        elif (ingredient == "nuts"):
-            objects = "This contains the following nuts: " + " ".join(" ".join(t) for t in label_json["nuts"])
+        logger.info("Checking if " + ingredient + " can be expanded into a category")
+        if (len(label_json[ingredient]) > 0):
+            objects = ", ".join(label_json[ingredient])
+            logger.info(ingredient + " expanded to " + objects)
+            context = "ALLERGENS_POSITIVE_ANSWER"
+            obj_cnt = 1
         else:
-             # looking for user allergens
-            user_allergens = get_value("allergens")
-            print(get_value("allergens"))
-            print("Looking for user allergens in ingredients...")
-            for i in user_allergens:
-                # instances_allergens = label_json["ingredients"]["allergens"].count(i)
-                instances_allergens = label_json["allergens"].count(i)
-                if instances_allergens == 1: # should this be > 0?
-                    print("allergen in ingredients: " + i)
-                print(instances_allergens)
+            logger.info(ingredient + " doesn't look like a category name")
 
-        print("Looking for " + ingredient + "...")
-        instances = label_json["ingredients"].split().count(ingredient)
-        all_ingredients = label_json["ingredients"].split()
-        logger.info(label_json)
-        if (len(all_ingredients) > 0):
-            if (instances > 0):
-                objects = ingredient
-                context = "ALLERGENS_POSITIVE_ANSWER"
+            print("Looking for " + ingredient + "...")
+            instances = label_json["ingredients"].split().count(ingredient)
+            all_ingredients = label_json["ingredients"].split()
+            if (len(all_ingredients) > 0):
+                if (instances > 0):
+                    objects = ingredient
+                    context = "ALLERGENS_POSITIVE_ANSWER"
+                else:
+                    objects = ingredient
+                    context = "ALLERGENS_NEGATIVE_ANSWER"
+                print("Found " + str(instances) + " instances of " + ingredient + ".")
             else:
-                objects = "This doesn't contain " + ingredient
-                context = "ALLERGENS_NEGATIVE_ANSWER"
-            print("Found " + str(instances) + " instances of " + ingredient + ".")
-        else:
-            context = "READ_TEXT_NEGATIVE"
+                context = "READ_TEXT_NEGATIVE"
 
-        obj_cnt = 1 if len(all_ingredients) > 0 else 0
-        #context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+            obj_cnt = 1 if len(all_ingredients) > 0 else 0
+        # context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt
 
     #Assuming label formatter can detect Cooking instructions and classify it as "cooking_info"
