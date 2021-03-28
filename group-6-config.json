@@ -19,7 +19,7 @@
                  "chesnuts", "filberts", "hazelnuts", "macadamia", "pine nuts", "pistachios"],
         "meat": ["meat", "chicken", "pork", "beef", "veal"],
         "allergens": ["celery", "gluten", "crustaceans", "eggs", "fish", "lupin", "milk",
-                      "molluscs", "mustard", "peanuts", "sesame", "soybeans", "sulphur dioxide",
+                      "molluscs", "mustard", "peanuts", "sesame", "soy", "soybeans", "sulphur dioxide",
                       "sulphites", "tree nuts"]
     }
 }

@@ -277,7 +277,8 @@ class NaturalLanguageGenerator(object):
                 print("Read allergens " + str(label_json["allergens"]))
                 context = "READ_ALLERGENS"
                 obj_cnt += 1
-                objects = objects.join(label_json["allergens"])
+                objects = self.construct_allergen_str(label_json["allergens"])
+				#objects = ', '.join(label_json["allergens"])
 
         else:
             ingredient = body["intents"]["entities"][0]["value"]
