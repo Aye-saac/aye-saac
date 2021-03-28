@@ -198,15 +198,11 @@ class NaturalLanguageGenerator(object):
             if found:
                 context = "ALLERGENS_INCLUDED_POSITIVE"
                 objects = self.construct_allergen_str(matches)
-                print("found")
+                print(matches)
             else:
                 context = "SAFETY_POSITIVE"
                 objects = self.construct_allergen_str(matchesFalse)
-                    # else:
-                    #     context = "SAFETY_POSITIVE"
-                    #     obj_cnt += 1
-                    #     matches.append(item)
-            print(matches)
+                print(matchesFalse)
 
             print(objects)
             print(obj_cnt)
