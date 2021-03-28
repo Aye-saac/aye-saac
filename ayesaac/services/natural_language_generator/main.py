@@ -263,21 +263,35 @@ class NaturalLanguageGenerator(object):
         pprint("detect_ingredients")
         print(body["intents"])
         label_json = body["extracted_label"]
-        objects = ""
 
-        ingredient = body["intents"]["entities"][0]["value"]
-
-        # logger.info("Checking if " + ingredient + " can be expanded into an ingredient category")
-        items = self.attempt_expand_category(ingredient, label_json)
-
-        context, obj_cnt, objects = "ALLERGENS_NEGATIVE_ANSWER", 0, ingredient
-        if not isinstance(items, list):
-            items = [items]
-        for item in items:
-            if self.find_ingredient(item, label_json):
-                context = "ALLERGENS_POSITIVE_ANSWER"
+        if body["intents"]["entities"][0]["entity"] == "aim":
+            context, obj_cnt, objects = "CLARIFY_QUESTION", 0, ""
+            aim = body["intents"]["entities"][0]["value"]
+            print(aim)
+            if "ingredient" in aim:
+                print("read ingredients " + str(label_json["ingredients"]))
+                context = "READ_INGREDIENTS"
                 obj_cnt += 1
-                objects = item
+                objects = label_json["ingredients"]
+            else: # allergens
+                print("Read allergens " + str(label_json["allergens"]))
+                context = "READ_ALLERGENS"
+                obj_cnt += 1
+                objects = objects.join(label_json["allergens"])
+
+        else:
+            ingredient = body["intents"]["entities"][0]["value"]
+            context, obj_cnt, objects = "ALLERGENS_NEGATIVE_ANSWER", 0, ingredient
+            # logger.info("Checking if " + ingredient + " can be expanded into an ingredient category")
+            items = self.attempt_expand_category(ingredient, label_json)
+
+            if not isinstance(items, list):
+                items = [items]
+            for item in items:
+                if self.find_ingredient(item, label_json):
+                    context = "ALLERGENS_POSITIVE_ANSWER"
+                    obj_cnt += 1
+                    objects = item
 
         return objects, context, obj_cnt
 
