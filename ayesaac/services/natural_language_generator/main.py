@@ -161,7 +161,7 @@ class NaturalLanguageGenerator(object):
     def detect_safety(self, body):
         print("detect_safety")
         objects, obj_cnt = "", 0
-        context = "SAFETY_CLARIFY"
+        #context = "SAFETY_CLARIFY"
         label_json = body["extracted_label"]
 
         entities = body["intents"]["entities"]
@@ -182,6 +182,10 @@ class NaturalLanguageGenerator(object):
             for item in items:
                 if self.find_ingredient(item, label_json):
                     context = "ALLERGENS_INCLUDED_POSITIVE"
+                    obj_cnt += 1
+                    matches.append(item)
+                else:
+                    context = "SAFETY_POSITIVE"
                     obj_cnt += 1
                     matches.append(item)
 
@@ -253,7 +257,7 @@ class NaturalLanguageGenerator(object):
         # logger.info("Checking if " + ingredient + " can be expanded into an ingredient category")
         items = self.attempt_expand_category(ingredient, label_json)
 
-        context, obj_cnt, objects = "ALLERGENS_NEGATIVE_ANSWER", 0, ""
+        context, obj_cnt, objects = "ALLERGENS_NEGATIVE_ANSWER", 0, ingredient
         if not isinstance(items, list):
             items = [items]
         for item in items:
