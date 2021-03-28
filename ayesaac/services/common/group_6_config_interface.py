@@ -8,7 +8,6 @@ def recurs_find_val(obj, key):
 		if isinstance(val, dict):
 			item = recurs_find_val(val, key)
 			if item is not None:
-				print(item)
 				return item
 
 # TODO: FIX NEEDED, NOT WORKING AS INTENDED
@@ -40,7 +39,6 @@ def get_value(key, path = "./group-6-config.json", recursive = True):
 		data = json.load(f)
 		if recursive:
 			val = recurs_find_val(data, key)
-			print(val)
 			return val
 		else:
 			return data[key]
