@@ -318,10 +318,10 @@ class NaturalLanguageGenerator(object):
         pprint("detect_expiration")
         label_json = body["extracted_label"]
         print(body["intents"])
-        expiry_date = label_json["expiry"]
-        objects = expiry_date
-
-        if (len(expiry_date) > 0):
+        expiry_date, objects = "", ""
+        if "expiry" in label_json:
+            expiry_date = label_json["expiry"]
+            objects = expiry_date
             context = "EXPIRY_DATE_POSITIVE_ANSWER"
         else:
             context = "EXPIRY_DATE_NEGATIVE_ANSWER"
