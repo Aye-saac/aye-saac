@@ -246,7 +246,11 @@ class NaturalLanguageGenerator(object):
         pprint("inform_allergen")
 
         allergens = self.add_user_allergens(body["intents"]["entities"])
-        objects, context = self.construct_allergen_str(allergens)
+        objects = self.construct_allergen_str(allergens)
+        if len(allergens) > 0:
+            context = "ALLERGEN_ADDED_POSITIVE"
+        else:
+            context = "ALLERGEN_ADDED_NEGATIVE"
 
         print(objects)
         obj_cnt = 1 if len(allergens) > 0 else 0
