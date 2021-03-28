@@ -13,7 +13,7 @@
     },
     "attempt-skew-correction": "false",
     "categories": {
-        "user-allergens": ["milk", "eggs"],
+        "user-allergens": ["milk"],
         "dairy": ["dairy", "milk", "butter", "cream", "cheese", "yogurt"],
         "nuts": ["nuts", "peanuts", "pecans", "walnuts", "almonds", "brazil nuts", "cashews",
                  "chesnuts", "filberts", "hazelnuts", "macadamia", "pine nuts", "pistachios"],

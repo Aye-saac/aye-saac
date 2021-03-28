@@ -175,6 +175,8 @@ class NaturalLanguageGenerator(object):
                     allergens.append(ent["value"])
 
         matches = []
+        matchesFalse = []
+        found = False
         if len(allergens) == 0:
             context = "SAFETY_POSITIVE_NO_INP"
             obj_cnt = 0
@@ -185,16 +187,27 @@ class NaturalLanguageGenerator(object):
                 if not isinstance(items, list):
                     items = [items]
                 for item in items:
+                    print("item: " + item)
                     if self.find_ingredient(item, label_json):
-                        context = "ALLERGENS_INCLUDED_POSITIVE"
-                        obj_cnt += 1
-                        matches.append(item)
+	                    found = True
+	                    obj_cnt += 1
+	                    matches.append(item)
                     else:
-                        context = "SAFETY_POSITIVE"
-                        obj_cnt += 1
-                        matches.append(item)
+                        found = False
+                        matchesFalse.append(item)
+            if found:
+                context = "ALLERGENS_INCLUDED_POSITIVE"
+                objects = self.construct_allergen_str(matches)
+                print("found")
+            else:
+                context = "SAFETY_POSITIVE"
+                objects = self.construct_allergen_str(matchesFalse)
+                    # else:
+                    #     context = "SAFETY_POSITIVE"
+                    #     obj_cnt += 1
+                    #     matches.append(item)
             print(matches)
-            objects = self.construct_allergen_str(matches)
+
             print(objects)
             print(obj_cnt)
         return objects, context, obj_cnt
