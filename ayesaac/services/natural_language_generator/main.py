@@ -252,11 +252,11 @@ class NaturalLanguageGenerator(object):
         obj_cnt = 1 if len(allergens) > 0 else 0
         return objects, context, obj_cnt
 
-    def detect_expiration(self, body):
-        pprint("detect_expiration")
-        if "expiry" in body["extracted_label"]:
-            objects = body["extracted_label"]["expiry"]
-        print(objects)
+    # def detect_expiration(self, body):
+    #     pprint("detect_expiration")
+    #     if "expiry" in body["extracted_label"]:
+    #         objects = body["extracted_label"]["expiry"]
+    #     print(objects)
 
 
     def detect_ingredients(self, body):
@@ -318,6 +318,7 @@ class NaturalLanguageGenerator(object):
         pprint("detect_expiration")
         label_json = body["extracted_label"]
         print(body["intents"])
+        print(label_json)
         expiry_date, objects = "", ""
         if "expiry" in label_json:
             expiry_date = label_json["expiry"]

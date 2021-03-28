@@ -115,6 +115,7 @@ class LabelFormatter(object):
 		# Keep only alphanumerics, parentheses, commas, asterisks, and percent signs
 		text = re.sub('\s+\n', ' ', text).lower()
 		text = re.sub('[^a-z0-9(),%*. ]+', '', text)
+		print(text)
 
 		# Get keywords to look for from config file
 		keywords = get_value("label-keywords")
