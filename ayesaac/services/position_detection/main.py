@@ -176,8 +176,8 @@ class PositionDetection(object):
             top_anchor, left_anchor, bottom_anchor, right_anchor = tuple(anchor["bbox"])
             
             if "in" in anchor["relationships"]:
-                if self.__obj_is_on_anchor__(left_obj, left_anchor, right_obj, right_anchor,
-                                         bottom_obj, bottom_anchor):
+                if self.__obj_is_in_anchor__(left_obj, left_anchor, right_obj, right_anchor,
+                                         bottom_obj, bottom_anchor, top_obj, top_anchor):
                     position_str_list.append(" it's in the " + anchor["name"])
                     continue
             
@@ -207,8 +207,22 @@ class PositionDetection(object):
         
         return position_str_list
     
+    def __obj_is_in_anchor__(self, left_obj, left_anchor, right_obj, right_anchor, bottom_obj, bottom_anchor, top_obj, top_anchor):
+        '''Method to determine whether obj is in anchor.'''
+        is_on = False
+        
+        if (
+            left_obj > left_anchor
+            and right_obj < right_anchor
+            and bottom_obj < bottom_anchor
+            and top_obj > top_anchor
+            ):
+            is_on = True
+        
+        return is_on
+    
     def __obj_is_on_anchor__(self, left_obj, left_anchor, right_obj, right_anchor, bottom_obj, bottom_anchor):
-        '''Method to determine whether obj is on/in anchor.'''
+        '''Method to determine whether obj is on anchor.'''
         is_on = False
         
         if (
