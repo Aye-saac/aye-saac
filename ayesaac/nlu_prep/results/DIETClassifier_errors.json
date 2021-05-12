@@ -1,0 +1,1504 @@
+[
+  {
+    "text": "alright what is the expiration on this carton of milk",
+    "entities": [
+      {
+        "start": 20,
+        "end": 30,
+        "value": "expiration",
+        "entity": "aim"
+      },
+      {
+        "start": 39,
+        "end": 53,
+        "value": "carton of milk",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 20,
+        "end": 30,
+        "confidence_entity": 0.6946083307266235,
+        "value": "expiration",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 39,
+        "end": 45,
+        "confidence_entity": 0.705299973487854,
+        "value": "carton",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 49,
+        "end": 53,
+        "confidence_entity": 0.8082666397094727,
+        "value": "milk",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "alright, expiration date on this other carton of milk",
+    "entities": [
+      {
+        "start": 9,
+        "end": 24,
+        "value": "expiration date",
+        "entity": "aim"
+      },
+      {
+        "start": 39,
+        "end": 53,
+        "value": "carton of milk",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 9,
+        "end": 24,
+        "confidence_entity": 0.7291520237922668,
+        "value": "expiration date",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 39,
+        "end": 45,
+        "confidence_entity": 0.7187944650650024,
+        "value": "carton",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 49,
+        "end": 53,
+        "confidence_entity": 0.7927703857421875,
+        "value": "milk",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are there any interim stages of cooking, like, turning or shaking or anything like that",
+    "entities": [
+      {
+        "start": 14,
+        "end": 39,
+        "value": "interim stages of cooking",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 32,
+        "end": 39,
+        "confidence_entity": 0.9896117448806763,
+        "value": "cooking",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 58,
+        "end": 65,
+        "confidence_entity": 0.6586746573448181,
+        "value": "shaking",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are there microwaveable instructions for this pizza",
+    "entities": [
+      {
+        "start": 10,
+        "end": 36,
+        "value": "microwaveable instructions",
+        "entity": "aim"
+      },
+      {
+        "start": 46,
+        "end": 51,
+        "value": "pizza",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 10,
+        "end": 40,
+        "confidence_entity": 0.38114747405052185,
+        "value": "microwaveable instructions for",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 46,
+        "end": 51,
+        "confidence_entity": 0.9682689905166626,
+        "value": "pizza",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "read anything on this label",
+    "entities": [
+      {
+        "start": 22,
+        "end": 27,
+        "value": "label",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 22,
+        "end": 27,
+        "confidence_entity": 0.9990084767341614,
+        "value": "label",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "read everything on that",
+    "entities": [
+      {
+        "start": 5,
+        "end": 15,
+        "value": "everything",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color are the lids of the bottles",
+    "entities": [
+      {
+        "start": 19,
+        "end": 38,
+        "value": "lids of the bottles",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 31,
+        "end": 38,
+        "confidence_entity": 0.8683398365974426,
+        "value": "bottles",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "what color coffee mug do i have",
+    "entities": [
+      {
+        "start": 11,
+        "end": 21,
+        "value": "coffee mug",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "contains",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.5294359922409058,
+        "value": "coffee",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 18,
+        "end": 21,
+        "confidence_entity": 0.9958651065826416,
+        "value": "mug",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "where is this item located",
+    "entities": [
+      {
+        "start": 14,
+        "end": 18,
+        "value": "item",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "and if pills are in the box",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 7,
+        "end": 12,
+        "confidence_entity": 0.4335498511791229,
+        "value": "pills",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 24,
+        "end": 27,
+        "confidence_entity": 0.9863098859786987,
+        "value": "box",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "can someone tell me what this can is",
+    "entities": [
+      {
+        "start": 30,
+        "end": 33,
+        "value": "can",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "and what's the name of this package of chocolates",
+    "entities": [
+      {
+        "start": 15,
+        "end": 19,
+        "value": "name",
+        "entity": "aim"
+      },
+      {
+        "start": 28,
+        "end": 49,
+        "value": "package of chocolates",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 15,
+        "end": 22,
+        "confidence_entity": 0.44710683822631836,
+        "value": "name of",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 28,
+        "end": 38,
+        "confidence_entity": 0.41461285948753357,
+        "value": "package of",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 39,
+        "end": 49,
+        "confidence_entity": 0.9795454740524292,
+        "value": "chocolates",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are the instructions for the oven on this product",
+    "entities": [
+      {
+        "start": 8,
+        "end": 33,
+        "value": "instructions for the oven",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 8,
+        "end": 20,
+        "confidence_entity": 0.6537798643112183,
+        "value": "instructions",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 29,
+        "end": 33,
+        "confidence_entity": 0.9977356195449829,
+        "value": "oven",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are there baking directions available on this pizza box",
+    "entities": [
+      {
+        "start": 10,
+        "end": 27,
+        "value": "baking directions",
+        "entity": "aim"
+      },
+      {
+        "start": 46,
+        "end": 55,
+        "value": "pizza box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 10,
+        "end": 16,
+        "confidence_entity": 0.3144623935222626,
+        "value": "baking",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "aim",
+        "start": 17,
+        "end": 27,
+        "confidence_entity": 0.851575493812561,
+        "value": "directions",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 46,
+        "end": 51,
+        "confidence_entity": 0.9968354105949402,
+        "value": "pizza",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 52,
+        "end": 55,
+        "confidence_entity": 0.9123635292053223,
+        "value": "box",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are there baking instructions visible on this box? if so, what are they",
+    "entities": [
+      {
+        "start": 10,
+        "end": 29,
+        "value": "baking instructions",
+        "entity": "aim"
+      },
+      {
+        "start": 46,
+        "end": 49,
+        "value": "box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 10,
+        "end": 29,
+        "confidence_entity": 0.46804338693618774,
+        "value": "baking instructions",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 46,
+        "end": 49,
+        "confidence_entity": 0.7630125880241394,
+        "value": "box",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are these the apple cinnamon or strawberry cereal bars",
+    "entities": [
+      {
+        "start": 43,
+        "end": 54,
+        "value": "cereal bars",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 14,
+        "end": 19,
+        "confidence_entity": 0.3577241003513336,
+        "value": "apple",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 20,
+        "end": 28,
+        "confidence_entity": 0.44992130994796753,
+        "value": "cinnamon",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 43,
+        "end": 54,
+        "confidence_entity": 0.9901916980743408,
+        "value": "cereal bars",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are you able to eat this product if you have a nut intolerance",
+    "entities": [
+      {
+        "start": 47,
+        "end": 62,
+        "value": "nut intolerance",
+        "entity": "medical"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "is this pepper mill red or black",
+    "entities": [
+      {
+        "start": 8,
+        "end": 19,
+        "value": "pepper mill",
+        "entity": "object"
+      },
+      {
+        "start": 20,
+        "end": 23,
+        "value": "red",
+        "entity": "colour"
+      },
+      {
+        "start": 27,
+        "end": 32,
+        "value": "black",
+        "entity": "colour"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 8,
+        "end": 14,
+        "confidence_entity": 0.998620867729187,
+        "value": "pepper",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "aim",
+        "start": 15,
+        "end": 19,
+        "confidence_entity": 0.4097188413143158,
+        "value": "mill",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "colour",
+        "start": 20,
+        "end": 23,
+        "confidence_entity": 0.9962924122810364,
+        "value": "red",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "colour",
+        "start": 27,
+        "end": 32,
+        "confidence_entity": 0.9240652322769165,
+        "value": "black",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "where is my black braille book",
+    "entities": [
+      {
+        "start": 12,
+        "end": 30,
+        "value": "black braille book",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "colour",
+        "start": 12,
+        "end": 30,
+        "confidence_entity": 0.8473041653633118,
+        "value": "black braille book",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are these chocolate cookies or vanilla cookies",
+    "entities": [
+      {
+        "start": 10,
+        "end": 27,
+        "value": "chocolate cookies",
+        "entity": "object"
+      },
+      {
+        "start": 31,
+        "end": 46,
+        "value": "vanilla cookies",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 10,
+        "end": 19,
+        "confidence_entity": 0.9375463724136353,
+        "value": "chocolate",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "aim",
+        "start": 20,
+        "end": 27,
+        "confidence_entity": 0.3326655924320221,
+        "value": "cookies",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 31,
+        "end": 46,
+        "confidence_entity": 0.3450480103492737,
+        "value": "vanilla cookies",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are the cooking instructions for this",
+    "entities": [
+      {
+        "start": 8,
+        "end": 28,
+        "value": "cooking instructions",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 8,
+        "end": 32,
+        "confidence_entity": 0.7531334757804871,
+        "value": "cooking instructions for",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are there cool ranch doritos or sour cream and onion chips",
+    "entities": [
+      {
+        "start": 10,
+        "end": 28,
+        "value": "cool ranch doritos",
+        "entity": "object"
+      },
+      {
+        "start": 37,
+        "end": 58,
+        "value": "cream and onion chips",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 15,
+        "end": 20,
+        "confidence_entity": 0.5288852453231812,
+        "value": "ranch",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 21,
+        "end": 28,
+        "confidence_entity": 0.3789782226085663,
+        "value": "doritos",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 32,
+        "end": 42,
+        "confidence_entity": 0.2938840091228485,
+        "value": "sour cream",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 53,
+        "end": 58,
+        "confidence_entity": 0.9973047971725464,
+        "value": "chips",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "can someone tell me what type of meat is in this package? i'm not sure, i can't identify it",
+    "entities": [
+      {
+        "start": 25,
+        "end": 37,
+        "value": "type of meat",
+        "entity": "aim"
+      },
+      {
+        "start": 49,
+        "end": 56,
+        "value": "package",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 25,
+        "end": 29,
+        "confidence_entity": 0.9906491637229919,
+        "value": "type",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 49,
+        "end": 56,
+        "confidence_entity": 0.9184688329696655,
+        "value": "package",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "confirm the oven setting",
+    "entities": [
+      {
+        "start": 12,
+        "end": 16,
+        "value": "oven",
+        "entity": "object"
+      },
+      {
+        "start": 17,
+        "end": 24,
+        "value": "setting",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 0,
+        "end": 16,
+        "confidence_entity": 0.32378673553466797,
+        "value": "confirm the oven",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "cookies are these",
+    "entities": [
+      {
+        "start": 0,
+        "end": 7,
+        "value": "cookies",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 0,
+        "end": 7,
+        "confidence_entity": 0.523803174495697,
+        "value": "cookies",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "could you tell me the cooking instructions of this food on this box, and if not where to find my camera in order to read them",
+    "entities": [
+      {
+        "start": 22,
+        "end": 42,
+        "value": "cooking instructions",
+        "entity": "aim"
+      },
+      {
+        "start": 64,
+        "end": 67,
+        "value": "box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 22,
+        "end": 45,
+        "confidence_entity": 0.4870455265045166,
+        "value": "cooking instructions of",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "aim",
+        "start": 51,
+        "end": 55,
+        "confidence_entity": 0.9914823770523071,
+        "value": "food",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 64,
+        "end": 67,
+        "confidence_entity": 0.7565180659294128,
+        "value": "box",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "aim",
+        "start": 97,
+        "end": 103,
+        "confidence_entity": 0.27031394839286804,
+        "value": "camera",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "does that sign say",
+    "entities": [
+      {
+        "start": 10,
+        "end": 14,
+        "value": "sign",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "ok i tried a different angle is this peppermill red or black",
+    "entities": [
+      {
+        "start": 37,
+        "end": 47,
+        "value": "peppermill",
+        "entity": "object"
+      },
+      {
+        "start": 48,
+        "end": 51,
+        "value": "red",
+        "entity": "colour"
+      },
+      {
+        "start": 55,
+        "end": 60,
+        "value": "black",
+        "entity": "colour"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 13,
+        "end": 22,
+        "confidence_entity": 0.6096231341362,
+        "value": "different",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 37,
+        "end": 47,
+        "confidence_entity": 0.4169251322746277,
+        "value": "peppermill",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "colour",
+        "start": 48,
+        "end": 51,
+        "confidence_entity": 0.9953458905220032,
+        "value": "red",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "colour",
+        "start": 55,
+        "end": 60,
+        "confidence_entity": 0.8066354990005493,
+        "value": "black",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "what color are the letters",
+    "entities": [
+      {
+        "start": 19,
+        "end": 26,
+        "value": "letters",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color is the water bottle",
+    "entities": [
+      {
+        "start": 18,
+        "end": 30,
+        "value": "water bottle",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 24,
+        "end": 30,
+        "confidence_entity": 0.9531107544898987,
+        "value": "bottle",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are these blueberry or cheese",
+    "entities": [
+      {
+        "start": 10,
+        "end": 19,
+        "value": "blueberry",
+        "entity": "object"
+      },
+      {
+        "start": 23,
+        "end": 29,
+        "value": "cheese",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 23,
+        "end": 29,
+        "confidence_entity": 0.8715797066688538,
+        "value": "cheese",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "could you tell me what it is and what color is it",
+    "entities": [
+      {
+        "start": 38,
+        "end": 43,
+        "value": "color",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "hello there, tell me whatever this is",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 21,
+        "end": 29,
+        "confidence_entity": 0.7448018193244934,
+        "value": "whatever",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are any of these cans garbanzo and if so which one? starting from left to right",
+    "entities": [
+      {
+        "start": 17,
+        "end": 21,
+        "value": "cans",
+        "entity": "object"
+      },
+      {
+        "start": 22,
+        "end": 30,
+        "value": "garbanzo",
+        "entity": "aim"
+      },
+      {
+        "start": 66,
+        "end": 70,
+        "value": "left",
+        "entity": "from"
+      },
+      {
+        "start": 74,
+        "end": 79,
+        "value": "right",
+        "entity": "to"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 17,
+        "end": 21,
+        "confidence_entity": 0.9530908465385437,
+        "value": "cans",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 22,
+        "end": 30,
+        "confidence_entity": 0.6853078603744507,
+        "value": "garbanzo",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "from",
+        "start": 66,
+        "end": 70,
+        "confidence_entity": 0.9834535717964172,
+        "value": "left",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "to",
+        "start": 74,
+        "end": 79,
+        "confidence_entity": 0.9567592740058899,
+        "value": "right",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "are there chemicals in this product",
+    "entities": [
+      {
+        "start": 10,
+        "end": 19,
+        "value": "chemicals",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "are you able to read what this food item is on this box",
+    "entities": [
+      {
+        "start": 31,
+        "end": 40,
+        "value": "food item",
+        "entity": "aim"
+      },
+      {
+        "start": 52,
+        "end": 55,
+        "value": "box",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 52,
+        "end": 55,
+        "confidence_entity": 0.9617055058479309,
+        "value": "box",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "hello, i'm steven. could you kindly read the label for me",
+    "entities": [
+      {
+        "start": 45,
+        "end": 50,
+        "value": "label",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "contains",
+        "start": 11,
+        "end": 17,
+        "confidence_entity": 0.34739500284194946,
+        "value": "steven",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "aim",
+        "start": 45,
+        "end": 50,
+        "confidence_entity": 0.9925695061683655,
+        "value": "label",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "read the name of this type of coffee",
+    "entities": [
+      {
+        "start": 9,
+        "end": 13,
+        "value": "name",
+        "entity": "aim"
+      },
+      {
+        "start": 22,
+        "end": 36,
+        "value": "type of coffee",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 9,
+        "end": 13,
+        "confidence_entity": 0.9987980127334595,
+        "value": "name",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "aim",
+        "start": 22,
+        "end": 29,
+        "confidence_entity": 0.66,
+        "value": "type of",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "contains",
+        "start": 30,
+        "end": 36,
+        "confidence_entity": 0.5440079569816589,
+        "value": "coffee",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "is this brown or gray",
+    "entities": [
+      {
+        "start": 8,
+        "end": 13,
+        "value": "brown",
+        "entity": "colour"
+      },
+      {
+        "start": 17,
+        "end": 21,
+        "value": "gray",
+        "entity": "colour"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color exactly is this? it's gatorade but what color is it",
+    "entities": [
+      {
+        "start": 33,
+        "end": 41,
+        "value": "gatorade",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what color is on the left",
+    "entities": [
+      {
+        "start": 21,
+        "end": 25,
+        "value": "left",
+        "entity": "position"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "from",
+        "start": 21,
+        "end": 25,
+        "confidence_entity": 0.959187388420105,
+        "value": "left",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "what color is the drink in my cup",
+    "entities": [
+      {
+        "start": 18,
+        "end": 23,
+        "value": "drink",
+        "entity": "object"
+      },
+      {
+        "start": 30,
+        "end": 33,
+        "value": "cup",
+        "entity": "position"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 18,
+        "end": 23,
+        "confidence_entity": 0.9488744139671326,
+        "value": "drink",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 30,
+        "end": 33,
+        "confidence_entity": 0.9991138577461243,
+        "value": "cup",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "what color is this cup? i hope i got the cup",
+    "entities": [
+      {
+        "start": 19,
+        "end": 22,
+        "value": "cup",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 19,
+        "end": 22,
+        "confidence_entity": 0.9995224475860596,
+        "value": "cup",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 41,
+        "end": 44,
+        "confidence_entity": 0.9994576573371887,
+        "value": "cup",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "can we tell what kind of beer this is",
+    "entities": [
+      {
+        "start": 17,
+        "end": 21,
+        "value": "kind",
+        "entity": "aim"
+      },
+      {
+        "start": 25,
+        "end": 29,
+        "value": "beer",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 25,
+        "end": 29,
+        "confidence_entity": 0.6741493344306946,
+        "value": "beer",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "does this cup say tim horton's or timothy's coffee of the world",
+    "entities": [
+      {
+        "start": 10,
+        "end": 13,
+        "value": "cup",
+        "entity": "object"
+      },
+      {
+        "start": 18,
+        "end": 30,
+        "value": "tim horton's",
+        "entity": "contains"
+      },
+      {
+        "start": 34,
+        "end": 43,
+        "value": "timothy's",
+        "entity": "contains"
+      },
+      {
+        "start": 44,
+        "end": 63,
+        "value": "coffee of the world",
+        "entity": "contains"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 10,
+        "end": 13,
+        "confidence_entity": 0.8451551795005798,
+        "value": "cup",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 44,
+        "end": 50,
+        "confidence_entity": 0.503966748714447,
+        "value": "coffee",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "is there any chance that you can read any of this",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 29,
+        "end": 32,
+        "confidence_entity": 0.6741644740104675,
+        "value": "can",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "read all the things on the cans",
+    "entities": [
+      {
+        "start": 5,
+        "end": 8,
+        "value": "all",
+        "entity": "aim"
+      },
+      {
+        "start": 27,
+        "end": 31,
+        "value": "cans",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 27,
+        "end": 31,
+        "confidence_entity": 0.9887069463729858,
+        "value": "cans",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "read any of the text on the bottle to tell me what it is",
+    "entities": [
+      {
+        "start": 28,
+        "end": 34,
+        "value": "bottle",
+        "entity": "object"
+      },
+      {
+        "start": 46,
+        "end": 50,
+        "value": "what",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "object",
+        "start": 28,
+        "end": 34,
+        "confidence_entity": 0.8748261332511902,
+        "value": "bottle",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "what does the label read for this bread? who made this bread? who's the manufacturer",
+    "entities": [
+      {
+        "start": 14,
+        "end": 19,
+        "value": "label",
+        "entity": "aim"
+      },
+      {
+        "start": 34,
+        "end": 39,
+        "value": "bread",
+        "entity": "object"
+      },
+      {
+        "start": 45,
+        "end": 49,
+        "value": "made",
+        "entity": "aim"
+      },
+      {
+        "start": 72,
+        "end": 84,
+        "value": "manufacturer",
+        "entity": "aim"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "aim",
+        "start": 14,
+        "end": 19,
+        "confidence_entity": 0.9714241623878479,
+        "value": "label",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "aim",
+        "start": 34,
+        "end": 39,
+        "confidence_entity": 0.25459274649620056,
+        "value": "bread",
+        "extractor": "DIETClassifier"
+      },
+      {
+        "entity": "object",
+        "start": 55,
+        "end": 60,
+        "confidence_entity": 0.28358790278434753,
+        "value": "bread",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "what color does this wine have",
+    "entities": [
+      {
+        "start": 21,
+        "end": 25,
+        "value": "wine",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "what about the shirt",
+    "entities": [
+      {
+        "start": 15,
+        "end": 20,
+        "value": "shirt",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "where is this item",
+    "entities": [
+      {
+        "start": 14,
+        "end": 18,
+        "value": "item",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "how many chair do you see",
+    "entities": [
+      {
+        "start": 9,
+        "end": 14,
+        "value": "chair",
+        "entity": "object"
+      }
+    ],
+    "predicted_entities": []
+  }
+]

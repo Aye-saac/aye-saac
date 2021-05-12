@@ -3,12 +3,9 @@
 - alright, last try on this. i think i know what it is but try to tell me, thanks
 - and if pills are in the box
 - and what is this
-- are these beets
-- are these blueberry or cheese
-- are these cheese or blueberry
-- are these chocolate or vanilla [cookies](object)
-- are these fruit crisps
-- are these strawberries
+- are these [beets](object)
+- are these [blueberry](object) or [cheese](object)
+- are these [chocolate cookies](object) or [vanilla cookies](object)
 - can somebody tell me what this is
 - can somebody tell me what this is and what kind of [flavor](aim) is it
 - can someone tell me the [content](aim) of this [tin](object)
@@ -18,7 +15,7 @@
 - can someone tell me what this is
 - can someone tell me what this is a [bottle](object) of
 - could you tell me what is this
-- could you tell me what it is and what color is it
+- could you tell me what it is and what [color](aim) is it
 - could you tell me what item this is
 - could you tell me what that is
 - could you tell me what these are
@@ -99,63 +96,11 @@
 
 ## intent:recognise
 - is it a [bag](object)
-- is it a [bottle](object)
-- is it a [box](object)
-- is it a [glass](object)
-- is it a [table](object)
 - is that an [orange](object)
 - is this a [beer can](object)
-- is this a [bin](object)
-- is this a [cable](object)
-- is this a [calculator](object)
-- is this a [cat](object)
-- is this a [charger](object)
-- is this a [cup](object)
-- is this a [fruit](object)
-- is this a [mobile](object)
-- is this a [mouse](object)
-- is this a [passport](object)
-- is this a [pear](object)
-- is this a [pen](object)
 - is this an [orange](object)
 - is there a [bag](object)
-- is there a [beer can](object)
-- is there a [bin](object)
-- is there a [bottle](object)
-- is there a [box](object)
-- is there a [cable](object)
-- is there a [calculator](object)
-- is there a [cat](object)
-- is there a [charger](object)
-- is there a [cup](object)
-- is there a [fruit](object)
-- is there a [glass](object)
-- is there a [mobile](object)
-- is there a [mouse](object)
-- is there an [orange](object)
-- is there a [passport](object)
-- is there a [pear](object)
-- is there a [pen](object)
-- is there a [table](object)
 - are there [bags](object)
-- are there [beer cans](object)
-- are there [bins](object)
-- are there [bottles](object)
-- are there [boxes](object)
-- are there [cables](object)
-- are there [calculators](object)
-- are there [cats](object)
-- are there [chargers](object)
-- are there [cups](object)
-- are there [fruits](object)
-- are there [glasses](object)
-- are there [mobiles](object)
-- are there [mouses](object)
-- are there [oranges](object)
-- are there [passports](object)
-- are there [pears](object)
-- are there [pens](object)
-- are there [tables](object)
 - alright, then do you see the [box of cereals](object)
 - do you see the [box of cereals](object)
 - then do you see the [box of cereals](object)
@@ -377,19 +322,6 @@
 - what 'bout these
 - what 'bout them
 - what about the [shirt](object)
-- what about the [jacket](object)
-- what about the [umbrella](object)
-- what about the [computer](object)
-- what about the [mouse](object)
-- what about the [paper](object)
-- what about the [pen](object)
-- what about the [fork](object)
-- what about the [box of cereals](object)
-- what about the [bag](object)
-- what about the [bottle](object)
-- what about the [box](object)
-- what about the [glass](object)
-- what about the [table](object)
 - and this
 - and that
 - and about it
@@ -398,51 +330,12 @@
 - and about these
 - and about them
 - and about the [bag](object)
-- and about the [cup](object)
-- and about the [bowl](object)
-- and about the [spoon](object)
 
 ## intent:locate
 - where's the [bowl](object)
-- where's the [spoon](object)
-- where's the [milk bottle](object)
-- where's the [milk](object)
-- where's the [water](object)
-- where's the [water bottle](object)
-- where's the [chocolate](object)
-- where's the [box of cereals](object)
-- where's the [cake rack](object)
-- where's the [wire rack](object)
 - where are my [pants](object)
-- where are my [stairs](object)
 - where are the [keys](object)
-- where are the [whiteboard markers](object)
 - where is the [bowl](object)
-- where is the [spoon](object)
-- where is the [milk bottle](object)
-- where is the [milk](object)
-- where is the [water](object)
-- where is the [chocolate](object)
-- where is the [box of cereals](object)
-- where is the [cake rack](object)
-- where is the [wire rack](object)
-- where is the [webcam](object)
-- where is the [white cup](object)
-- where is the [ashtray](object)
-- where is the [bowl](object)
-- where is the [broiler switch](object)
-- where is the [coffee](object)
-- where is the [dog](object)
-- where is the [food](object)
-- where is the [handle](object)
-- where is the [mint](object)
-- where is the [paddle](object)
-- where is the [phone](object)
-- where is the [printer](object)
-- where is the [red car](object)
-- where is the [salt](object)
-- where is the [silver](object)
-- where is the [sky](object)
 - where is [telephone](object)
 - where is it
 - where are they
@@ -451,20 +344,44 @@
 - where is that
 - where is this
 - where is this [item](object)
-- where is this [shirt](object)
-- where is this [table](object)
-- where is this [top](object)
 - where is my [black braille book](object)
-- where is my [brush](object)
-- where is my [cane](object)
-- where is my [cat](object)
-- where is my [ipad](object)
-- where is my [laptop](object)
-- where is my [money](object)
-- where is my [napkin](object)
-- where is my [school uniform](object)
-- where is my [slipper](object)
-- where is my [water bottle](object)
+- where's the [bowl](object) located
+- where are my [pants](object) located
+- where are the [keys](object) located
+- where is the [bowl](object) located
+- where is [telephone](object) located
+- where is it located
+- where are they located
+- where are those located
+- where is that located
+- where is this located
+- where is this [item](object) located
+- where is my [black braille book](object) located
+- can you find [banana](object)
+- could you find [bowl](object)
+- can you find the location of [banana](object)
+- could you find the location of [bowl](object)
+
+## intent:count
+- how many [banana](object)
+- how many [bowl](object) are there
+- how many [chair](object) do you see
+- can you count the number of [eggs](object)
+- what is the number of [telephone](object)
+
+## intent:confidence
+- are you sure
+- how sure are you
+- really ?
+- what is your confidence
+- how certain are you
+- can you be certain
+- how confident are you
+- can you give me the confidence percentage
+- can you give me your confidence percentage
+- is it sure
+- I don't think there is
+- I think there is more
 
 ## lookup:object
 entries/objects.txt
@@ -479,4 +396,5 @@ entries/colours.txt
 ## intent:detect_colour
 ## intent:same_intent -> ment to be a temporary intent for multiturn purpose (should be replaced before the manager service in the code)
 ## intent:locate
+## intent:count
 -->
