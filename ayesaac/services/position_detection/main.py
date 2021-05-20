@@ -51,10 +51,10 @@ class PositionDetection(object):
             (obj["bbox"][1] + obj["bbox"][3]) / 2,
         )
         if center[1] > 2 * step[1]:
-            return " on the left"
+            return " on the right"
         elif center[1] > step[1]:
             return " in the center"
-        return " on the right"
+        return " on the left"
     
     def get_hand_position(self, obj, objects):
         '''Method identifies position relative to hands or people using bounding boxes'''
