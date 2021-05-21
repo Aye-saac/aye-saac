@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import time
 
 from PIL import Image
 from PIL import ImageColor
@@ -12,13 +11,13 @@ from ayesaac.utils.config import Config
 config = Config()
 
 
-def draw_bounding_boxes(image, bboxes, class_names, scores, models, prefix="bbox"):
+def draw_bounding_boxes(image, bboxes, class_names, scores, models, filename="bbox.png"):
     """Draw bounding boxes and labels on supplied image"""
-    fig = plt.figure(figsize=(40, 15))
+    fig = plt.figure(figsize=(10, 15))
     img = draw_boxes(image, bboxes, class_names, scores, models)
     plt.imshow(img)
-    fig.savefig(f"{config.directory.output}/{prefix}_{time.time()}.png", dpi = 180)
-
+    fig.savefig(f"{config.directory.output}/{filename}", dpi = 180)
+    plt.close()
 
 def draw_boxes(image, bboxes, class_names, scores, models, max_boxes=10):
     """Overlay labeled boxes on an image with formatted scores and label names.
