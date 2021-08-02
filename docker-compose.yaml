@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.8-management
     container_name: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME}
