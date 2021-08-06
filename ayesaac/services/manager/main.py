@@ -16,7 +16,7 @@ class Manager(object):
     """
 
     def __init__(self):
-        self.queue_manager = QueueManager([self.__class__.__name__, "CameraManager"])
+        self.queue_manager = QueueManager([self.__class__.__name__, "CameraManager", "Interpreter"])
         # TODO: Missing intent for lateral position
         self.intents_to_path = {
             "read_text": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
@@ -28,13 +28,15 @@ class Manager(object):
                 ["CameraManager", "ObjectDetection", "Interpreter"],
             ],
             "recognise": [["CameraManager", "ObjectDetection", "Interpreter"]],
-            "locate": [["CameraManager", "ObjectDetection", "Interpreter"]],
             "detect_ingredients": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
             "detect_nutri": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
             "detect_safety": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
             "inform_allergen": [["CameraManager","ObjectDetection","Interpreter"]],
             "detect_expiration": [["CameraManager","OCR","LabelFormatter","Interpreter"]],
             "cooking_info": [["CameraManager","OCR","LabelFormatter","Interpreter"]]
+            "locate": [["CameraManager", "ObjectDetection", "PositionDetection", "Interpreter"]],
+            "count": [["CameraManager", "ObjectDetection", "Interpreter"]],
+            "confidence": [["Interpreter"]],
         }
 
         logger.info(f"{self.__class__.__name__} ready")

@@ -1,0 +1,85 @@
+{
+  "position": {
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1-score": 0.6666666666666666,
+    "support": 4,
+    "confused_with": {
+      "object": 1,
+      "from": 1
+    }
+  },
+  "colour": {
+    "precision": 0.8695652173913043,
+    "recall": 0.9090909090909091,
+    "f1-score": 0.888888888888889,
+    "support": 22,
+    "confused_with": {}
+  },
+  "contains": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 9,
+    "confused_with": {
+      "object": 1
+    }
+  },
+  "object": {
+    "precision": 0.8902439024390244,
+    "recall": 0.8342857142857143,
+    "f1-score": 0.8613569321533923,
+    "support": 175,
+    "confused_with": {
+      "aim": 6
+    }
+  },
+  "from": {
+    "precision": 0.6666666666666666,
+    "recall": 1.0,
+    "f1-score": 0.8,
+    "support": 2,
+    "confused_with": {}
+  },
+  "aim": {
+    "precision": 0.84,
+    "recall": 0.7636363636363637,
+    "f1-score": 0.8000000000000002,
+    "support": 110,
+    "confused_with": {
+      "object": 7
+    }
+  },
+  "medical": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 2,
+    "confused_with": {}
+  },
+  "to": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 2,
+    "confused_with": {}
+  },
+  "micro avg": {
+    "precision": 0.8619528619528619,
+    "recall": 0.7852760736196319,
+    "f1-score": 0.8218298555377206,
+    "support": 326
+  },
+  "macro avg": {
+    "precision": 0.6583094733121244,
+    "recall": 0.6258766233766234,
+    "f1-score": 0.6271140609636185,
+    "support": 326
+  },
+  "weighted avg": {
+    "precision": 0.8425044510514456,
+    "recall": 0.7852760736196319,
+    "f1-score": 0.8115327771443739,
+    "support": 326
+  }
+}

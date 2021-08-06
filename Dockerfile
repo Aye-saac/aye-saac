@@ -63,9 +63,13 @@ RUN mkdir -p ./root/.keras-ocr && ( \
 	curl -L -o crnn_kurapan.h5 https://github.com/faustomorales/keras-ocr/releases/download/v0.8.4/crnn_kurapan.h5 \
 	)
 
-# Download Resnet model
+# Download COCO Resnet model
 COPY scripts/download-resnet-model.sh .
 RUN bash download-resnet-model.sh
+
+# Download EPIC-KITCHENS baseline model and noun classes
+COPY scripts/download-epic-kitchens-model.sh .
+RUN bash download-epic-kitchens-model.sh .
 
 # ---------------------------------- Runner ---------------------------------- #
 FROM base as runner
@@ -80,7 +84,8 @@ RUN apt-get update -qq && \
 
 COPY --from=builder /opt/venv /opt/venv
 COPY --from=models /root/.keras-ocr /root/.keras-ocr
-COPY --from=models /data/resnet /app/data/resnet
+COPY --from=models /data/coco_resnet /app/data/coco_resnet
+COPY --from=models /data/epic_kitchens /app/data/epic_kitchens
 COPY . app/
 
 # Add the VirtualEnv to $PATH

@@ -123,6 +123,7 @@ services:
       - ayesaac.services.natural_language_generator.main
     volumes:
       - ./ayesaac/services/natural_language_generator:/app/ayesaac/services/natural_language_generator
+      - ./data/sentence_templates:/app/data/sentence_templates
 
   natural_language_understanding:
     container_name: natural_language_understanding
@@ -138,6 +139,7 @@ services:
       - ayesaac.services.natural_language_understanding.main
     volumes:
       - ./ayesaac/services/natural_language_understanding:/app/ayesaac/services/natural_language_understanding
+      - ./data/rasa:/app/data/rasa
 
   object_detection:
     container_name: object_detection
@@ -153,6 +155,7 @@ services:
       - ayesaac.services.object_detection.main
     volumes:
       - ./ayesaac/services/object_detection:/app/ayesaac/services/object_detection
+      - output_data:/app/output
 
   optical_character_recognition:
     container_name: optical_character_recognition

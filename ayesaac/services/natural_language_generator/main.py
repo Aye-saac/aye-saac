@@ -31,6 +31,7 @@ class NaturalLanguageGenerator(object):
             "DESCRIPTION_NOTHING",
             "DESCRIPTION_ANSWER_S",
             "DESCRIPTION_ANSWER_P",
+            "DESCRIPTION_UNKNOWN"
         ]
         self.build_generator()
 
@@ -43,8 +44,22 @@ class NaturalLanguageGenerator(object):
                 with open(str(folder_path / name)) as f:
                     self.answers[name] = [line.strip() for line in f]
 
-    def get_det(self, word):
-        return str(word[1]) + " " if word[1] > 1 else "a "
+    def get_det(self, word, context):
+        if context == "CONFIDENCE_SOMETHING":
+            return ""
+        if (word[1] > 1):
+            return str(word[1]) + " "
+        elif word[1] == 1:
+            return "a "
+        else:
+            return "no "
+
+    def compare_name_value(self, name, value):
+        if name == value:
+            return True
+        elif name == value[:-1] and value[-1] == 's':
+            return True
+        return False
 
     def generate_text(self, words, context, obj_cnt):
         answer = choice(self.answers[context])
@@ -52,16 +67,16 @@ class NaturalLanguageGenerator(object):
             return answer.replace("*", words, 1)
         elif len(words) > 1:
             tmp = (
-                ", ".join([self.get_det(w) + w[0] for w in words[:-1]])
+                ", ".join([self.get_det(w, context) + w[0] for w in words[:-1]])
                 + " and "
-                + self.get_det(words[-1])
+                + self.get_det(words[-1], context)
                 + words[-1][0]
             )
             return answer.replace("*", tmp, 1)
         elif len(words):
             return answer.replace(
                 "*",
-                ((str(words[0][1]) + " ") if words[0][1] > 1 else "") + words[0][0],
+                self.get_det(words[0], context) + words[0][0],
                 1,
             )
         return answer
@@ -87,9 +102,9 @@ class NaturalLanguageGenerator(object):
         objects = []
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
-                if o["name"] == p["value"]:
+                if self.compare_name_value(o["name"], p["value"]):
                     objects.append(
-                        o["name"]
+                        p["value"]
                         + (o["lateral_position"] if o.get("lateral_position") else "")
                     )
         objects = list(set([(o, objects.count(o)) for o in objects]))
@@ -379,7 +394,7 @@ class NaturalLanguageGenerator(object):
 
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
-                if o["name"] == p["value"]:
+                if self.compare_name_value(o["name"], p["value"]):
                     objects = (p["value"], o["colour"])
                     break
                 else:
@@ -390,40 +405,94 @@ class NaturalLanguageGenerator(object):
             context = "COLOR_DETECTION" if obj_cnt else "COLOR_DETECTION_N"
         return objects, context, obj_cnt
 
+    def count(self, body):
+        pprint("count")
+        obj_cnt = 0
+        objects = []
+        context = ""
+
+        for o in body["objects"]:
+            for p in body["intents"]["entities"]:
+                if self.compare_name_value(o["name"], p["value"]):
+                    objects.append(p["value"])
+        objects = list(set([(o, objects.count(o)) for o in objects]))
+        obj_cnt = sum(n for _, n in objects)
+        for p in body["intents"]["entities"]:
+            elements = [x for x in objects if x[0] == p["value"]]
+            if not len(elements):
+                objects.append((p["value"], 0))
+        context = "DESCRIPTION_COUNT"
+        return objects, context, obj_cnt
+
+    def confidence(self, body):
+        pprint("confidence")
+        obj_cnt = 0
+        objects = []
+
+        can_answer = len(body["responses"]) > 0
+        previous_question = None
+
+        if can_answer:
+            previous_question = body["responses"][-1]
+
+        if can_answer and (not previous_question["intents"]["intent"]["name"] in ["identify", "recognise", "locate", "count"]):
+            can_answer = False
+
+        if can_answer:
+            entities = previous_question["intents"]["entities"]
+            if len(entities) == 0:
+                entities = [{"value": o["name"]} for o in previous_question["objects"]]
+            for e in entities:
+                percentage = 0
+                nb_object = 0
+                for o in previous_question["objects"]:
+                    if self.compare_name_value(o["name"], e["value"]):
+                        percentage += o["confidence"]
+                        nb_object += 1
+                if nb_object > 0:
+                    percentage /= nb_object
+                    objects.append((str(round(percentage * 100)) + "% that there is " + str(nb_object) + " " + e["value"], nb_object))
+                else:
+                    objects.append(("more than 50% that there is no " + e["value"], 0))
+
+        obj_cnt = sum(n for _, n in objects)
+        context = "CONFIDENCE_SOMETHING" if can_answer else "CONFIDENCE_NOTHING"
+        return objects, context, obj_cnt
+
     def locate(self, body):
         pprint("locate")
 
         objects = []
         for o in body["objects"]:
             for p in body["intents"]["entities"]:
-                if o["name"] == p["value"]:
-                    if (
-                        not o.get("lateral_position")
-                        and o.get("bbox")
-                        and len(o["bbox"]) >= 4
-                    ):
-                        bbox = o["bbox"]
-                        yStart = bbox[0]
-                        xStart = bbox[1]
-                        yEnd = bbox[2]
-                        xEnd = bbox[3]
-                        xCenter = (xEnd + xStart) / 2
-                        yCenter = (yEnd + yStart) / 2
-                        pprint("xCenter")
-                        pprint(xCenter)
-                        if xCenter < 0.382:
-                            o["lateral_position"] = " on the left"
-                        elif xCenter >= 0.382 and xCenter <= 0.618:
-                            o["lateral_position"] = " in front"
-                        elif xCenter > 0.618:
-                            o["lateral_position"] = " on the right"
+                if self.compare_name_value(o["name"], p["value"]):
+                    pos_str = ""
+                    if (len(o.get("anchored_position")) > 0):
+                        pos_list = o.get("anchored_position")
+                        for pos in pos_list:
+                            if pos_list.index(pos) != (len(pos_list) - 1):
+                                pos_str += ", " + pos
+                            else:
+                                pos_str += " and" + pos
+                    elif (o.get("hand_position") != ""):
+                        pos_str = o.get("hand_position")
+                    else:
+                        pos_str = o.get("lateral_position")
                     objects.append(
-                        o["name"]
-                        + (o["lateral_position"] if o.get("lateral_position") else "")
+                        p["value"] + pos_str
                     )
         objects = list(set([(o, objects.count(o)) for o in objects]))
         obj_cnt = sum(n for _, n in objects)
-        context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        
+        context_index = 0
+        if len(objects) == 1:
+            context_index = 1
+        elif len(objects) > 1:
+            context_index = 2
+        elif len(body["objects"]) > 0:
+            context_index = 3
+        context = self.description_types[context_index]
+        
         return objects, context, obj_cnt
 
     def safety_info(self, body):

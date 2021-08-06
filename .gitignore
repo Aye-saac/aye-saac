@@ -233,3 +233,17 @@ fabric.properties
 data/resnet/
 # Make sure no generated data is tracked
 output/
+
+# Don't track VizWiz data used for evaluation
+evaluation/Images/
+evaluation/Annotations/
+evaluation/API/
+evaluation/SelectedImages/
+evaluation/*.zip
+
+# Don't track GQA data used for evaluation
+evaluation/*.pickle
+evaluation/GQAKitchenImages/
+evaluation/SpatialRelations/
+evaluation/GQA/
+evaluation/*.tsv
