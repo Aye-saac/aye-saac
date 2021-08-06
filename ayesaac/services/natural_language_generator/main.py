@@ -154,9 +154,25 @@ class NaturalLanguageGenerator(object):
         return items
 
     def find_ingredient(self, ingredient, label_json):
+        # ingredients = label_json["ingredients"].split()
+        # instances = ingredients.count(ingredient)
+        # if (instances > 0):
+        #     if (len(ingredients) > 0):
+        #         return True
+        # return False
+
+        instances = 0
         ingredients = label_json["ingredients"].split()
-        instances = ingredients.count(ingredient)
-        return True if instances > 0 and len(ingredients) > 0 else False
+        if (len(ingredients) > 0):
+            instances = ingredients.count(ingredient)
+        if (instances <= 0):
+            # Didn't find ingredient in json["ingredients"]
+            # Try the rest of the text
+            instances = label_json["text"].split().count(ingredient)
+        if instances > 0:
+            return True
+        return False
+        # return True if instances > 0 and len(ingredients) > 0 else False
 
     def detect_safety(self, body):
         print("detect_safety")
@@ -187,25 +203,24 @@ class NaturalLanguageGenerator(object):
                 if not isinstance(items, list):
                     items = [items]
                 for item in items:
-                    print("item: " + item)
-                    if self.find_ingredient(item, label_json):
-	                    found = True
-	                    obj_cnt += 1
-	                    matches.append(item)
+                    print(label_json)
+                    isInIngredients = self.find_ingredient(item, label_json)
+                    print(label_json["allergens"])
+                    # isInAllergens = label_json["allergens"].count(item)
+                    # print(isInAllergens)
+                    if isInIngredients:
+                        found = True
+                        obj_cnt += 1
+                        matches.append(item)
                     else:
-                        found = False
                         matchesFalse.append(item)
             if found:
                 context = "ALLERGENS_INCLUDED_POSITIVE"
                 objects = self.construct_allergen_str(matches)
-                print(matches)
             else:
                 context = "SAFETY_POSITIVE"
                 objects = self.construct_allergen_str(matchesFalse)
-                print(matchesFalse)
 
-            print(objects)
-            print(obj_cnt)
         return objects, context, obj_cnt
 
 
@@ -267,6 +282,11 @@ class NaturalLanguageGenerator(object):
         pprint("detect_ingredients")
         print(body["intents"])
         label_json = body["extracted_label"]
+
+        print("DEBUG: label_json")
+        print("=======================")
+        print(label_json)
+        print("=======================")
 
         if body["intents"]["entities"][0]["entity"] == "aim":
             context, obj_cnt, objects = "CLARIFY_QUESTION", 0, ""

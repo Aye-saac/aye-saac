@@ -11,13 +11,13 @@
         "storage":
             ["storage instructions", "storage information", "how to store"]
     },
-    "attempt-skew-correction": "false",
+    "attempt-skew-correction": "true",
     "categories": {
-        "user-allergens": ["milk"],
+        "user-allergens": [],
         "dairy": ["dairy", "milk", "butter", "cream", "cheese", "yogurt"],
         "nuts": ["nuts", "peanuts", "pecans", "walnuts", "almonds", "brazil nuts", "cashews",
                  "chesnuts", "filberts", "hazelnuts", "macadamia", "pine nuts", "pistachios"],
-        "meat": ["meat", "chicken", "pork", "beef", "veal"],
+        "meat": ["meat", "chicken", "pork", "beef", "veal", "sausage", "sausages", "steak", "meatballs"],
         "allergens": ["celery", "gluten", "crustaceans", "eggs", "fish", "lupin", "milk",
                       "molluscs", "mustard", "peanuts", "sesame", "soy", "soybeans", "sulphur dioxide",
                       "sulphites", "tree nuts"]

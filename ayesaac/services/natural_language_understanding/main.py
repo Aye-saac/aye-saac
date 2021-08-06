@@ -36,7 +36,8 @@ def check_followup(query):
     entities found to the current query.
     """
     if contains_at_least_one_word(
-        query, ["it", "that", "this", "them", "they", "those", "these"]
+        # query, ["it", "that", "this", "them", "they", "those", "these"]
+        query, ["it", "that", "them", "they", "those", "these"]
     ):
         return True
     return False

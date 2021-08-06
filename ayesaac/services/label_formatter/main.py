@@ -108,20 +108,36 @@ class LabelFormatter(object):
 		self.queue_manager = QueueManager([self.__class__.__name__, "Interpreter"])
 
 	def callback(self, body, **_):
-		# Normalize texts array into a string
-		text = " ".join(" ".join(t) for t in body["texts"])
+
+		text = ""
+		if not body["texts"] == None:
+			# Normalize texts array into a string
+			text = " ".join(" ".join(t) for t in body["texts"])
 
 		# Replace all whitespaces by single space
 		# Keep only alphanumerics, parentheses, commas, asterisks, and percent signs
 		text = re.sub('\s+\n', ' ', text).lower()
 		text = re.sub('[^a-z0-9(),%*. ]+', '', text)
-		print(text)
 
 		# Get keywords to look for from config file
 		keywords = get_value("label-keywords")
 
 		# Split label text by keyword and return as json
 		body["extracted_label"] = self.split_by_keywords(text, keywords)
+
+		print("DEBUG: label-keywords")
+		print("=====================================")
+		print(keywords)
+		print("=====================================")
+
+		# Add unprocessed text as a safety net if no other keyword is useful
+		if text == "":
+			body["extracted_label"]["text"] = []
+		else:
+			body["extracted_label"]["text"] = text
+		print(body["extracted_label"])
+		print(text)
+		print("=====================================")
 
 		date = self.readDate(text)
 		if (date != None):
