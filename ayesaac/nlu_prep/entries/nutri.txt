@@ -1,0 +1,12 @@
+salt
+fat
+energy value
+saturates
+carbohydrates
+sugar
+protein
+monosaturates
+polysaturates
+polyols
+starch
+fibre

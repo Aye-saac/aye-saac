@@ -19,7 +19,7 @@ class Manager(object):
         self.queue_manager = QueueManager([self.__class__.__name__, "CameraManager", "Interpreter"])
         # TODO: Missing intent for lateral position
         self.intents_to_path = {
-            "read_text": [["CameraManager", "OCR", "Interpreter"]],
+            "read_text": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
             "detect_colour": [
                 ["CameraManager", "ObjectDetection", "ColourDetection", "Interpreter"]
             ],
@@ -28,6 +28,12 @@ class Manager(object):
                 ["CameraManager", "ObjectDetection", "Interpreter"],
             ],
             "recognise": [["CameraManager", "ObjectDetection", "Interpreter"]],
+            "detect_ingredients": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
+            "detect_nutri": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
+            "detect_safety": [["CameraManager", "OCR", "LabelFormatter", "Interpreter"]],
+            "inform_allergen": [["CameraManager","ObjectDetection","Interpreter"]],
+            "detect_expiration": [["CameraManager","OCR","LabelFormatter","Interpreter"]],
+            "cooking_info": [["CameraManager","OCR","LabelFormatter","Interpreter"]]
             "locate": [["CameraManager", "ObjectDetection", "PositionDetection", "Interpreter"]],
             "count": [["CameraManager", "ObjectDetection", "Interpreter"]],
             "confidence": [["Interpreter"]],

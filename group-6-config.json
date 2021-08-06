@@ -1,0 +1,25 @@
+{
+    "default-ocr-model": "keras-ocr",
+    "supported-ocr-models": ["keras-ocr", "tesseract"],
+    "label-keywords": {
+        "ingredients":
+            ["ingredients"],
+        "nutrition":
+            ["nutrition facts", "nutritional facts", "nutrition info", "nutritional info", "nutrition information", "nutritional information"],
+        "cooking":
+            ["cooking instructions", "cooking information", "how to cook"],
+        "storage":
+            ["storage instructions", "storage information", "how to store"]
+    },
+    "attempt-skew-correction": "true",
+    "categories": {
+        "user-allergens": [],
+        "dairy": ["dairy", "milk", "butter", "cream", "cheese", "yogurt"],
+        "nuts": ["nuts", "peanuts", "pecans", "walnuts", "almonds", "brazil nuts", "cashews",
+                 "chesnuts", "filberts", "hazelnuts", "macadamia", "pine nuts", "pistachios"],
+        "meat": ["meat", "chicken", "pork", "beef", "veal", "sausage", "sausages", "steak", "meatballs"],
+        "allergens": ["celery", "gluten", "crustaceans", "eggs", "fish", "lupin", "milk",
+                      "molluscs", "mustard", "peanuts", "sesame", "soy", "soybeans", "sulphur dioxide",
+                      "sulphites", "tree nuts"]
+    }
+}

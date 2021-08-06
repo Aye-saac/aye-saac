@@ -21,6 +21,7 @@ Flask-Cors = "^3.0.10"
 scikit-image = "^0.18.1"
 python-dotenv = "^0.15.0"
 pykinect2 = "^0.1.0"
+pytesseract = "^0.3.7"
 
 
 [tool.poetry.dev-dependencies]

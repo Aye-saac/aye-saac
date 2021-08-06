@@ -12,7 +12,6 @@ config = Config()
 
 logger = get_logger(__file__)
 
-
 def contains_word(s, w):
     """
     Checks whether a string contains a certain word
@@ -37,7 +36,8 @@ def check_followup(query):
     entities found to the current query.
     """
     if contains_at_least_one_word(
-        query, ["it", "that", "this", "them", "they", "those", "these"]
+        # query, ["it", "that", "this", "them", "they", "those", "these"]
+        query, ["it", "that", "them", "they", "those", "these"]
     ):
         return True
     return False
@@ -64,6 +64,7 @@ class NaturalLanguageUnderstanding(object):
         logger.info(f"{self.__class__.__name__} ready")
 
     def callback(self, body, **_):
+        body["ingredientClass"] = ""  # ingredient classifications
         body["asking"] = body["query"].split()
         intents = self.interpreter.parse(body["query"])
         try:
@@ -78,14 +79,23 @@ class NaturalLanguageUnderstanding(object):
                 and check_followup(body["query"]) == True
             ):
                 intents["entities"].extend(self.previous_query["entities"])
+			# set list of ingredients classed as dairy/meat/nuts to ingredient class in body
+			# removes trailing and before spaces with strip, and all lower case with lower
+            if (intents["entities"]["value"].strip().lower() == "dairy"):
+                body["ingredientClass"] = dairy
+            if (intents["entities"]["value"].strip().lower() == "meat"):
+                body["ingredientClass"] = meat
+            if (intents["entities"]["value"].strip().lower() == "nuts"):
+                body["ingredientClass"] = nuts
+
         except IndexError as error:
             logger.error(error)
         except Exception as exception:
-            logger.warn(exception)
+            logger.warning(exception)
         self.previous_query = intents
         body["intents"] = intents
         body["path_done"].append(self.__class__.__name__)
-        logger.info(body)
+        # logger.info(body)
 
         self.queue_manager.publish("Manager", body)
 

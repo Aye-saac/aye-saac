@@ -6,12 +6,16 @@ from ayesaac.services.common import QueueManager
 from ayesaac.utils.config import Config
 from ayesaac.utils.logger import get_logger
 
+from ayesaac.services.common.group_6_config_interface import get_config
+from ayesaac.services.common.group_6_config_interface import get_value
+from ayesaac.services.common.group_6_config_interface import set_value
+from ayesaac.services.common.group_6_config_interface import append_value
+
 
 config = Config()
 
 
 logger = get_logger(__file__)
-
 
 class NaturalLanguageGenerator(object):
     """
@@ -119,7 +123,264 @@ class NaturalLanguageGenerator(object):
         pprint("read_text")
 
         objects = " ".join(" ".join(t) for t in body["texts"])
+        obj_cnt = 1 if len(objects) > 0 else 0
+        context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
+        return objects, context, obj_cnt
+
+    # TODO: This function is very inefficient
+    '''adds allergens to the config under ["categories"]["user-allergens"]'''
+    def add_user_allergens(self, entities):
+        allergens, added = [], []
+        for i in entities:
+            if i["value"] not in allergens:
+                allergens.append(i["value"])
+        j = 0
+        while j is not len(allergens):
+            if allergens[j] not in get_value("user-allergens"): #  if allegen not in list, add
+                obj = get_value("categories")
+                obj["user-allergens"].append(allergens[j])
+                set_value("categories", obj)
+                logger.info("Added " + allergens[j] + " to user-allergens in config file")
+                added.append(allergens[j])
+            j = j+1
+        # return allergens
+        return added
+
+    '''constructs a human-readable string from collection of allergens'''
+    '''e.g., "beans, eggs and spam"'''
+    def construct_allergen_str(self, allergens):
+        objects = ""
+        num = len(allergens)
+        if (num > 0):
+
+            if (num < 3):
+                objects = allergens[0]
+                if (num == 2):
+                    objects += " and " + allergens[-1]
+            else:
+                objects = ", ".join(allergens[:-1])
+                objects += " and " + allergens[-1]
+        return objects
+
+    def attempt_expand_category(self, item, label_json):
+        items = item
+        if (item in label_json and len(label_json[item]) > 0):
+            items = label_json[item]
+        return items
+
+    def find_ingredient(self, ingredient, label_json):
+        # ingredients = label_json["ingredients"].split()
+        # instances = ingredients.count(ingredient)
+        # if (instances > 0):
+        #     if (len(ingredients) > 0):
+        #         return True
+        # return False
+
+        instances = 0
+        ingredients = label_json["ingredients"].split()
+        if (len(ingredients) > 0):
+            instances = ingredients.count(ingredient)
+        if (instances <= 0):
+            # Didn't find ingredient in json["ingredients"]
+            # Try the rest of the text
+            instances = label_json["text"].split().count(ingredient)
+        if instances > 0:
+            return True
+        return False
+        # return True if instances > 0 and len(ingredients) > 0 else False
+
+    def detect_safety(self, body):
+        print("detect_safety")
+        objects, obj_cnt = "", 0
+        #context = "SAFETY_CLARIFY"
+        label_json = body["extracted_label"]
+
+        entities = body["intents"]["entities"]
+        allergens = []
+        if len(entities) == 0:
+            allergens = get_value("user-allergens")
+        else:
+            self.add_user_allergens(entities)
+            for ent in entities:
+                if ent["value"] not in allergens:
+                    allergens.append(ent["value"])
+
+        matches = []
+        matchesFalse = []
+        found = False
+        if len(allergens) == 0:
+            context = "SAFETY_POSITIVE_NO_INP"
+            obj_cnt = 0
+            objects = ""
+        else:
+            for item in allergens:
+                items = self.attempt_expand_category(item, label_json)
+                if not isinstance(items, list):
+                    items = [items]
+                for item in items:
+                    print(label_json)
+                    isInIngredients = self.find_ingredient(item, label_json)
+                    print(label_json["allergens"])
+                    # isInAllergens = label_json["allergens"].count(item)
+                    # print(isInAllergens)
+                    if isInIngredients:
+                        found = True
+                        obj_cnt += 1
+                        matches.append(item)
+                    else:
+                        matchesFalse.append(item)
+            if found:
+                context = "ALLERGENS_INCLUDED_POSITIVE"
+                objects = self.construct_allergen_str(matches)
+            else:
+                context = "SAFETY_POSITIVE"
+                objects = self.construct_allergen_str(matchesFalse)
+
+        return objects, context, obj_cnt
+
+
+    def AMBIGUOUS_detect_safety(self, body):
+        print("detect_safety")
+        objects = ""
+        obj_cnt = 0
+        context = "SAFETY_CLARIFY"
+        label_json = body["extracted_label"]
+
+        if len(body["intents"]["entities"]) > 0:
+            added_allergens = self.add_user_allergens(body["intents"]["entities"])
+            objects = self.construct_allergen_str(added_allergens)
+            if len(added_allergens) > 0:
+                context = "ALLERGEN_ADDED_POSITIVE"
+            else:
+                context = "ALLERGEN_ADDED_NEGATIVE"
+
+        possible_allergens = list(set(get_value("allergens") + get_value("user-allergens")))
+        matches = []
+        for item in possible_allergens:
+            items = self.attempt_expand_category(item, label_json)
+            if not isinstance(items, list):
+                items = [items]
+            for item in items:
+                if self.find_ingredient(item, label_json):
+                    context = "ALLERGENS_INCLUDED_POSITIVE"
+                    obj_cnt += 1
+                    matches.append(item)
+
+        print(matches)
+        objects = self.construct_allergen_str(matches)
         print(objects)
+        print(obj_cnt)
+        return objects, context, obj_cnt
+
+    def inform_allergen(self, body):
+        pprint("inform_allergen")
+
+        allergens = self.add_user_allergens(body["intents"]["entities"])
+        objects = self.construct_allergen_str(allergens)
+        if len(allergens) > 0:
+            context = "ALLERGEN_ADDED_POSITIVE"
+        else:
+            context = "ALLERGEN_ADDED_NEGATIVE"
+
+        print(objects)
+        obj_cnt = 1 if len(allergens) > 0 else 0
+        return objects, context, obj_cnt
+
+    # def detect_expiration(self, body):
+    #     pprint("detect_expiration")
+    #     if "expiry" in body["extracted_label"]:
+    #         objects = body["extracted_label"]["expiry"]
+    #     print(objects)
+
+
+    def detect_ingredients(self, body):
+        pprint("detect_ingredients")
+        print(body["intents"])
+        label_json = body["extracted_label"]
+
+        print("DEBUG: label_json")
+        print("=======================")
+        print(label_json)
+        print("=======================")
+
+        if body["intents"]["entities"][0]["entity"] == "aim":
+            context, obj_cnt, objects = "CLARIFY_QUESTION", 0, ""
+            aim = body["intents"]["entities"][0]["value"]
+            print(aim)
+            if "ingredient" in aim:
+                print("read ingredients " + str(label_json["ingredients"]))
+                context = "READ_INGREDIENTS"
+                obj_cnt += 1
+                objects = label_json["ingredients"]
+            else: # allergens
+                print("Read allergens " + str(label_json["allergens"]))
+                context = "READ_ALLERGENS"
+                obj_cnt += 1
+                objects = self.construct_allergen_str(label_json["allergens"])
+				#objects = ', '.join(label_json["allergens"])
+
+        else:
+            ingredient = body["intents"]["entities"][0]["value"]
+            context, obj_cnt, objects = "ALLERGENS_NEGATIVE_ANSWER", 0, ingredient
+            # logger.info("Checking if " + ingredient + " can be expanded into an ingredient category")
+            items = self.attempt_expand_category(ingredient, label_json)
+
+            if not isinstance(items, list):
+                items = [items]
+            for item in items:
+                if self.find_ingredient(item, label_json):
+                    context = "ALLERGENS_POSITIVE_ANSWER"
+                    obj_cnt += 1
+                    objects = item
+
+        return objects, context, obj_cnt
+
+    #Assuming label formatter can detect Cooking instructions and classify it as "cooking_info"
+    def cooking_info(self, body):
+        pprint("cooking_info")
+        label_json = body["extracted_label"]
+        print(body["intents"])
+        instructions = label_json["cooking_info"]
+        objects = instructions
+        logger.info(label_json)
+        if (len(instructions) > 0):
+            objects = instructions
+            context = "READ_TEXT_POSITIVE"
+        else:
+            objects = ""
+            context = "COOKING_INFO_NEGATIVE"
+
+        obj_cnt = 1 if len(instructions) > 0 else 0
+        return objects, context, obj_cnt
+
+    #Assuming the label formatter can detect expiry date and classify it as "expiry_date"
+    def detect_expiration(self, body):
+        pprint("detect_expiration")
+        label_json = body["extracted_label"]
+        print(body["intents"])
+        print(label_json)
+        expiry_date, objects = "", ""
+        if "expiry" in label_json:
+            expiry_date = label_json["expiry"]
+            objects = expiry_date
+            context = "EXPIRY_DATE_POSITIVE_ANSWER"
+        else:
+            context = "EXPIRY_DATE_NEGATIVE_ANSWER"
+
+        obj_cnt = 1 if len(expiry_date) > 0 else 0
+
+        return objects, context, obj_cnt
+
+    def detect_nutri(self, body):
+        pprint("detect_nutri")
+        label_json = body["extracted_label"]
+        objects = ""
+        print(label_json)
+        print(get_value("nutirition"))
+        for key in get_value("nutrition"):
+            if key in label_json:
+                objects += key + ": " + label_json[key]
+
         obj_cnt = 1 if len(objects) > 0 else 0
         context = "READ_TEXT_" + ("POSITIVE" if obj_cnt > 0 else "NEGATIVE")
         return objects, context, obj_cnt
@@ -234,6 +495,12 @@ class NaturalLanguageGenerator(object):
         
         return objects, context, obj_cnt
 
+    def safety_info(self, body):
+        objects = "test"
+        obj_cnt = sum(n for _, n in objects)
+        context = self.description_types[obj_cnt if obj_cnt < 2 else 2]
+        return objects, context, obj_cnt
+
     def default(self, body):
         pprint("default")
 
@@ -248,14 +515,9 @@ class NaturalLanguageGenerator(object):
         return objects, context, obj_cnt
 
     def callback(self, body, **_):
-        pprint(body)
-
         method = getattr(self, body["intents"]["intent"]["name"], self.default)
         pprint("----- METHOD CALLED -----")
         objects, context, obj_cnt = method(body)
-
-        print(objects)
-        print(context)
 
         if objects != None and context != None:
             response = self.generate_text(objects, context, obj_cnt)
@@ -263,7 +525,6 @@ class NaturalLanguageGenerator(object):
             response = "I didn't understand the question, could you repeat please."
 
         body["response"] = response
-        pprint(body["response"])
         body["path_done"].append(self.__class__.__name__)
 
         self.queue_manager.publish("ExternalInterface", body)
