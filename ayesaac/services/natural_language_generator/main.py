@@ -169,25 +169,19 @@ class NaturalLanguageGenerator(object):
         return items
 
     def find_ingredient(self, ingredient, label_json):
-        # ingredients = label_json["ingredients"].split()
-        # instances = ingredients.count(ingredient)
-        # if (instances > 0):
-        #     if (len(ingredients) > 0):
-        #         return True
-        # return False
+        if not "ingredients" in label_json or not "text" in label_json:
+            return False
 
         instances = 0
         ingredients = label_json["ingredients"].split()
         if (len(ingredients) > 0):
             instances = ingredients.count(ingredient)
         if (instances <= 0):
-            # Didn't find ingredient in json["ingredients"]
-            # Try the rest of the text
+            # Didn't find ingredient in label_json["ingredients"], try the rest of the text
             instances = label_json["text"].split().count(ingredient)
         if instances > 0:
             return True
         return False
-        # return True if instances > 0 and len(ingredients) > 0 else False
 
     def detect_safety(self, body):
         print("detect_safety")
@@ -483,7 +477,7 @@ class NaturalLanguageGenerator(object):
                     )
         objects = list(set([(o, objects.count(o)) for o in objects]))
         obj_cnt = sum(n for _, n in objects)
-        
+
         context_index = 0
         if len(objects) == 1:
             context_index = 1
@@ -492,7 +486,7 @@ class NaturalLanguageGenerator(object):
         elif len(body["objects"]) > 0:
             context_index = 3
         context = self.description_types[context_index]
-        
+
         return objects, context, obj_cnt
 
     def safety_info(self, body):
