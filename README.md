@@ -20,3 +20,12 @@ Note: Because they all need RabbitMQ to work, they will error and restart a bunc
 ### Architecture
 
 ![](docs/diagram_aye-saac_v3.png)
+
+## Publications
+
+* Elisa Ramil Brick, Vanesa Caballero Alonso, Conor O'Brien, Sheron Tong, Emilie Tavernier, Amit Parekh, Angus Addlesee, and Oliver Lemon, "Am I Allergic to This? Assisting Sight Impaired People in the Kitchen",  **ICMI 2021**. (to appear)
+* Katie Baker, Amit Parekh, Adrien Fabre, Angus Addlesee, Ruben Kruiper, and Oliver Lemon, "The Spoon is in the Sink: Assisting Visually Impaired People in the Kitchen", **ReInAct 2021**. (to appear)
+
+### Acknowledgements
+
+We couldn't have done this work without Vincent Larcher, Lucas Dumy, Alexandre Cardaillac, Katerina Alexander, Hamish MacKinnon, Theo Ferreira, Shubham Agarwal Julian Frabel, Noe Rivals, Guillaume Jeanne, Rachel Yu, Basile Lamarque, and Nejma Belkhanfar.
